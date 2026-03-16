@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { supabase } from "@/app/lib/supabase";
+import { useCart } from "@/app/context/CartContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -139,6 +140,7 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [user, setUser] = useState(null);
+  const { cartCount } = useCart();
   const searchRef = useRef(null);
   const router = useRouter();
 
@@ -274,9 +276,14 @@ export default function Navbar() {
           )}
           <Link
             href="/cart"
-            className="text-white hover:text-yellow-400 transition-colors"
+            className="text-white hover:text-yellow-400 transition-colors relative"
           >
             🛒
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
           </Link>
         </div>
       </div>

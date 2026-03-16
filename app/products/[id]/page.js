@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useCart } from "../../context/CartContext";
 import Link from "next/link";
 
 export default function ProductPage() {
   const { id } = useParams();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -121,7 +123,17 @@ export default function ProductPage() {
               </p>
             )}
 
-            <button className="w-full bg-yellow-400 text-black font-bold py-4 hover:bg-yellow-300 transition-colors text-lg mb-4">
+            <button
+              onClick={() =>
+                addToCart({
+                  id: product.id,
+                  name: product.name,
+                  price: product.price,
+                  imageUrl: product.images?.[0] || null,
+                })
+              }
+              className="w-full bg-yellow-400 text-black font-bold py-4 hover:bg-yellow-300 transition-colors text-lg mb-4"
+            >
               Add to Cart
             </button>
 

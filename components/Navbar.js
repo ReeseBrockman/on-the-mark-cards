@@ -260,12 +260,34 @@ export default function Navbar() {
           </div>
 
           {user ? (
-            <Link
-              href="/account"
-              className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenDropdown("account")}
+              onMouseLeave={() => setOpenDropdown(null)}
             >
-              Account
-            </Link>
+              <Link
+                href="/account"
+                className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
+              >
+                Account
+              </Link>
+              {openDropdown === "account" && (
+                <div className="absolute top-full right-0 bg-black border border-yellow-400 p-4 z-50 min-w-max flex flex-col gap-2">
+                  <Link
+                    href="/account"
+                    className="text-white hover:text-yellow-400 text-sm transition-colors"
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/account/gift-cards"
+                    className="text-white hover:text-yellow-400 text-sm transition-colors"
+                  >
+                    Gift Cards & Credit
+                  </Link>
+                </div>
+              )}
+            </div>
           ) : (
             <Link
               href="/login"

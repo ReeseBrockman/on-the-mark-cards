@@ -1,125 +1,132 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const navItems = [
   {
-    label: 'Sports',
+    label: "Sports",
     href: null,
     sections: [
       {
-        title: 'SPORTS CARDS',
+        title: "SPORTS CARDS",
         links: [
-          { label: 'Baseball Singles', href: '/products/baseball-singles' },
-          { label: 'Basketball Singles', href: '/products/basketball-singles' },
-          { label: 'Football Singles', href: '/products/football-singles' },
+          { label: "Baseball Singles", href: "/products/baseball-singles" },
+          { label: "Basketball Singles", href: "/products/basketball-singles" },
+          { label: "Football Singles", href: "/products/football-singles" },
         ],
       },
       {
-        title: 'SPORTS BOXES',
+        title: "SPORTS BOXES",
         links: [
-          { label: 'Baseball Boxes', href: '/products/baseball-boxes' },
-          { label: 'Basketball Boxes', href: '/products/basketball-boxes' },
-          { label: 'Football Boxes', href: '/products/football-boxes' },
-          { label: 'On Sale Sports', href: '/products/on-sale-sports' },
+          { label: "Baseball Boxes", href: "/products/baseball-boxes" },
+          { label: "Basketball Boxes", href: "/products/basketball-boxes" },
+          { label: "Football Boxes", href: "/products/football-boxes" },
+          { label: "On Sale Sports", href: "/products/on-sale-sports" },
         ],
       },
       {
-        title: 'SPORTS SLABS',
+        title: "SPORTS SLABS",
         links: [
-          { label: 'Baseball Slabs', href: '/products/baseball-slabs' },
-          { label: 'Basketball Slabs', href: '/products/basketball-slabs' },
-          { label: 'Football Slabs', href: '/products/football-slabs' },
+          { label: "Baseball Slabs", href: "/products/baseball-slabs" },
+          { label: "Basketball Slabs", href: "/products/basketball-slabs" },
+          { label: "Football Slabs", href: "/products/football-slabs" },
         ],
       },
     ],
   },
   {
-    label: 'TCG',
+    label: "TCG",
     href: null,
     sections: [
-    {
-        title: 'TCG SINGLES',
+      {
+        title: "TCG SINGLES",
         links: [
-        { label: 'Pokemon Singles', href: '/products/pokemon-singles' },
-        { label: 'Magic The Gathering Singles', href: '/products/mtg-singles' },
-        { label: 'One Piece Singles', href: '/products/onepiece-singles' },
-        { label: 'Lorcana Singles', href: '/products/lorcana-singles' },
+          { label: "Pokemon Singles", href: "/products/pokemon-singles" },
+          {
+            label: "Magic The Gathering Singles",
+            href: "/products/mtg-singles",
+          },
+          { label: "One Piece Singles", href: "/products/onepiece-singles" },
+          { label: "Lorcana Singles", href: "/products/lorcana-singles" },
         ],
-    },
-    {
-        title: 'TCG SEALED',
+      },
+      {
+        title: "TCG SEALED",
         links: [
-        { label: 'Pokemon Sealed', href: '/products/pokemon-sealed' },
-        { label: 'Magic The Gathering Sealed', href: '/products/mtg-sealed' },
-        { label: 'One Piece Sealed', href: '/products/onepiece-sealed' },
-        { label: 'Lorcana Sealed', href: '/products/lorcana-sealed' },
-        { label: 'On Sale TCG', href: '/products/on-sale-tcg' },
+          { label: "Pokemon Sealed", href: "/products/pokemon-sealed" },
+          { label: "Magic The Gathering Sealed", href: "/products/mtg-sealed" },
+          { label: "One Piece Sealed", href: "/products/onepiece-sealed" },
+          { label: "Lorcana Sealed", href: "/products/lorcana-sealed" },
+          { label: "On Sale TCG", href: "/products/on-sale-tcg" },
         ],
-    },
-    {
-        title: 'TCG SLABS',
+      },
+      {
+        title: "TCG SLABS",
         links: [
-        { label: 'Pokemon Slabs', href: '/products/pokemon-slabs' },
-        { label: 'Magic The Gathering Slabs', href: '/products/mtg-slabs' },
-        { label: 'One Piece Slabs', href: '/products/onepiece-slabs' },
-        { label: 'Lorcana Slabs', href: '/products/lorcana-slabs' },
+          { label: "Pokemon Slabs", href: "/products/pokemon-slabs" },
+          { label: "Magic The Gathering Slabs", href: "/products/mtg-slabs" },
+          { label: "One Piece Slabs", href: "/products/onepiece-slabs" },
+          { label: "Lorcana Slabs", href: "/products/lorcana-slabs" },
         ],
-    },
+      },
     ],
   },
   {
-    label: 'Funko',
-    href: '/funko',
+    label: "Funko",
+    href: "/funko",
     sections: [],
   },
   {
-    label: 'Supplies',
+    label: "Supplies",
     href: null,
     sections: [
       {
-        title: 'CARD SUPPLIES',
+        title: "CARD SUPPLIES",
         links: [
-          { label: 'Toploaders', href: '/products/toploaders' },
-          { label: 'Card Sleeves', href: '/products/card-sleeves' },
-          { label: 'Binders', href: '/products/binders' },
+          { label: "Toploaders", href: "/products/toploaders" },
+          { label: "Card Sleeves", href: "/products/card-sleeves" },
+          { label: "Binders", href: "/products/binders" },
         ],
       },
       {
-        title: 'TCG SUPPLIES',
+        title: "TCG SUPPLIES",
         links: [
-          { label: 'Deck Boxes', href: '/products/deck-boxes' },
-          { label: 'Dice', href: '/products/dice' },
-          { label: 'Playmats', href: '/products/playmats' },
+          { label: "Deck Boxes", href: "/products/deck-boxes" },
+          { label: "Dice", href: "/products/dice" },
+          { label: "Playmats", href: "/products/playmats" },
         ],
       },
     ],
   },
   {
-    label: 'Merch',
-    href: '/merch',
+    label: "Merch",
+    href: "/merch",
     sections: [],
   },
   {
-    label: 'Shop Info',
+    label: "Shop Info",
     href: null,
     sections: [
       {
-        title: 'VISIT US',
+        title: "VISIT US",
         links: [
-          { label: 'Location & Hours', href: '/shop-info/location' },
-          { label: 'Events', href: '/shop-info/events' },
-          { label: 'Sell Us Your Cards', href: '/shop-info/sell' },
-          { label: 'Grading Submissions', href: '/shop-info/grading' },
+          { label: "Location & Hours", href: "/shop-info/location" },
+          { label: "Events", href: "/shop-info/events" },
+          { label: "Sell Us Your Cards", href: "/shop-info/sell" },
+          { label: "Grading Submissions", href: "/shop-info/grading" },
         ],
       },
       {
-        title: 'MORE INFO',
+        title: "MORE INFO",
         links: [
-          { label: 'Live Selling & Breaking', href: '/shop-info/live-selling' },
-          { label: 'Collectors Corner Gift Card', href: '/shop-info/gift-card' },
-          { label: 'FAQ', href: '/shop-info/faq' },
+          { label: "Live Selling & Breaking", href: "/shop-info/live-selling" },
+          {
+            label: "Collectors Corner Gift Card",
+            href: "/shop-info/gift-card",
+          },
+          { label: "FAQ", href: "/shop-info/faq" },
         ],
       },
     ],
@@ -128,13 +135,34 @@ const navItems = [
 
 export default function Navbar() {
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchRef = useRef(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (searchOpen && searchRef.current) {
+      searchRef.current.focus();
+    }
+  }, [searchOpen]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchOpen(false);
+      setSearchQuery("");
+    }
+  };
 
   return (
     <nav className="bg-black text-white w-full">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-
         {/* Logo */}
-        <Link href="/" className="text-yellow-400 font-bold text-xl tracking-wide">
+        <Link
+          href="/"
+          className="text-yellow-400 font-bold text-xl tracking-wide"
+        >
           The Collectors Corner
         </Link>
 
@@ -144,7 +172,9 @@ export default function Navbar() {
             <div
               key={item.label}
               className="relative"
-              onMouseEnter={() => item.sections.length > 0 && setOpenDropdown(item.label)}
+              onMouseEnter={() =>
+                item.sections.length > 0 && setOpenDropdown(item.label)
+              }
               onMouseLeave={() => setOpenDropdown(null)}
             >
               {item.sections.length > 0 ? (
@@ -186,12 +216,43 @@ export default function Navbar() {
             </div>
           ))}
 
-          {/* Icons */}
-          <button className="text-white hover:text-yellow-400 transition-colors">🔍</button>
-          <Link href="/login" className="text-white hover:text-yellow-400 text-sm font-medium transition-colors">
+          {/* Search */}
+          <div className="flex items-center gap-2">
+            {searchOpen && (
+              <form onSubmit={handleSearch} className="flex items-center">
+                <input
+                  ref={searchRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search products..."
+                  className="bg-gray-900 text-white text-sm px-3 py-1 border border-yellow-400 outline-none w-48"
+                  onBlur={() => {
+                    if (!searchQuery) setSearchOpen(false);
+                  }}
+                />
+              </form>
+            )}
+            <button
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="text-white hover:text-yellow-400 transition-colors"
+            >
+              🔍
+            </button>
+          </div>
+
+          <Link
+            href="/login"
+            className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
+          >
             Login
           </Link>
-          <Link href="/cart" className="text-white hover:text-yellow-400 transition-colors">🛒</Link>
+          <Link
+            href="/cart"
+            className="text-white hover:text-yellow-400 transition-colors"
+          >
+            🛒
+          </Link>
         </div>
       </div>
     </nav>

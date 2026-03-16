@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { supabase } from "@/app/lib/supabase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -137,6 +138,7 @@ export default function Navbar() {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [user, setUser] = useState(null);
   const searchRef = useRef(null);
   const router = useRouter();
 
@@ -145,6 +147,20 @@ export default function Navbar() {
       searchRef.current.focus();
     }
   }, [searchOpen]);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -241,12 +257,21 @@ export default function Navbar() {
             </button>
           </div>
 
-          <Link
-            href="/login"
-            className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
-          >
-            Login
-          </Link>
+          {user ? (
+            <Link
+              href="/account"
+              className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
+            >
+              Account
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
+            >
+              Login
+            </Link>
+          )}
           <Link
             href="/cart"
             className="text-white hover:text-yellow-400 transition-colors"

@@ -14,11 +14,49 @@ function convertBigInt(obj) {
   );
 }
 
+async function findOrCreateCustomer(email, firstName, lastName) {
+  try {
+    const searchResponse = await client.customers.search({
+      query: {
+        filter: {
+          emailAddress: {
+            exact: email,
+          },
+        },
+      },
+    });
+
+    const searchRaw = convertBigInt(searchResponse);
+    if (searchRaw.customers?.[0]) {
+      return searchRaw.customers[0].id;
+    }
+
+    const createResponse = await client.customers.create({
+      emailAddress: email,
+      givenName: firstName,
+      familyName: lastName,
+      idempotencyKey: randomUUID(),
+    });
+
+    const createRaw = convertBigInt(createResponse);
+    return createRaw.customer?.id || null;
+  } catch (err) {
+    console.error("Customer error:", err);
+    return null;
+  }
+}
+
 export async function POST(request) {
   try {
     const { sourceId, amount, cart, customer } = await request.json();
 
-    const response = await client.payments.create({
+    const customerId = await findOrCreateCustomer(
+      customer.email,
+      customer.firstName,
+      customer.lastName,
+    );
+
+    const paymentBody = {
       sourceId,
       idempotencyKey: randomUUID(),
       amountMoney: {
@@ -33,8 +71,13 @@ export async function POST(request) {
         postalCode: customer.zip,
         country: "US",
       },
-    });
+    };
 
+    if (customerId) {
+      paymentBody.customerId = customerId;
+    }
+
+    const response = await client.payments.create(paymentBody);
     const raw = convertBigInt(response);
 
     if (raw.payment?.status === "COMPLETED") {

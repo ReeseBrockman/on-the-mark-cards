@@ -14,7 +14,7 @@ export default function OrderConfirmationPage() {
         </p>
         <div className="flex flex-col gap-3">
           <Link
-            href="/account/orders"
+            href="/account"
             className="w-full bg-yellow-400 text-black font-bold py-3 hover:bg-yellow-300 transition-colors"
           >
             View Order History

@@ -180,11 +180,13 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent z-10"></div>
           <div className="relative z-20 text-center p-8">
-            <h2 className="text-white text-4xl font-bold mb-4">Sports Cards</h2>
-            <p className="text-yellow-400 text-lg mb-6">
-              at Unbeatable Prices!
+            <h2 className="text-white text-2xl md:text-4xl font-bold mb-4">
+              Sports
+            </h2>
+            <p className="text-yellow-400 text-sm md:text-lg mb-6">
+              Shop Our Unbeatable Prices!
             </p>
-            <span className="bg-yellow-400 text-black font-bold px-6 py-3 group-hover:bg-yellow-300 transition-colors">
+            <span className="bg-yellow-400 text-black font-bold px-4 py-2 md:px-6 md:py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap">
               Shop Sports
             </span>
           </div>
@@ -197,11 +199,13 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-gradient-to-l from-black/60 to-transparent z-10"></div>
           <div className="relative z-20 text-center p-8">
-            <h2 className="text-white text-4xl font-bold mb-4">TCG</h2>
-            <p className="text-yellow-400 text-lg mb-6">
+            <h2 className="text-white text-2xl md:text-4xl font-bold mb-4">
+              TCG
+            </h2>
+            <p className="text-yellow-400 text-sm md:text-lg mb-6">
               Unleash Your Ultimate Deck!
             </p>
-            <span className="bg-yellow-400 text-black font-bold px-6 py-3 group-hover:bg-yellow-300 transition-colors">
+            <span className="bg-yellow-400 text-black font-bold px-4 py-2 md:px-6 md:py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap">
               Shop TCG
             </span>
           </div>

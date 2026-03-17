@@ -48,7 +48,7 @@ function ProductCard({ product }) {
 }
 
 function ProductSlider({ title, category }) {
-  const { products, loading, error } = useProducts(category);
+  const { products, loading } = useProducts(category);
 
   return (
     <section className="py-10 px-4 max-w-7xl mx-auto">
@@ -187,7 +187,6 @@ function InstagramSection() {
           <h2 className="text-white text-2xl font-bold border-l-4 border-yellow-400 pl-4">
             Follow Us on Instagram
           </h2>
-
           <a
             href="https://instagram.com"
             target="_blank"
@@ -240,7 +239,7 @@ export default function Home() {
     <div className="bg-black">
       <section className="grid grid-cols-2 gap-0">
         <Link
-          href="/products/sports"
+          href="/sports"
           onClick={() => handlePreference("sports")}
           className="relative h-96 bg-gray-900 flex items-center justify-center overflow-hidden group"
         >
@@ -257,7 +256,7 @@ export default function Home() {
         </Link>
 
         <Link
-          href="/products/tcg"
+          href="/tcg"
           onClick={() => handlePreference("tcg")}
           className="relative h-96 bg-gray-800 flex items-center justify-center overflow-hidden group"
         >

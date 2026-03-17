@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useProducts } from "../hooks/useProducts";
@@ -93,7 +93,7 @@ const tcgBrands = [
   "Lorcana",
 ];
 
-export default function TCGPage() {
+function TCGContent() {
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
   const [selected, setSelected] = useState(
@@ -140,5 +140,13 @@ export default function TCGPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function TCGPage() {
+  return (
+    <Suspense fallback={<div className="bg-black min-h-screen"></div>}>
+      <TCGContent />
+    </Suspense>
   );
 }

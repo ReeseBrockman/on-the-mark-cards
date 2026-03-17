@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useProducts } from "../hooks/useProducts";
@@ -95,7 +95,7 @@ const categories = [
   "Deck Boxes",
 ];
 
-export default function SuppliesPage() {
+function SuppliesContent() {
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
   const [selected, setSelected] = useState(
@@ -144,5 +144,13 @@ export default function SuppliesPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SuppliesPage() {
+  return (
+    <Suspense fallback={<div className="bg-black min-h-screen"></div>}>
+      <SuppliesContent />
+    </Suspense>
   );
 }

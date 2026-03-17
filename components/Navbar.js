@@ -88,7 +88,7 @@ const navItems = [
   },
   {
     label: "Supplies",
-    href: null,
+    href: "/supplies",
     sections: [
       {
         title: "CARD SUPPLIES",
@@ -146,6 +146,8 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [user, setUser] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileExpandedItem, setMobileExpandedItem] = useState(null);
   const { cartCount } = useCart();
   const searchRef = useRef(null);
   const router = useRouter();
@@ -170,6 +172,17 @@ export default function Navbar() {
     return () => subscription.unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -179,140 +192,306 @@ export default function Navbar() {
     }
   };
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setMobileExpandedItem(null);
+  };
+
   return (
-    <nav className="bg-black text-white w-full">
-      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link
-          href="/"
-          className="text-yellow-400 font-bold text-xl tracking-wide"
-        >
-          The Collectors Corner
-        </Link>
+    <>
+      <nav className="bg-black text-white w-full relative z-50">
+        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+          {/* Mobile: Hamburger left, Logo center, Search+Cart right */}
+          {/* Desktop: Logo left, Nav center/right */}
 
-        <div className="flex items-center gap-6">
-          {navItems.map((item) => (
-            <div
-              key={item.label}
-              className="relative"
-              onMouseEnter={() =>
-                item.sections.length > 0 && setOpenDropdown(item.label)
-              }
-              onMouseLeave={() => setOpenDropdown(null)}
-            >
-              {item.sections.length > 0 ? (
-                <button className="text-white hover:text-yellow-400 transition-colors text-sm font-medium">
-                  {item.label}
-                </button>
-              ) : (
-                <Link
-                  href={item.href}
-                  className="text-white hover:text-yellow-400 transition-colors text-sm font-medium"
-                >
-                  {item.label}
-                </Link>
-              )}
-
-              {openDropdown === item.label && item.sections.length > 0 && (
-                <div className="absolute top-full left-0 bg-black border border-yellow-400 p-4 flex gap-8 z-50 min-w-max">
-                  {item.sections.map((section) => (
-                    <div key={section.title}>
-                      <p className="text-yellow-400 text-xs font-bold mb-2 tracking-widest">
-                        {section.title}
-                      </p>
-                      <ul className="flex flex-col gap-1">
-                        {section.links.map((link) => (
-                          <li key={link.label}>
-                            <Link
-                              href={link.href}
-                              className="text-white hover:text-yellow-400 text-sm transition-colors"
-                            >
-                              {link.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              )}
+          {/* Hamburger - mobile only */}
+          <button
+            className="md:hidden text-white hover:text-yellow-400 transition-colors p-2 border border-gray-700 rounded"
+            onClick={() => setMobileMenuOpen(true)}
+          >
+            <div className="flex flex-col gap-1">
+              <span className="block w-5 h-0.5 bg-current"></span>
+              <span className="block w-5 h-0.5 bg-current"></span>
+              <span className="block w-5 h-0.5 bg-current"></span>
             </div>
-          ))}
+          </button>
 
-          <div className="flex items-center gap-2">
-            {searchOpen && (
-              <form onSubmit={handleSearch} className="flex items-center">
-                <input
-                  ref={searchRef}
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search products..."
-                  className="bg-gray-900 text-white text-sm px-3 py-1 border border-yellow-400 outline-none w-48"
-                  onBlur={() => {
-                    if (!searchQuery) setSearchOpen(false);
-                  }}
-                />
-              </form>
+          {/* Logo */}
+          <Link
+            href="/"
+            className="text-yellow-400 font-bold text-xl tracking-wide absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0"
+          >
+            The Collectors Corner
+          </Link>
+
+          {/* Desktop Nav Items */}
+          <div className="hidden md:flex items-center gap-6">
+            {navItems.map((item) => (
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() =>
+                  item.sections.length > 0 && setOpenDropdown(item.label)
+                }
+                onMouseLeave={() => setOpenDropdown(null)}
+              >
+                {item.sections.length > 0 ? (
+                  <button className="text-white hover:text-yellow-400 transition-colors text-sm font-medium">
+                    {item.label}
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className="text-white hover:text-yellow-400 transition-colors text-sm font-medium"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+
+                {openDropdown === item.label && item.sections.length > 0 && (
+                  <div className="absolute top-full left-0 bg-black border border-yellow-400 p-4 flex gap-8 z-50 min-w-max">
+                    {item.sections.map((section) => (
+                      <div key={section.title}>
+                        <p className="text-yellow-400 text-xs font-bold mb-2 tracking-widest">
+                          {section.title}
+                        </p>
+                        <ul className="flex flex-col gap-1">
+                          {section.links.map((link) => (
+                            <li key={link.label}>
+                              <Link
+                                href={link.href}
+                                className="text-white hover:text-yellow-400 text-sm transition-colors"
+                              >
+                                {link.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* Desktop Search */}
+            <div className="flex items-center gap-2">
+              {searchOpen && (
+                <form onSubmit={handleSearch} className="flex items-center">
+                  <input
+                    ref={searchRef}
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search products..."
+                    className="bg-gray-900 text-white text-sm px-3 py-1 border border-yellow-400 outline-none w-48"
+                    onBlur={() => {
+                      if (!searchQuery) setSearchOpen(false);
+                    }}
+                  />
+                </form>
+              )}
+              <button
+                onClick={() => setSearchOpen(!searchOpen)}
+                className="text-white hover:text-yellow-400 transition-colors"
+              >
+                🔍
+              </button>
+            </div>
+
+            {/* Desktop Account */}
+            {user ? (
+              <div
+                className="relative"
+                onMouseEnter={() => setOpenDropdown("account")}
+                onMouseLeave={() => setOpenDropdown(null)}
+              >
+                <Link
+                  href="/account"
+                  className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
+                >
+                  Account
+                </Link>
+                {openDropdown === "account" && (
+                  <div className="absolute top-full right-0 bg-black border border-yellow-400 p-4 z-50 min-w-max flex flex-col gap-2">
+                    <Link
+                      href="/account"
+                      className="text-white hover:text-yellow-400 text-sm transition-colors"
+                    >
+                      Dashboard
+                    </Link>
+                    <Link
+                      href="/account/gift-cards"
+                      className="text-white hover:text-yellow-400 text-sm transition-colors"
+                    >
+                      Gift Cards & Credit
+                    </Link>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
+              >
+                Login
+              </Link>
             )}
+
+            {/* Desktop Cart */}
+            <Link
+              href="/cart"
+              className="text-white hover:text-yellow-400 transition-colors relative"
+            >
+              🛒
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+          </div>
+
+          {/* Mobile: Search + Cart right side */}
+          <div className="md:hidden flex items-center gap-3">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               className="text-white hover:text-yellow-400 transition-colors"
             >
               🔍
             </button>
+            <Link
+              href="/cart"
+              className="text-white hover:text-yellow-400 transition-colors relative"
+            >
+              🛒
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+          </div>
+        </div>
+
+        {/* Mobile Search Bar */}
+        {searchOpen && (
+          <div className="md:hidden bg-black border-t border-gray-800 px-4 py-3">
+            <form onSubmit={handleSearch} className="flex gap-2">
+              <input
+                ref={searchRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search products..."
+                className="flex-1 bg-gray-900 text-white text-sm px-3 py-2 border border-yellow-400 outline-none"
+              />
+              <button
+                type="submit"
+                className="bg-yellow-400 text-black font-bold px-4 py-2 text-sm"
+              >
+                Search
+              </button>
+            </form>
+          </div>
+        )}
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 bg-black z-50 flex flex-col md:hidden">
+          {/* Close button */}
+          <div className="px-4 py-4">
+            <button
+              onClick={closeMobileMenu}
+              className="text-white border border-gray-700 rounded p-2 hover:text-yellow-400 transition-colors"
+            >
+              <span className="block text-xl leading-none">✕</span>
+            </button>
           </div>
 
-          {user ? (
-            <div
-              className="relative"
-              onMouseEnter={() => setOpenDropdown("account")}
-              onMouseLeave={() => setOpenDropdown(null)}
-            >
+          {/* Nav Items */}
+          <div className="flex-1 overflow-y-auto px-4">
+            {navItems.map((item) => (
+              <div key={item.label} className="border-b border-gray-800">
+                {item.sections.length > 0 ? (
+                  <>
+                    <button
+                      onClick={() =>
+                        setMobileExpandedItem(
+                          mobileExpandedItem === item.label ? null : item.label,
+                        )
+                      }
+                      className="w-full flex items-center justify-between py-5 text-white text-xl font-medium"
+                    >
+                      {item.label}
+                      <span className="text-gray-400 text-lg">
+                        {mobileExpandedItem === item.label ? "∧" : "∨"}
+                      </span>
+                    </button>
+
+                    {mobileExpandedItem === item.label && (
+                      <div className="pb-4 pl-4 border-l border-yellow-400 ml-2">
+                        {item.sections.map((section) => (
+                          <div key={section.title} className="mb-4">
+                            <p className="text-yellow-400 text-xs font-bold tracking-widest mb-2">
+                              {section.title}
+                            </p>
+                            <ul className="flex flex-col gap-2">
+                              {section.links.map((link) => (
+                                <li key={link.label}>
+                                  <Link
+                                    href={link.href}
+                                    onClick={closeMobileMenu}
+                                    className="text-gray-300 hover:text-yellow-400 text-sm transition-colors"
+                                  >
+                                    {link.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    href={item.href}
+                    onClick={closeMobileMenu}
+                    className="block py-5 text-white text-xl font-medium hover:text-yellow-400 transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom - Login/Account */}
+          <div className="px-4 py-6 border-t border-gray-800">
+            {user ? (
               <Link
                 href="/account"
-                className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
+                onClick={closeMobileMenu}
+                className="flex items-center gap-3 text-white hover:text-yellow-400 transition-colors"
               >
-                Account
+                <span className="text-xl">👤</span>
+                <span className="text-lg font-medium">Account</span>
               </Link>
-              {openDropdown === "account" && (
-                <div className="absolute top-full right-0 bg-black border border-yellow-400 p-4 z-50 min-w-max flex flex-col gap-2">
-                  <Link
-                    href="/account"
-                    className="text-white hover:text-yellow-400 text-sm transition-colors"
-                  >
-                    Dashboard
-                  </Link>
-                  <Link
-                    href="/account/gift-cards"
-                    className="text-white hover:text-yellow-400 text-sm transition-colors"
-                  >
-                    Gift Cards & Credit
-                  </Link>
-                </div>
-              )}
-            </div>
-          ) : (
-            <Link
-              href="/login"
-              className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
-            >
-              Login
-            </Link>
-          )}
-
-          <Link
-            href="/cart"
-            className="text-white hover:text-yellow-400 transition-colors relative"
-          >
-            🛒
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                {cartCount}
-              </span>
+            ) : (
+              <Link
+                href="/login"
+                onClick={closeMobileMenu}
+                className="flex items-center gap-3 text-white hover:text-yellow-400 transition-colors"
+              >
+                <span className="text-xl">👤</span>
+                <span className="text-lg font-medium">Log In</span>
+              </Link>
             )}
-          </Link>
+          </div>
         </div>
-      </div>
-    </nav>
+      )}
+    </>
   );
 }

@@ -105,7 +105,7 @@ function JustArrived() {
           className={`flex gap-4 px-4 animate-marquee ${paused ? "paused" : ""}`}
           style={{ width: "max-content" }}
         >
-          {[...products, ...products].map((product, i) => (
+          {[...products, ...products, ...products].map((product, i) => (
             <ProductCard key={i} product={product} />
           ))}
         </div>

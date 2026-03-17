@@ -131,11 +131,7 @@ function InstagramSection() {
             Follow Us
           </a>
         </div>
-        <div className="grid grid-cols-4 gap-4">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="bg-gray-800 aspect-square rounded"></div>
-          ))}
-        </div>
+        <behold-widget feed-id="1xH5TwqzAbDU0aCmjbXh"></behold-widget>
       </div>
     </section>
   );

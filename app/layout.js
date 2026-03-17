@@ -29,6 +29,11 @@ export default function RootLayout({ children }) {
           <Footer />
         </CartProvider>
       </body>
+      <Script
+        src="https://w.behold.so/widget.js"
+        type="module"
+        strategy="afterInteractive"
+      />
     </html>
   );
 }

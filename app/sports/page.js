@@ -1,10 +1,10 @@
 "use client";
 
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useProducts } from "../hooks/useProducts";
 import { useCart } from "../context/CartContext";
-import { useState, useEffect } from "react";
 import GlitchBanner from "@/components/GlitchBanner";
 
 function ProductCard({ product }) {
@@ -87,7 +87,7 @@ function ProductSlider({ title, category }) {
 
 const sports = ["All", "Baseball", "Basketball", "Football"];
 
-export default function SportsPage() {
+function SportsContent() {
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
   const [selected, setSelected] = useState(
@@ -134,5 +134,13 @@ export default function SportsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SportsPage() {
+  return (
+    <Suspense fallback={<div className="bg-black min-h-screen"></div>}>
+      <SportsContent />
+    </Suspense>
   );
 }

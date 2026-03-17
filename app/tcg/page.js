@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useProducts } from "../hooks/useProducts";
 import { useCart } from "../context/CartContext";
+import GlitchBanner from "@/components/GlitchBanner";
 
 function ProductCard({ product }) {
   const { addToCart } = useCart();
@@ -110,30 +111,33 @@ export default function TCGPage() {
   const category = selected === "All" ? "TCG" : selected;
 
   return (
-    <div className="bg-black min-h-screen py-12 px-4">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-white text-3xl font-bold mb-8">TCG</h1>
+    <div className="bg-black min-h-screen">
+      <GlitchBanner section="tcg" />
+      <div className="py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-white text-3xl font-bold mb-8">TCG</h1>
 
-        <div className="flex gap-3 mb-10 flex-wrap">
-          {tcgBrands.map((brand) => (
-            <button
-              key={brand}
-              onClick={() => setSelected(brand)}
-              className={`px-6 py-2 text-sm font-bold transition-colors border ${
-                selected === brand
-                  ? "bg-yellow-400 text-black border-yellow-400"
-                  : "bg-transparent text-white border-gray-700 hover:border-yellow-400 hover:text-yellow-400"
-              }`}
-            >
-              {brand}
-            </button>
-          ))}
+          <div className="flex gap-3 mb-10 flex-wrap">
+            {tcgBrands.map((brand) => (
+              <button
+                key={brand}
+                onClick={() => setSelected(brand)}
+                className={`px-6 py-2 text-sm font-bold transition-colors border ${
+                  selected === brand
+                    ? "bg-yellow-400 text-black border-yellow-400"
+                    : "bg-transparent text-white border-gray-700 hover:border-yellow-400 hover:text-yellow-400"
+                }`}
+              >
+                {brand}
+              </button>
+            ))}
+          </div>
+
+          <ProductSlider title="TCG Singles" category={category} />
+          <ProductSlider title="TCG Sealed" category={category} />
+          <ProductSlider title="TCG Slabs" category={category} />
+          <ProductSlider title="On Sale" category={category} />
         </div>
-
-        <ProductSlider title="TCG Singles" category={category} />
-        <ProductSlider title="TCG Sealed" category={category} />
-        <ProductSlider title="TCG Slabs" category={category} />
-        <ProductSlider title="On Sale" category={category} />
       </div>
     </div>
   );

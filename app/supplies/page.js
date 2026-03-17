@@ -1,10 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useProducts } from "../hooks/useProducts";
 import { useCart } from "../context/CartContext";
-import { useState, useEffect } from "react";
 import GlitchBanner from "@/components/GlitchBanner";
 
 function ProductCard({ product }) {
@@ -85,52 +85,62 @@ function ProductSlider({ title, category }) {
   );
 }
 
-const sports = ["All", "Baseball", "Basketball", "Football"];
+const categories = [
+  "All",
+  "Toploaders",
+  "Card Sleeves",
+  "Binders",
+  "Playmats",
+  "Dice",
+  "Deck Boxes",
+];
 
-export default function SportsPage() {
+export default function SuppliesPage() {
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
   const [selected, setSelected] = useState(
-    urlCategory && sports.includes(urlCategory) ? urlCategory : "All",
+    urlCategory && categories.includes(urlCategory) ? urlCategory : "All",
   );
 
   useEffect(() => {
-    if (urlCategory && sports.includes(urlCategory)) {
+    if (urlCategory && categories.includes(urlCategory)) {
       setSelected(urlCategory);
     } else if (!urlCategory) {
       setSelected("All");
     }
   }, [urlCategory]);
 
-  const category = selected === "All" ? "Sports" : selected;
-
   return (
     <div className="bg-black min-h-screen">
-      <GlitchBanner section="sports" />
+      <GlitchBanner section="supplies" />
       <div className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-white text-3xl font-bold mb-8">Sports Cards</h1>
+          <h1 className="text-white text-3xl font-bold mb-8">Supplies</h1>
 
           <div className="flex gap-3 mb-10 flex-wrap">
-            {sports.map((sport) => (
+            {categories.map((cat) => (
               <button
-                key={sport}
-                onClick={() => setSelected(sport)}
+                key={cat}
+                onClick={() => setSelected(cat)}
                 className={`px-6 py-2 text-sm font-bold transition-colors border ${
-                  selected === sport
+                  selected === cat
                     ? "bg-yellow-400 text-black border-yellow-400"
                     : "bg-transparent text-white border-gray-700 hover:border-yellow-400 hover:text-yellow-400"
                 }`}
               >
-                {sport}
+                {cat}
               </button>
             ))}
           </div>
 
-          <ProductSlider title="Sports Cards" category={category} />
-          <ProductSlider title="Sports Boxes" category={category} />
-          <ProductSlider title="Sports Slabs" category={category} />
-          <ProductSlider title="On Sale" category={category} />
+          {selected === "All" ? (
+            <>
+              <ProductSlider title="Card Supplies" category="Card Supplies" />
+              <ProductSlider title="TCG Supplies" category="TCG Supplies" />
+            </>
+          ) : (
+            <ProductSlider title={selected} category={selected} />
+          )}
         </div>
       </div>
     </div>

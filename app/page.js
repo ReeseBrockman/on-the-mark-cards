@@ -83,71 +83,6 @@ function ProductSlider({ title, category }) {
   );
 }
 
-function GlitchBanner() {
-  const [current, setCurrent] = useState(0);
-  const [glitching, setGlitching] = useState(false);
-  const banners = [
-    "/banners/banner-1.png",
-    "/banners/banner-2.png",
-    "/banners/banner-3.png",
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setGlitching(true);
-      setTimeout(() => {
-        setCurrent((prev) => (prev + 1) % banners.length);
-        setGlitching(false);
-      }, 600);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <section
-      className="relative w-full overflow-hidden bg-gray-900"
-      style={{ height: "286px" }}
-    >
-      <div
-        className={`w-full h-full ${glitching ? "glitch-effect" : ""}`}
-        style={{
-          backgroundImage: `url(${banners[current]})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          minHeight: "286px",
-          display: "block",
-        }}
-      />
-      {glitching && (
-        <>
-          <div
-            className="absolute inset-0 opacity-60"
-            style={{
-              backgroundImage: `url(${banners[current]})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              transform: "translate(-4px, 2px)",
-              mixBlendMode: "screen",
-              filter: "hue-rotate(90deg)",
-            }}
-          />
-          <div
-            className="absolute inset-0 opacity-60"
-            style={{
-              backgroundImage: `url(${banners[current]})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              transform: "translate(4px, -2px)",
-              mixBlendMode: "screen",
-              filter: "hue-rotate(200deg)",
-            }}
-          />
-        </>
-      )}
-    </section>
-  );
-}
-
 function JustArrived() {
   const { products, loading } = useProducts();
   const [paused, setPaused] = useState(false);
@@ -272,8 +207,6 @@ export default function Home() {
           </div>
         </Link>
       </section>
-
-      <GlitchBanner />
 
       <JustArrived />
 

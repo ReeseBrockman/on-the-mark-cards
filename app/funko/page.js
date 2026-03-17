@@ -1,10 +1,8 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useProducts } from "../hooks/useProducts";
 import { useCart } from "../context/CartContext";
-import { useState, useEffect } from "react";
 import GlitchBanner from "@/components/GlitchBanner";
 
 function ProductCard({ product }) {
@@ -85,52 +83,14 @@ function ProductSlider({ title, category }) {
   );
 }
 
-const sports = ["All", "Baseball", "Basketball", "Football"];
-
-export default function SportsPage() {
-  const searchParams = useSearchParams();
-  const urlCategory = searchParams.get("category");
-  const [selected, setSelected] = useState(
-    urlCategory && sports.includes(urlCategory) ? urlCategory : "All",
-  );
-
-  useEffect(() => {
-    if (urlCategory && sports.includes(urlCategory)) {
-      setSelected(urlCategory);
-    } else if (!urlCategory) {
-      setSelected("All");
-    }
-  }, [urlCategory]);
-
-  const category = selected === "All" ? "Sports" : selected;
-
+export default function FunkoPage() {
   return (
     <div className="bg-black min-h-screen">
-      <GlitchBanner section="sports" />
+      <GlitchBanner section="funko" />
       <div className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-white text-3xl font-bold mb-8">Sports Cards</h1>
-
-          <div className="flex gap-3 mb-10 flex-wrap">
-            {sports.map((sport) => (
-              <button
-                key={sport}
-                onClick={() => setSelected(sport)}
-                className={`px-6 py-2 text-sm font-bold transition-colors border ${
-                  selected === sport
-                    ? "bg-yellow-400 text-black border-yellow-400"
-                    : "bg-transparent text-white border-gray-700 hover:border-yellow-400 hover:text-yellow-400"
-                }`}
-              >
-                {sport}
-              </button>
-            ))}
-          </div>
-
-          <ProductSlider title="Sports Cards" category={category} />
-          <ProductSlider title="Sports Boxes" category={category} />
-          <ProductSlider title="Sports Slabs" category={category} />
-          <ProductSlider title="On Sale" category={category} />
+          <h1 className="text-white text-3xl font-bold mb-8">Funko</h1>
+          <ProductSlider title="Funko Pop" category="Funko" />
         </div>
       </div>
     </div>

@@ -3,58 +3,28 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useProducts } from "./hooks/useProducts";
-import { useCart } from "./context/CartContext";
+import { pillClass } from "@/components/CategoryPills";
+import ProductCard from "@/components/ProductCard";
 
-function ProductCard({ product }) {
-  const { addToCart } = useCart();
-
-  return (
-    <div className="w-48 flex-shrink-0 bg-gray-900 border border-gray-800 hover:border-yellow-400 transition-colors rounded cursor-pointer group">
-      <Link href={`/products/${product.id}`}>
-        {product.imageUrl ? (
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            style={{ width: "100%", height: "160px", objectFit: "contain" }}
-            className="rounded-t"
-          />
-        ) : (
-          <div className="bg-gray-800 h-40 rounded-t"></div>
-        )}
-        <div className="p-3">
-          <p className="text-white text-xs font-medium">{product.name}</p>
-          <p className="text-yellow-400 text-xs font-bold mt-1">
-            {product.price}
-          </p>
-        </div>
-      </Link>
-      <div className="px-3 pb-3">
-        <button
-          onClick={() =>
-            addToCart({
-              id: product.id,
-              name: product.name,
-              price: product.price,
-              imageUrl: product.imageUrl,
-            })
-          }
-          className="w-full bg-yellow-400 text-black text-xs font-bold py-2 hover:bg-yellow-300 transition-colors rounded"
-        >
-          Add to Cart
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function ProductSlider({ title, category }) {
+function ProductSlider({ title, category, viewAllHref }) {
   const { products, loading } = useProducts(category);
 
   return (
     <section className="py-10 px-4 max-w-7xl mx-auto">
-      <h2 className="text-white text-2xl font-bold mb-6 border-l-4 border-yellow-400 pl-4">
-        {title}
-      </h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-white text-2xl font-bold border-l-4 border-yellow-400 pl-4">
+          {title}
+        </h2>
+        {viewAllHref && (
+          <Link
+            href={viewAllHref}
+            className="text-yellow-400 text-sm font-bold hover:text-yellow-300 transition-colors whitespace-nowrap"
+          >
+            View All →
+          </Link>
+        )}
+      </div>
+
       {loading && (
         <div className="flex gap-4 overflow-x-auto pb-4">
           {[1, 2, 3, 4].map((i) => (
@@ -137,6 +107,115 @@ function InstagramSection() {
   );
 }
 
+const SPORTS_PILLS = ["All", "Baseball", "Basketball", "Football"];
+const TCG_PILLS = [
+  "All",
+  "Pokemon",
+  "Magic The Gathering",
+  "One Piece",
+  "Lorcana",
+];
+
+const SPORTS_SLABS_CATEGORY = {
+  All: "Sports Slabs",
+  Baseball: "Baseball Sports Slabs",
+  Basketball: "Basketball Sports Slabs",
+  Football: "Football Sports Slabs",
+};
+
+const SPORTS_BOXES_CATEGORY = {
+  All: "Sports Boxes",
+  Baseball: "Baseball Sports Boxes",
+  Basketball: "Basketball Sports Boxes",
+  Football: "Football Sports Boxes",
+};
+
+const TCG_SLABS_CATEGORY = {
+  All: "TCG Slabs",
+  Pokemon: "Pokemon TCG Slabs",
+  "Magic The Gathering": "Magic The Gathering TCG Slabs",
+  "One Piece": "One Piece TCG Slabs",
+  Lorcana: "Lorcana TCG Slabs",
+};
+
+const TCG_SEALED_CATEGORY = {
+  All: "TCG Sealed",
+  Pokemon: "Pokemon TCG Sealed",
+  "Magic The Gathering": "Magic The Gathering TCG Sealed",
+  "One Piece": "One Piece TCG Sealed",
+  Lorcana: "Lorcana TCG Sealed",
+};
+
+function SportsSection() {
+  const [selected, setSelected] = useState("All");
+
+  return (
+    <div>
+      <div className="px-4 max-w-7xl mx-auto pt-10 flex gap-2 flex-wrap">
+        {SPORTS_PILLS.map((pill) => (
+          <button
+            key={pill}
+            onClick={() => setSelected(pill)}
+            className={pillClass(selected === pill)}
+          >
+            {pill}
+          </button>
+        ))}
+      </div>
+      <ProductSlider
+        title={selected === "All" ? "Sports Slabs" : `${selected} Slabs`}
+        category={SPORTS_SLABS_CATEGORY[selected]}
+        viewAllHref="/sports"
+      />
+      <ProductSlider
+        title={selected === "All" ? "Sports Boxes" : `${selected} Boxes`}
+        category={SPORTS_BOXES_CATEGORY[selected]}
+        viewAllHref="/sports"
+      />
+      <ProductSlider
+        title="Sports On Sale"
+        category="Sports On Sale"
+        viewAllHref="/sports"
+      />
+    </div>
+  );
+}
+
+function TCGSection() {
+  const [selected, setSelected] = useState("All");
+
+  return (
+    <div>
+      <div className="px-4 max-w-7xl mx-auto pt-10 flex gap-2 flex-wrap">
+        {TCG_PILLS.map((pill) => (
+          <button
+            key={pill}
+            onClick={() => setSelected(pill)}
+            className={pillClass(selected === pill)}
+          >
+            {pill}
+          </button>
+        ))}
+      </div>
+      <ProductSlider
+        title={selected === "All" ? "TCG Slabs" : `${selected} Slabs`}
+        category={TCG_SLABS_CATEGORY[selected]}
+        viewAllHref="/tcg"
+      />
+      <ProductSlider
+        title={selected === "All" ? "TCG Sealed" : `${selected} Sealed`}
+        category={TCG_SEALED_CATEGORY[selected]}
+        viewAllHref="/tcg"
+      />
+      <ProductSlider
+        title="TCG On Sale"
+        category="TCG On Sale"
+        viewAllHref="/tcg"
+      />
+    </div>
+  );
+}
+
 export default function Home() {
   const [preference, setPreference] = useState("sports");
 
@@ -149,22 +228,6 @@ export default function Home() {
     localStorage.setItem("tcc-preference", pref);
     setPreference(pref);
   };
-
-  const sportsSections = (
-    <>
-      <ProductSlider title="Sports Cards" category="Sports" />
-      <ProductSlider title="Sports Boxes" category="Sports" />
-      <ProductSlider title="Sports On Sale" category="On Sale Sports" />
-    </>
-  );
-
-  const tcgSections = (
-    <>
-      <ProductSlider title="TCG Singles" category="TCG" />
-      <ProductSlider title="TCG Sealed" category="TCG" />
-      <ProductSlider title="TCG On Sale" category="On Sale TCG" />
-    </>
-  );
 
   return (
     <div className="bg-black">
@@ -212,13 +275,13 @@ export default function Home() {
 
       {preference === "sports" ? (
         <>
-          {sportsSections}
-          {tcgSections}
+          <SportsSection />
+          <TCGSection />
         </>
       ) : (
         <>
-          {tcgSections}
-          {sportsSections}
+          <TCGSection />
+          <SportsSection />
         </>
       )}
 

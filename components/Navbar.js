@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const navItems = [
   {
-    label: "Sports",
+    label: "SPORTS",
     href: "/sports",
     sections: [
       {
@@ -82,12 +82,12 @@ const navItems = [
     ],
   },
   {
-    label: "Funko",
+    label: "FUNKO",
     href: "/funko",
     sections: [],
   },
   {
-    label: "Supplies",
+    label: "SUPPLIES",
     href: "/supplies",
     sections: [
       {
@@ -109,12 +109,12 @@ const navItems = [
     ],
   },
   {
-    label: "Merch",
+    label: "MERCH",
     href: "/merch",
     sections: [],
   },
   {
-    label: "Shop Info",
+    label: "SHOP INFO",
     href: null,
     sections: [
       {
@@ -153,22 +153,18 @@ export default function Navbar() {
   const router = useRouter();
 
   useEffect(() => {
-    if (searchOpen && searchRef.current) {
-      searchRef.current.focus();
-    }
+    if (searchOpen && searchRef.current) searchRef.current.focus();
   }, [searchOpen]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
     });
-
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
-
     return () => subscription.unsubscribe();
   }, []);
 
@@ -201,9 +197,6 @@ export default function Navbar() {
     <>
       <nav className="bg-black text-white w-full relative z-50">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          {/* Mobile: Hamburger left, Logo center, Search+Cart right */}
-          {/* Desktop: Logo left, Nav center/right */}
-
           {/* Hamburger - mobile only */}
           <button
             className="md:hidden text-white hover:text-yellow-400 transition-colors p-2 border border-gray-700 rounded"
@@ -219,13 +212,17 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="text-yellow-400 font-bold text-xl tracking-wide absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0"
+            className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0"
           >
-            The Collectors Corner
+            <img
+              src="/logo.svg"
+              alt="The Collectors Corner"
+              className="h-10 w-auto"
+            />
           </Link>
 
-          {/* Desktop Nav Items */}
-          <div className="hidden md:flex items-center gap-6">
+          {/* Desktop: Nav links */}
+          <div className="hidden md:flex items-center gap-6 flex-1 ml-8">
             {navItems.map((item) => (
               <div
                 key={item.label}
@@ -235,17 +232,23 @@ export default function Navbar() {
                 }
                 onMouseLeave={() => setOpenDropdown(null)}
               >
-                {item.sections.length > 0 ? (
-                  <button className="text-white hover:text-yellow-400 transition-colors text-sm font-medium">
-                    {item.label}
-                  </button>
-                ) : (
+                {item.href ? (
                   <Link
                     href={item.href}
-                    className="text-white hover:text-yellow-400 transition-colors text-sm font-medium"
+                    className="flex items-center gap-1 text-white hover:text-yellow-400 transition-colors text-sm font-bold tracking-wide"
                   >
                     {item.label}
+                    {item.sections.length > 0 && (
+                      <span className="text-xs">▾</span>
+                    )}
                   </Link>
+                ) : (
+                  <button className="flex items-center gap-1 text-white hover:text-yellow-400 transition-colors text-sm font-bold tracking-wide">
+                    {item.label}
+                    {item.sections.length > 0 && (
+                      <span className="text-xs">▾</span>
+                    )}
+                  </button>
                 )}
 
                 {openDropdown === item.label && item.sections.length > 0 && (
@@ -274,7 +277,21 @@ export default function Navbar() {
               </div>
             ))}
 
-            {/* Desktop Search */}
+            {/* Gift Card Button */}
+            <Link
+              href="/shop-info/gift-card"
+              className="flex items-center hover:opacity-80 transition-opacity"
+            >
+              <img
+                src="/gift-card.svg"
+                alt="Gift Card"
+                className="h-8 w-auto"
+              />
+            </Link>
+          </div>
+
+          {/* Desktop Right: Search, Account, Cart */}
+          <div className="hidden md:flex items-center gap-4">
             <div className="flex items-center gap-2">
               {searchOpen && (
                 <form onSubmit={handleSearch} className="flex items-center">
@@ -299,7 +316,6 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Desktop Account */}
             {user ? (
               <div
                 className="relative"
@@ -308,9 +324,9 @@ export default function Navbar() {
               >
                 <Link
                   href="/account"
-                  className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
+                  className="text-white hover:text-yellow-400 text-sm font-bold tracking-wide transition-colors"
                 >
-                  Account
+                  ACCOUNT
                 </Link>
                 {openDropdown === "account" && (
                   <div className="absolute top-full right-0 bg-black border border-yellow-400 p-4 z-50 min-w-max flex flex-col gap-2">
@@ -332,13 +348,12 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="text-white hover:text-yellow-400 text-sm font-medium transition-colors"
+                className="text-white hover:text-yellow-400 text-sm font-bold tracking-wide transition-colors"
               >
-                Login
+                LOGIN
               </Link>
             )}
 
-            {/* Desktop Cart */}
             <Link
               href="/cart"
               className="text-white hover:text-yellow-400 transition-colors relative"
@@ -352,7 +367,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile: Search + Cart right side */}
+          {/* Mobile: Search + Cart */}
           <div className="md:hidden flex items-center gap-3">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
@@ -400,7 +415,6 @@ export default function Navbar() {
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 bg-black z-50 flex flex-col md:hidden">
-          {/* Close button */}
           <div className="px-4 py-4">
             <button
               onClick={closeMobileMenu}
@@ -410,7 +424,6 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Nav Items */}
           <div className="flex-1 overflow-y-auto px-4">
             {navItems.map((item) => (
               <div key={item.label} className="border-b border-gray-800">
@@ -422,7 +435,7 @@ export default function Navbar() {
                           mobileExpandedItem === item.label ? null : item.label,
                         )
                       }
-                      className="w-full flex items-center justify-between py-5 text-white text-xl font-medium"
+                      className="w-full flex items-center justify-between py-5 text-white text-xl font-bold"
                     >
                       {item.label}
                       <span className="text-gray-400 text-lg">
@@ -432,6 +445,15 @@ export default function Navbar() {
 
                     {mobileExpandedItem === item.label && (
                       <div className="pb-4 pl-4 border-l border-yellow-400 ml-2">
+                        {item.href && (
+                          <Link
+                            href={item.href}
+                            onClick={closeMobileMenu}
+                            className="block text-yellow-400 text-sm font-bold mb-3 hover:text-yellow-300 transition-colors"
+                          >
+                            View All {item.label} →
+                          </Link>
+                        )}
                         {item.sections.map((section) => (
                           <div key={section.title} className="mb-4">
                             <p className="text-yellow-400 text-xs font-bold tracking-widest mb-2">
@@ -459,16 +481,30 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     onClick={closeMobileMenu}
-                    className="block py-5 text-white text-xl font-medium hover:text-yellow-400 transition-colors"
+                    className="block py-5 text-white text-xl font-bold hover:text-yellow-400 transition-colors"
                   >
                     {item.label}
                   </Link>
                 )}
               </div>
             ))}
+
+            {/* Gift Card - mobile */}
+            <div className="border-b border-gray-800">
+              <Link
+                href="/shop-info/gift-card"
+                onClick={closeMobileMenu}
+                className="block py-5 hover:opacity-80 transition-opacity"
+              >
+                <img
+                  src="/gift-card.svg"
+                  alt="Gift Card"
+                  className="h-10 w-auto"
+                />
+              </Link>
+            </div>
           </div>
 
-          {/* Bottom - Login/Account */}
           <div className="px-4 py-6 border-t border-gray-800">
             {user ? (
               <Link
@@ -477,7 +513,7 @@ export default function Navbar() {
                 className="flex items-center gap-3 text-white hover:text-yellow-400 transition-colors"
               >
                 <span className="text-xl">👤</span>
-                <span className="text-lg font-medium">Account</span>
+                <span className="text-lg font-bold">ACCOUNT</span>
               </Link>
             ) : (
               <Link
@@ -486,7 +522,7 @@ export default function Navbar() {
                 className="flex items-center gap-3 text-white hover:text-yellow-400 transition-colors"
               >
                 <span className="text-xl">👤</span>
-                <span className="text-lg font-medium">Log In</span>
+                <span className="text-lg font-bold">LOG IN</span>
               </Link>
             )}
           </div>

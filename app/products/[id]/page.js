@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { useCart } from "../../context/CartContext";
 import Link from "next/link";
+import AddToCartButton from "@/components/AddToCartButton";
 
 export default function ProductPage() {
   const { id } = useParams();
-  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -78,7 +77,7 @@ export default function ProductPage() {
                 <img
                   src={selectedImage}
                   alt={product.name}
-                  style={{ maxHeight: "380px", objectFit: "contain" }}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   className="rounded"
                 />
               ) : (
@@ -123,19 +122,15 @@ export default function ProductPage() {
               </p>
             )}
 
-            <button
-              onClick={() =>
-                addToCart({
-                  id: product.id,
-                  name: product.name,
-                  price: product.price,
-                  imageUrl: product.images?.[0] || null,
-                })
-              }
-              className="w-full bg-yellow-400 text-black font-bold py-4 hover:bg-yellow-300 transition-colors text-lg mb-4"
-            >
-              Add to Cart
-            </button>
+            <AddToCartButton
+              product={{
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                images: product.images,
+              }}
+              className="w-full text-lg py-4"
+            />
 
             <div className="border-t border-gray-800 pt-6 mt-6">
               <p className="text-gray-500 text-xs">

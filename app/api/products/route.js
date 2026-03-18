@@ -19,6 +19,13 @@ async function getCategoryId(categoryName) {
   });
   const raw = convertBigInt(response);
   const categories = raw.data || [];
+
+  // DEBUG
+  console.log(
+    "All category IDs:",
+    categories.map((c) => `${c.categoryData?.name}: ${c.id}`),
+  );
+
   const match = categories.find(
     (cat) =>
       cat.categoryData?.name?.toLowerCase() === categoryName.toLowerCase(),
@@ -73,8 +80,16 @@ export async function GET(request) {
     const raw = convertBigInt(response);
     let items = raw.data || [];
 
+    // DEBUG
+    console.log("First item name:", items[0]?.itemData?.name);
+    console.log(
+      "First item categories:",
+      JSON.stringify(items[0]?.itemData?.categories),
+    );
+
     if (category) {
       const categoryId = await getCategoryId(category);
+      console.log("Looking for category:", category, "Found ID:", categoryId);
       if (categoryId) {
         items = items.filter((item) =>
           item.itemData?.categories?.some((cat) => cat.id === categoryId),

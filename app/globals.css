@@ -47,3 +47,7 @@
 .glitch-effect {
   animation: glitch 0.3s steps(1) infinite;
 }
+
+button {
+  background-color: transparent;
+}

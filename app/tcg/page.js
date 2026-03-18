@@ -2,52 +2,10 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { useProducts } from "../hooks/useProducts";
-import { useCart } from "../context/CartContext";
 import GlitchBanner from "@/components/GlitchBanner";
-
-function ProductCard({ product }) {
-  const { addToCart } = useCart();
-
-  return (
-    <div className="w-48 flex-shrink-0 bg-gray-900 border border-gray-800 hover:border-yellow-400 transition-colors rounded cursor-pointer group">
-      <Link href={`/products/${product.id}`}>
-        {product.imageUrl ? (
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            style={{ width: "100%", height: "160px", objectFit: "contain" }}
-            className="rounded-t"
-          />
-        ) : (
-          <div className="bg-gray-800 h-40 rounded-t"></div>
-        )}
-        <div className="p-3">
-          <p className="text-white text-xs font-medium">{product.name}</p>
-          <p className="text-yellow-400 text-xs font-bold mt-1">
-            {product.price}
-          </p>
-        </div>
-      </Link>
-      <div className="px-3 pb-3">
-        <button
-          onClick={() =>
-            addToCart({
-              id: product.id,
-              name: product.name,
-              price: product.price,
-              imageUrl: product.imageUrl,
-            })
-          }
-          className="w-full bg-yellow-400 text-black text-xs font-bold py-2 hover:bg-yellow-300 transition-colors rounded"
-        >
-          Add to Cart
-        </button>
-      </div>
-    </div>
-  );
-}
+import { pillClass } from "@/components/CategoryPills";
+import ProductCard from "@/components/ProductCard";
 
 function ProductSlider({ title, category }) {
   const { products, loading } = useProducts(category);
@@ -108,8 +66,6 @@ function TCGContent() {
     }
   }, [urlCategory]);
 
-  const category = selected === "All" ? "TCG" : selected;
-
   return (
     <div className="bg-black min-h-screen">
       <GlitchBanner section="tcg" />
@@ -122,23 +78,36 @@ function TCGContent() {
               <button
                 key={brand}
                 onClick={() => setSelected(brand)}
-                className={`px-6 py-2 text-sm font-bold transition-colors border ${
-                  selected === brand
-                    ? "bg-yellow-400 text-black border-yellow-400"
-                    : "bg-transparent text-white border-gray-700 hover:border-yellow-400 hover:text-yellow-400"
-                }`}
+                className={pillClass(selected === brand)}
               >
                 {brand}
               </button>
             ))}
           </div>
 
-          <ProductSlider title="TCG Singles" category={category} />
-          <ProductSlider title="TCG Sealed" category={category} />
-          <ProductSlider title="TCG Slabs" category={category} />
+          <ProductSlider
+            title={selected === "All" ? "TCG Singles" : `${selected} Singles`}
+            category={
+              selected === "All" ? "TCG Singles" : `${selected} TCG Singles`
+            }
+          />
+          <ProductSlider
+            title={selected === "All" ? "TCG Sealed" : `${selected} Sealed`}
+            category={
+              selected === "All" ? "TCG Sealed" : `${selected} TCG Sealed`
+            }
+          />
+          <ProductSlider
+            title={selected === "All" ? "TCG Slabs" : `${selected} Slabs`}
+            category={
+              selected === "All" ? "TCG Slabs" : `${selected} TCG Slabs`
+            }
+          />
           <ProductSlider
             title="On Sale"
-            category={selected === "All" ? "On Sale TCG" : category}
+            category={
+              selected === "All" ? "TCG On Sale" : `${selected} TCG On Sale`
+            }
           />
         </div>
       </div>

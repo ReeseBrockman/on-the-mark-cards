@@ -154,7 +154,7 @@ export default function Home() {
     <>
       <ProductSlider title="Sports Cards" category="Sports" />
       <ProductSlider title="Sports Boxes" category="Sports" />
-      <ProductSlider title="Sports On Sale" category="Sports" />
+      <ProductSlider title="Sports On Sale" category="On Sale Sports" />
     </>
   );
 
@@ -162,7 +162,7 @@ export default function Home() {
     <>
       <ProductSlider title="TCG Singles" category="TCG" />
       <ProductSlider title="TCG Sealed" category="TCG" />
-      <ProductSlider title="TCG On Sale" category="TCG" />
+      <ProductSlider title="TCG On Sale" category="On Sale TCG" />
     </>
   );
 

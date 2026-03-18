@@ -9,33 +9,27 @@ export function useProducts(category) {
     async function fetchProducts() {
       try {
         const url = category
-          ? `/api/products?category=${category}`
+          ? `/api/products?category=${encodeURIComponent(category)}`
           : "/api/products";
         const res = await fetch(url);
         const data = await res.json();
 
         const productsWithImages = await Promise.all(
           data.items.map(async (item) => {
-            const imageId = item.itemData?.imageIds?.[0];
             let imageUrl = null;
 
-            if (imageId) {
-              const imgRes = await fetch(`/api/images?imageId=${imageId}`);
+            if (item.imageId) {
+              const imgRes = await fetch(`/api/images?imageId=${item.imageId}`);
               const imgData = await imgRes.json();
               imageUrl = imgData.imageUrl;
             }
 
-            const variation = item.itemData?.variations?.[0];
-            const priceAmount =
-              variation?.itemVariationData?.priceMoney?.amount;
-            const price = priceAmount
-              ? `$${(parseInt(priceAmount) / 100).toFixed(2)}`
-              : "Price unavailable";
-
             return {
               id: item.id,
-              name: item.itemData?.name || "Unknown Product",
-              price,
+              name: item.name,
+              price: item.price,
+              originalPrice: item.originalPrice || null,
+              onSale: item.onSale || false,
               imageUrl,
             };
           }),

@@ -136,7 +136,10 @@ function TCGContent() {
           <ProductSlider title="TCG Singles" category={category} />
           <ProductSlider title="TCG Sealed" category={category} />
           <ProductSlider title="TCG Slabs" category={category} />
-          <ProductSlider title="On Sale" category={category} />
+          <ProductSlider
+            title="On Sale"
+            category={selected === "All" ? "On Sale TCG" : category}
+          />
         </div>
       </div>
     </div>

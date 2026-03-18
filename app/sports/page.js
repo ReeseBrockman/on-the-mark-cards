@@ -130,7 +130,10 @@ function SportsContent() {
           <ProductSlider title="Sports Cards" category={category} />
           <ProductSlider title="Sports Boxes" category={category} />
           <ProductSlider title="Sports Slabs" category={category} />
-          <ProductSlider title="On Sale" category={category} />
+          <ProductSlider
+            title="On Sale"
+            category={selected === "All" ? "On Sale Sports" : category}
+          />
         </div>
       </div>
     </div>

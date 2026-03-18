@@ -26,6 +26,41 @@ async function getCategoryId(categoryName) {
   return match ? match.id : null;
 }
 
+function parseProduct(item) {
+  const variations = item.itemData?.variations || [];
+
+  const regularVariation = variations.find(
+    (v) => v.itemVariationData?.name?.toLowerCase() === "regular",
+  );
+  const saleVariation = variations.find(
+    (v) => v.itemVariationData?.name?.toLowerCase() === "sale",
+  );
+
+  const regularPrice = regularVariation?.itemVariationData?.priceMoney?.amount;
+  const salePrice = saleVariation?.itemVariationData?.priceMoney?.amount;
+
+  const price = salePrice
+    ? `$${(parseInt(salePrice) / 100).toFixed(2)}`
+    : regularPrice
+      ? `$${(parseInt(regularPrice) / 100).toFixed(2)}`
+      : "Price unavailable";
+
+  const originalPrice =
+    salePrice && regularPrice
+      ? `$${(parseInt(regularPrice) / 100).toFixed(2)}`
+      : null;
+
+  return {
+    id: item.id,
+    name: item.itemData?.name || "Unknown Product",
+    price,
+    originalPrice,
+    onSale: !!salePrice,
+    imageId: item.itemData?.imageIds?.[0] || null,
+    categories: item.itemData?.categories?.map((c) => c.id) || [],
+  };
+}
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -49,7 +84,9 @@ export async function GET(request) {
       }
     }
 
-    return Response.json({ items });
+    const products = items.map(parseProduct);
+
+    return Response.json({ items: products });
   } catch (error) {
     console.error("Square API error:", error);
     return Response.json(

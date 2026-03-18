@@ -7,18 +7,20 @@ export default function ProductCard({ product }) {
   return (
     <div className="w-48 flex-shrink-0 bg-gray-900 border border-gray-800 hover:border-yellow-400 transition-colors rounded cursor-pointer group relative overflow-hidden">
       {/* Image */}
-      <Link href={`/products/${product.id}`}>
-        {product.imageUrl ? (
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            style={{ width: "100%", height: "180px", objectFit: "contain" }}
-            className="rounded-t"
-          />
-        ) : (
-          <div className="bg-gray-800 h-44 rounded-t"></div>
-        )}
-      </Link>
+      <div className="overflow-hidden rounded-t">
+        <Link href={`/products/${product.id}`}>
+          {product.imageUrl ? (
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              style={{ width: "100%", height: "180px", objectFit: "fill" }}
+              className="rounded-t group-hover:scale-110 transition-transform duration-300"
+            />
+          ) : (
+            <div className="bg-gray-800 h-44 rounded-t"></div>
+          )}
+        </Link>
+      </div>
 
       {/* Name and price panel */}
       <div className="px-3 pt-3 pb-3 bg-gray-900 relative z-10">

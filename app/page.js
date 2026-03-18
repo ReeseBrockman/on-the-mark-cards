@@ -8,6 +8,7 @@ import ProductCard from "@/components/ProductCard";
 
 function ProductSlider({ title, category, viewAllHref }) {
   const { products, loading } = useProducts(category);
+  const visibleProducts = products.slice(0, 10);
 
   return (
     <section className="py-10 px-4 max-w-7xl mx-auto">
@@ -15,14 +16,6 @@ function ProductSlider({ title, category, viewAllHref }) {
         <h2 className="text-white text-2xl font-bold border-l-4 border-yellow-400 pl-4">
           {title}
         </h2>
-        {viewAllHref && (
-          <Link
-            href={viewAllHref}
-            className="text-yellow-400 text-sm font-bold hover:text-yellow-300 transition-colors whitespace-nowrap"
-          >
-            View All →
-          </Link>
-        )}
       </div>
 
       {loading && (
@@ -44,9 +37,26 @@ function ProductSlider({ title, category, viewAllHref }) {
       )}
       {!loading && products.length > 0 && (
         <div className="flex gap-4 overflow-x-auto pb-4">
-          {products.map((product) => (
+          {visibleProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
+
+          {viewAllHref && (
+            <Link
+              href={viewAllHref}
+              className="w-48 flex-shrink-0 bg-gray-900 border border-gray-800 hover:border-yellow-400 transition-colors rounded flex flex-col items-center justify-center gap-3 min-h-[260px] group"
+            >
+              <span className="text-4xl text-yellow-400 group-hover:scale-110 transition-transform">
+                →
+              </span>
+              <span className="text-white text-sm font-bold text-center px-3">
+                View All {title}
+              </span>
+              <span className="text-yellow-400 text-xs font-bold border border-yellow-400 px-3 py-1 rounded-full group-hover:bg-yellow-400 group-hover:text-black transition-colors">
+                View All
+              </span>
+            </Link>
+          )}
         </div>
       )}
     </section>

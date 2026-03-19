@@ -114,7 +114,7 @@ export default function CartPage() {
             </button>
             <Link
               href="/"
-              className="w-full text-center text-gray-400 hover:text-yellow-400 text-sm transition-colors py-2"
+              className="w-full text-center text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium py-2"
             >
               Continue Shopping
             </Link>

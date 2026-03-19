@@ -86,7 +86,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/sports"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
                   >
                     Sports Cards & Boxes
                   </Link>
@@ -94,7 +94,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/tcg"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
                   >
                     TCG Cards & Boxes
                   </Link>
@@ -102,7 +102,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/supplies"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
                   >
                     Supplies
                   </Link>
@@ -110,7 +110,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/merch"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
                   >
                     Merch
                   </Link>
@@ -118,7 +118,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/gift-card"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
                   >
                     Gift Cards
                   </Link>
@@ -131,7 +131,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/location"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
                   >
                     Location & Hours
                   </Link>
@@ -139,7 +139,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/events"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
                   >
                     Events
                   </Link>
@@ -147,7 +147,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/sell"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
                   >
                     Sell Us Your Cards
                   </Link>
@@ -155,7 +155,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/grading"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
                   >
                     Grading Submissions
                   </Link>
@@ -163,7 +163,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/live-selling"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
                   >
                     Live Selling & Breaking
                   </Link>
@@ -171,7 +171,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/faq"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
                   >
                     FAQ
                   </Link>
@@ -287,7 +287,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/sports"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors whitespace-nowrap"
+                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Sports Cards & Boxes
                 </Link>
@@ -295,7 +295,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/tcg"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors whitespace-nowrap"
+                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   TCG Cards & Boxes
                 </Link>
@@ -303,7 +303,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/supplies"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors whitespace-nowrap"
+                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Supplies
                 </Link>
@@ -311,7 +311,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/merch"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors whitespace-nowrap"
+                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Merch
                 </Link>
@@ -319,7 +319,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/gift-card"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors whitespace-nowrap"
+                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Gift Cards
                 </Link>
@@ -331,7 +331,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/location"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors whitespace-nowrap"
+                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Location & Hours
                 </Link>
@@ -339,7 +339,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/events"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors whitespace-nowrap"
+                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Events
                 </Link>
@@ -347,7 +347,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/sell"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors whitespace-nowrap"
+                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Sell Us Your Cards
                 </Link>
@@ -355,7 +355,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/grading"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors whitespace-nowrap"
+                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Grading Submissions
                 </Link>
@@ -363,7 +363,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/live-selling"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors whitespace-nowrap"
+                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Live Selling & Breaking
                 </Link>
@@ -371,7 +371,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/faq"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors whitespace-nowrap"
+                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   FAQ
                 </Link>

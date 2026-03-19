@@ -112,9 +112,16 @@ export default function ProductPage() {
             <h1 className="text-white text-3xl font-bold mb-4">
               {product.name}
             </h1>
-            <p className="text-yellow-400 text-2xl font-bold mb-6">
-              {product.price}
-            </p>
+            <div className="flex items-center gap-3 mb-6">
+              <p className="text-yellow-400 text-2xl font-bold">
+                {product.price}
+              </p>
+              {product.originalPrice && (
+                <p className="text-gray-500 text-lg line-through">
+                  {product.originalPrice}
+                </p>
+              )}
+            </div>
 
             {product.description && (
               <p className="text-gray-400 text-sm mb-6">

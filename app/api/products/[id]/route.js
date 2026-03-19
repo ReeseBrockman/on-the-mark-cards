@@ -60,17 +60,36 @@ export async function GET(request, { params }) {
     const categoryId = item.itemData?.categories?.[0]?.id;
     const category = categoryId ? await getCategoryName(categoryId) : null;
 
-    const variation = item.itemData?.variations?.[0];
-    const priceAmount = variation?.itemVariationData?.priceMoney?.amount;
-    const price = priceAmount
-      ? `$${(parseInt(priceAmount) / 100).toFixed(2)}`
-      : "Price unavailable";
+    const variations = item.itemData?.variations || [];
+
+    const regularVariation = variations.find(
+      (v) => v.itemVariationData?.name?.toLowerCase() === "regular",
+    );
+    const saleVariation = variations.find(
+      (v) => v.itemVariationData?.name?.toLowerCase() === "sale",
+    );
+
+    const regularPrice =
+      regularVariation?.itemVariationData?.priceMoney?.amount;
+    const salePrice = saleVariation?.itemVariationData?.priceMoney?.amount;
+
+    const price = salePrice
+      ? `$${(parseInt(salePrice) / 100).toFixed(2)}`
+      : regularPrice
+        ? `$${(parseInt(regularPrice) / 100).toFixed(2)}`
+        : "Price unavailable";
+
+    const originalPrice =
+      salePrice && regularPrice
+        ? `$${(parseInt(regularPrice) / 100).toFixed(2)}`
+        : null;
 
     const product = {
       id: item.id,
       name: item.itemData?.name || "Unknown Product",
       description: item.itemData?.description || null,
       price,
+      originalPrice,
       images: images.filter(Boolean),
       category,
     };

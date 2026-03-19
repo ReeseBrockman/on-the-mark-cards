@@ -27,9 +27,14 @@ export default function ProductCard({ product }) {
         <p className="text-white text-xs font-medium leading-tight line-clamp-2 h-8 overflow-hidden">
           {product.name}
         </p>
-        <p className="text-yellow-400 text-xs font-bold mt-1">
-          {product.price}
-        </p>
+        <div className="flex items-center gap-2 mt-1">
+          <p className="text-yellow-400 text-xs font-bold">{product.price}</p>
+          {product.originalPrice && (
+            <p className="text-gray-500 text-xs line-through">
+              {product.originalPrice}
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Buttons - slide up from below the info panel */}

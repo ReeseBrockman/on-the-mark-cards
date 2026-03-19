@@ -150,19 +150,19 @@ export default function Footer() {
           {/* Social Links */}
           <div className="flex gap-4">
             <a
-              href="#"
+              href="https://www.whatnot.com/user/collectorscorner"
               className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
             >
-              Facebook
+              Whatnot
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/thecollectorscorner2021/"
               className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
             >
               Instagram
             </a>
             <a
-              href="#"
+              href="https://www.youtube.com/channel/UCbaI_j7_bM9abjZlaRUL0cw"
               className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
             >
               YouTube

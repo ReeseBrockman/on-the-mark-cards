@@ -103,10 +103,10 @@ function InstagramSection() {
             Follow Us on Instagram
           </h2>
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/thecollectorscorner2021/"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-yellow-300 transition-colors"
+            className="border border-yellow-400 bg-black text-yellow-400 font-bold px-6 py-3 hover:bg-yellow-300 hover:text-black transition-colors rounded-full"
           >
             Follow Us
           </a>
@@ -257,7 +257,7 @@ export default function Home() {
             <h2 className="text-white text-2xl md:text-4xl font-bold mb-4">
               SPORTS
             </h2>
-            <p className="text-yellow-400 text-sm md:text-lg mb-6">
+            <p className="text-yellow-400 text-xs md:text-sm mb-6">
               Shop Our Unbeatable Prices!
             </p>
             <span className="bg-yellow-400 text-black font-bold px-6 py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap rounded-full">
@@ -281,7 +281,7 @@ export default function Home() {
             <h2 className="text-white text-2xl md:text-4xl font-bold mb-4">
               TCG
             </h2>
-            <p className="text-yellow-400 text-sm md:text-lg mb-6">
+            <p className="text-yellow-400 text-xs md:text-sm mb-6">
               Unleash Your Ultimate Deck!
             </p>
             <span className="bg-yellow-400 text-black font-bold px-6 py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap rounded-full">
@@ -307,30 +307,40 @@ export default function Home() {
 
       <InstagramSection />
 
-      <section className="bg-gray-900 border-t border-yellow-400 py-16 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-          <div>
-            <h2 className="text-white text-3xl font-bold mb-6">
-              Want to shop in person?
-            </h2>
-            <p className="text-gray-400 mb-2">
+      <section
+        className="relative py-24 px-4 overflow-hidden"
+        style={{
+          backgroundImage: "url('/store-banner.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent z-10"></div>
+        <div className="relative z-20 max-w-7xl mx-auto">
+          <h2 className="text-white text-4xl md:text-5xl font-bold mb-4">
+            Want to shop
+            <br />
+            in person?
+          </h2>
+          <p className="text-white text-xl font-semibold mb-4">
+            Visit us at the store!
+          </p>
+          <div className="mb-8">
+            <p className="text-black text-sm font-bold">
               2527 W Kennewick Ave, Kennewick, WA 99336
             </p>
-            <div className="mt-4">
-              <p className="text-yellow-400 font-bold mb-2">Store Hours</p>
-              <p className="text-gray-400 text-sm">
-                Monday - Saturday: 11:00 AM - 6:00 PM
-              </p>
-              <p className="text-gray-400 text-sm">
-                Sunday: 12:00 PM - 4:00 PM
-              </p>
-            </div>
+            <p className="text-black text-sm font-bold mt-1">
+              Mon - Sat: 11:00 AM - 6:00 PM
+            </p>
+            <p className="text-black text-sm font-bold">
+              Sunday: 12:00 PM - 4:00 PM
+            </p>
           </div>
           <Link
             href="/shop-info/location"
-            className="bg-yellow-400 text-black font-bold px-8 py-4 hover:bg-yellow-300 transition-colors whitespace-nowrap"
+            className="inline-block bg-black text-yellow-400 font-bold px-8 py-4 rounded-full hover:bg-yellow-400 hover:text-black transition-colors border border-yellow-400 hover:border-black"
           >
-            Location and Directions
+            Location & Directions
           </Link>
         </div>
       </section>

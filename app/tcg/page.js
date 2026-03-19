@@ -1,12 +1,224 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useProducts } from "../hooks/useProducts";
-import GlitchBanner from "@/components/GlitchBanner";
 import { pillClass } from "@/components/CategoryPills";
 import ProductCard from "@/components/ProductCard";
+
+const bannerSlides = [
+  {
+    image: "/tcg-banner-1.jpg",
+    mobileImage: "/tcg-banner-1-mobile.jpg",
+    title: "MTG x TNMT",
+    subtitle: "Cowabunga!<br />This New MTG Set is Extra Cheesy...",
+    buttonText: "Shop Now",
+    buttonHref: "/tcg",
+    titleColor: "text-white",
+    subtitleColor: "text-white font-semibold",
+    buttonBg: "bg-green-500 hover:bg-white text-white hover:text-black",
+  },
+  {
+    image: "/tcg-banner-2.jpg",
+    mobileImage: "/tcg-banner-2-mobile.jpg",
+    title: "Traverse The Twin<br />Faces of Fate",
+    subtitle: "Get Lorwyn Eclipsed Befire Its Gone!",
+    buttonText: "Shop Now",
+    buttonHref: "/tcg?category=Pokemon",
+    titleColor: "text-white",
+    subtitleColor: "text-white font-semibold",
+    buttonBg: "bg-blue-300 hover:bg-white text-white hover:text-black",
+  },
+];
+
+function BannerCarousel() {
+  const [current, setCurrent] = useState(1);
+  const [transitioning, setTransitioning] = useState(true);
+  const [dragOffset, setDragOffset] = useState(0);
+  const autoTimer = useRef(null);
+  const resumeTimer = useRef(null);
+  const dragStartX = useRef(null);
+  const isDragging = useRef(false);
+  const containerRef = useRef(null);
+
+  const slides = [
+    bannerSlides[bannerSlides.length - 1],
+    ...bannerSlides,
+    bannerSlides[0],
+  ];
+
+  const startAutoPlay = () => {
+    clearInterval(autoTimer.current);
+    autoTimer.current = setInterval(() => {
+      goNext();
+    }, 5000);
+  };
+
+  useEffect(() => {
+    startAutoPlay();
+    return () => {
+      clearInterval(autoTimer.current);
+      clearTimeout(resumeTimer.current);
+    };
+  }, []);
+
+  const goNext = () => {
+    setTransitioning(true);
+    setDragOffset(0);
+    setCurrent((prev) => prev + 1);
+  };
+
+  const goPrev = () => {
+    setTransitioning(true);
+    setDragOffset(0);
+    setCurrent((prev) => prev - 1);
+  };
+
+  useEffect(() => {
+    if (current === slides.length - 1) {
+      const timeout = setTimeout(() => {
+        setTransitioning(false);
+        setDragOffset(0);
+        setCurrent(1);
+      }, 500);
+      return () => clearTimeout(timeout);
+    }
+    if (current === 0) {
+      const timeout = setTimeout(() => {
+        setTransitioning(false);
+        setDragOffset(0);
+        setCurrent(slides.length - 2);
+      }, 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [current]);
+
+  const handleDragStart = (e) => {
+    dragStartX.current =
+      e.type === "mousedown" ? e.clientX : e.touches[0].clientX;
+    isDragging.current = true;
+    setTransitioning(false);
+    clearInterval(autoTimer.current);
+    clearTimeout(resumeTimer.current);
+  };
+
+  const handleDragMove = (e) => {
+    if (!isDragging.current) return;
+    const clientX = e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
+    setDragOffset(clientX - dragStartX.current);
+  };
+
+  const handleDragEnd = (e) => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const endX = e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX;
+    const diff = dragStartX.current - endX;
+
+    setTransitioning(true);
+    setDragOffset(0);
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goNext();
+      else goPrev();
+    }
+
+    resumeTimer.current = setTimeout(() => startAutoPlay(), 1500);
+  };
+
+  const containerWidth = containerRef.current?.offsetWidth || 1;
+  const translateX = -(current * 100) + (dragOffset / containerWidth) * 100;
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full h-80 md:h-96 overflow-hidden bg-gray-900 cursor-grab active:cursor-grabbing select-none"
+      onMouseDown={handleDragStart}
+      onMouseMove={handleDragMove}
+      onMouseUp={handleDragEnd}
+      onMouseLeave={handleDragEnd}
+      onTouchStart={handleDragStart}
+      onTouchMove={handleDragMove}
+      onTouchEnd={handleDragEnd}
+    >
+      <div
+        className="flex h-full"
+        style={{
+          transform: `translateX(${translateX}%)`,
+          transition: transitioning ? "transform 500ms ease-in-out" : "none",
+        }}
+      >
+        {slides.map((slide, i) => (
+          <div key={i} className="relative h-full flex-shrink-0 w-screen">
+            <img
+              src={slide.mobileImage}
+              alt={slide.title}
+              className="absolute inset-0 w-full h-full object-cover md:hidden"
+              draggable={false}
+            />
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className="absolute inset-0 w-full h-full object-cover hidden md:block"
+              draggable={false}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-10"></div>
+            <div className="absolute inset-0 z-20 flex flex-col justify-center px-0 md:px-16">
+              <h2
+                className={`hidden md:block text-2xl md:text-4xl font-bold mb-2 ${slide.titleColor}`}
+                dangerouslySetInnerHTML={{ __html: slide.title }}
+              />
+              <p
+                className={`hidden md:block text-sm md:text-base -mb-2 mt-4 ${slide.subtitleColor}`}
+                dangerouslySetInnerHTML={{ __html: slide.subtitle }}
+              />
+              <div className="flex justify-center md:block mt-0 md:mt-10">
+                <Link
+                  href={slide.buttonHref}
+                  className={`inline-block font-bold px-6 py-3 rounded-full transition-colors w-fit ${slide.buttonBg}`}
+                  draggable={false}
+                >
+                  {slide.buttonText}
+                </Link>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <button
+        onClick={goPrev}
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/50 hover:bg-black/80 rounded-full w-9 h-9 flex items-center justify-center transition-colors"
+      >
+        ‹
+      </button>
+
+      <button
+        onClick={goNext}
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/50 hover:bg-black/80 rounded-full w-9 h-9 flex items-center justify-center transition-colors"
+      >
+        ›
+      </button>
+
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+        {bannerSlides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => {
+              setTransitioning(true);
+              setCurrent(i + 1);
+            }}
+            className={`w-2.5 h-2.5 rounded-full transition-colors ${
+              (current - 1 + bannerSlides.length) % bannerSlides.length === i
+                ? "bg-yellow-400"
+                : "bg-white/50 hover:bg-white"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function ProductSlider({ title, category, viewAllHref }) {
   const { products, loading } = useProducts(category);
@@ -91,7 +303,7 @@ function TCGContent() {
 
   return (
     <div className="bg-black min-h-screen">
-      <GlitchBanner section="tcg" />
+      <BannerCarousel />
       <div className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-white text-3xl font-bold mb-8">TCG</h1>

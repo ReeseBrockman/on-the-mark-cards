@@ -5,6 +5,7 @@ import { supabase } from "@/app/lib/supabase";
 import { useCart } from "@/app/context/CartContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Search, User, ShoppingCart } from "lucide-react";
 
 const navItems = [
   {
@@ -199,7 +200,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Hamburger - mobile only */}
           <button
-            className="md:hidden text-white hover:text-yellow-400 transition-colors p-2 border border-yellow-400 rounded"
+            className="md:hidden text-white hover:text-yellow-400 transition-colors p-2 border border-gray-700 rounded"
             onClick={() => setMobileMenuOpen(true)}
           >
             <div className="flex flex-col gap-1">
@@ -312,7 +313,7 @@ export default function Navbar() {
                 onClick={() => setSearchOpen(!searchOpen)}
                 className="text-white hover:text-yellow-400 transition-colors"
               >
-                🔍
+                <Search size={20} />
               </button>
             </div>
 
@@ -324,9 +325,9 @@ export default function Navbar() {
               >
                 <Link
                   href="/account"
-                  className="text-white hover:text-yellow-400 text-sm font-bold tracking-wide transition-colors"
+                  className="text-white hover:text-yellow-400 transition-colors"
                 >
-                  ACCOUNT
+                  <User size={20} />
                 </Link>
                 {openDropdown === "account" && (
                   <div className="absolute top-full right-0 bg-black border border-yellow-400 p-4 z-50 min-w-max flex flex-col gap-2">
@@ -348,9 +349,9 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="text-white hover:text-yellow-400 text-sm font-bold tracking-wide transition-colors"
+                className="text-white hover:text-yellow-400 transition-colors"
               >
-                LOGIN
+                <User size={20} />
               </Link>
             )}
 
@@ -358,7 +359,7 @@ export default function Navbar() {
               href="/cart"
               className="text-white hover:text-yellow-400 transition-colors relative"
             >
-              🛒
+              <ShoppingCart size={20} />
               {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
                   {cartCount}
@@ -373,13 +374,13 @@ export default function Navbar() {
               onClick={() => setSearchOpen(!searchOpen)}
               className="text-white hover:text-yellow-400 transition-colors"
             >
-              🔍
+              <Search size={20} />
             </button>
             <Link
               href="/cart"
               className="text-white hover:text-yellow-400 transition-colors relative"
             >
-              🛒
+              <ShoppingCart size={20} />
               {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
                   {cartCount}
@@ -499,7 +500,7 @@ export default function Navbar() {
                 <img
                   src="/gift-card.svg"
                   alt="Gift Card"
-                  className="h-10 w-auto"
+                  className="h-8 w-auto"
                 />
               </Link>
             </div>
@@ -512,7 +513,7 @@ export default function Navbar() {
                 onClick={closeMobileMenu}
                 className="flex items-center gap-3 text-white hover:text-yellow-400 transition-colors"
               >
-                <span className="text-xl">👤</span>
+                <User size={20} />
                 <span className="text-lg font-bold">ACCOUNT</span>
               </Link>
             ) : (
@@ -521,7 +522,7 @@ export default function Navbar() {
                 onClick={closeMobileMenu}
                 className="flex items-center gap-3 text-white hover:text-yellow-400 transition-colors"
               >
-                <span className="text-xl">👤</span>
+                <User size={20} />
                 <span className="text-lg font-bold">LOG IN</span>
               </Link>
             )}

@@ -254,11 +254,11 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent z-10"></div>
           <div className="relative z-20 text-center p-8">
-            <h2 className="text-white text-2xl md:text-4xl font-bold mb-4">
+            <h2 className="text-white text-2xl md:text-4xl font-bold mb-1">
               SPORTS
             </h2>
-            <p className="text-yellow-400 text-xs md:text-sm mb-6">
-              Shop Our Unbeatable Prices!
+            <p className="text-yellow-400 text-xs md:text-sm font-semibold mb-6">
+              Shop Unbeatable Prices!
             </p>
             <span className="bg-yellow-400 text-black font-bold px-6 py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap rounded-full">
               Shop Sports →
@@ -278,11 +278,11 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-gradient-to-l from-black/10 to-transparent z-10"></div>
           <div className="relative z-20 text-center p-8">
-            <h2 className="text-white text-2xl md:text-4xl font-bold mb-4">
+            <h2 className="text-white text-2xl md:text-4xl font-bold mb-1">
               TCG
             </h2>
-            <p className="text-yellow-400 text-xs md:text-sm mb-6">
-              Unleash Your Ultimate Deck!
+            <p className="text-yellow-400 text-xs md:text-sm font-semibold mb-6">
+              Unleash Ultimate Deck!
             </p>
             <span className="bg-yellow-400 text-black font-bold px-6 py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap rounded-full">
               Shop TCG →
@@ -317,28 +317,28 @@ export default function Home() {
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent z-10"></div>
         <div className="relative z-20 max-w-7xl mx-auto">
-          <h2 className="text-white text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-white text-4xl md:text-5xl font-bold mb-4 [text-shadow:2px_2px_4px_rgba(0,0,0,0.8)]">
             Want to shop
             <br />
             in person?
           </h2>
-          <p className="text-white text-xl font-semibold mb-4">
+          <p className="text-white text-xl font-semibold mb-4 [text-shadow:2px_2px_4px_rgba(0,0,0,0.8)]">
             Visit us at the store!
           </p>
           <div className="mb-8">
-            <p className="text-black text-sm font-bold">
+            <p className="text-white text-sm font-bold [text-shadow:2px_2px_4px_rgba(0,0,0,0.8)]">
               2527 W Kennewick Ave, Kennewick, WA 99336
             </p>
-            <p className="text-black text-sm font-bold mt-1">
+            <p className="text-white text-sm font-bold mt-4 [text-shadow:2px_2px_4px_rgba(0,0,0,0.8)]">
               Mon - Sat: 11:00 AM - 6:00 PM
             </p>
-            <p className="text-black text-sm font-bold">
+            <p className="text-white text-sm font-bold [text-shadow:2px_2px_4px_rgba(0,0,0,0.8)]">
               Sunday: 12:00 PM - 4:00 PM
             </p>
           </div>
           <Link
             href="/shop-info/location"
-            className="inline-block bg-black text-yellow-400 font-bold px-8 py-4 rounded-full hover:bg-yellow-400 hover:text-black transition-colors border border-yellow-400 hover:border-black"
+            className="inline-block bg-black text-yellow-400 font-bold px-6 py-4 rounded-xl hover:bg-yellow-400 hover:text-black transition-colors border border-yellow-400 hover:border-black -mt-3"
           >
             Location & Directions
           </Link>

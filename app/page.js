@@ -241,22 +241,27 @@ export default function Home() {
 
   return (
     <div className="bg-black">
-      <section className="grid grid-cols-2 gap-0">
+      <section className="grid grid-cols-2 gap-4 px-4 py-4">
         <Link
           href="/sports"
           onClick={() => handlePreference("sports")}
-          className="relative h-96 bg-gray-900 flex items-center justify-center overflow-hidden group"
+          className="relative h-96 flex items-center justify-center overflow-hidden group rounded-2xl"
+          style={{
+            backgroundImage: "url('/sports-banner.svg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent z-10"></div>
           <div className="relative z-20 text-center p-8">
             <h2 className="text-white text-2xl md:text-4xl font-bold mb-4">
-              Sports
+              SPORTS
             </h2>
             <p className="text-yellow-400 text-sm md:text-lg mb-6">
               Shop Our Unbeatable Prices!
             </p>
-            <span className="bg-yellow-400 text-black font-bold px-4 py-2 md:px-6 md:py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap">
-              Shop Sports
+            <span className="bg-yellow-400 text-black font-bold px-6 py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap rounded-full">
+              Shop Sports →
             </span>
           </div>
         </Link>
@@ -264,9 +269,14 @@ export default function Home() {
         <Link
           href="/tcg"
           onClick={() => handlePreference("tcg")}
-          className="relative h-96 bg-gray-800 flex items-center justify-center overflow-hidden group"
+          className="relative h-96 flex items-center justify-center overflow-hidden group rounded-2xl"
+          style={{
+            backgroundImage: "url('/tcg-banner.svg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
-          <div className="absolute inset-0 bg-gradient-to-l from-black/60 to-transparent z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-l from-black/10 to-transparent z-10"></div>
           <div className="relative z-20 text-center p-8">
             <h2 className="text-white text-2xl md:text-4xl font-bold mb-4">
               TCG
@@ -274,8 +284,8 @@ export default function Home() {
             <p className="text-yellow-400 text-sm md:text-lg mb-6">
               Unleash Your Ultimate Deck!
             </p>
-            <span className="bg-yellow-400 text-black font-bold px-4 py-2 md:px-6 md:py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap">
-              Shop TCG
+            <span className="bg-yellow-400 text-black font-bold px-6 py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap rounded-full">
+              Shop TCG →
             </span>
           </div>
         </Link>

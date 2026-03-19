@@ -13,6 +13,41 @@ function convertBigInt(obj) {
   );
 }
 
+function parseItem(item) {
+  const variations = item.itemData?.variations || [];
+  const regularVariation = variations.find(
+    (v) => v.itemVariationData?.name?.toLowerCase() === "regular",
+  );
+  const saleVariation = variations.find(
+    (v) => v.itemVariationData?.name?.toLowerCase() === "sale",
+  );
+  const regularPrice = regularVariation?.itemVariationData?.priceMoney?.amount;
+  const salePrice = saleVariation?.itemVariationData?.priceMoney?.amount;
+
+  const price = salePrice
+    ? `$${(parseInt(salePrice) / 100).toFixed(2)}`
+    : regularPrice
+      ? `$${(parseInt(regularPrice) / 100).toFixed(2)}`
+      : "Price unavailable";
+
+  return {
+    id: item.id,
+    name: item.itemData?.name || "Unknown Product",
+    price,
+    imageId: item.itemData?.imageIds?.[0] || null,
+  };
+}
+
+async function getCategoryIdsForQuery(query, allCategories) {
+  const words = query.trim().toLowerCase().split(/\s+/);
+  return allCategories
+    .filter((cat) => {
+      const catName = cat.categoryData?.name?.toLowerCase() || "";
+      return words.some((word) => catName.includes(word));
+    })
+    .map((cat) => cat.id);
+}
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -22,32 +57,63 @@ export async function GET(request) {
       return Response.json({ items: [] });
     }
 
-    const response = await client.catalog.search({
-      objectTypes: ["ITEM"],
-      query: {
-        textQuery: {
-          keywords: [query],
+    const seenIds = new Set();
+    const allItems = [];
+
+    // Step 1: Search by product name keywords
+    const words = query
+      .trim()
+      .split(/\s+/)
+      .filter((w) => w.length > 1);
+
+    for (const word of words) {
+      const response = await client.catalog.search({
+        objectTypes: ["ITEM"],
+        query: {
+          textQuery: {
+            keywords: [word],
+          },
         },
-      },
-    });
+      });
 
-    const raw = convertBigInt(response);
-    const items = (raw.objects || []).map((item) => {
-      const variation = item.itemData?.variations?.[0];
-      const priceAmount = variation?.itemVariationData?.priceMoney?.amount;
-      const price = priceAmount
-        ? `$${(parseInt(priceAmount) / 100).toFixed(2)}`
-        : "Price unavailable";
+      const raw = convertBigInt(response);
+      for (const item of raw.objects || []) {
+        if (!seenIds.has(item.id)) {
+          seenIds.add(item.id);
+          allItems.push(parseItem(item));
+        }
+      }
+    }
 
-      return {
-        id: item.id,
-        name: item.itemData?.name || "Unknown Product",
-        price,
-        imageId: item.itemData?.imageIds?.[0] || null,
-      };
-    });
+    // Step 2: Search by category match
+    const catResponse = await client.catalog.list({ types: ["CATEGORY"] });
+    const catRaw = convertBigInt(catResponse);
+    const allCategories = catRaw.data || [];
 
-    return Response.json({ items });
+    const matchingCategoryIds = await getCategoryIdsForQuery(
+      query,
+      allCategories,
+    );
+
+    if (matchingCategoryIds.length > 0) {
+      const itemResponse = await client.catalog.list({ types: ["ITEM"] });
+      const itemRaw = convertBigInt(itemResponse);
+      const allSquareItems = itemRaw.data || [];
+
+      for (const item of allSquareItems) {
+        const itemCategoryIds =
+          item.itemData?.categories?.map((c) => c.id) || [];
+        const matches = itemCategoryIds.some((id) =>
+          matchingCategoryIds.includes(id),
+        );
+        if (matches && !seenIds.has(item.id)) {
+          seenIds.add(item.id);
+          allItems.push(parseItem(item));
+        }
+      }
+    }
+
+    return Response.json({ items: allItems });
   } catch (error) {
     console.error("Square search error:", error);
     return Response.json(

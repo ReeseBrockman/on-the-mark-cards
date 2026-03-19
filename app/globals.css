@@ -51,3 +51,8 @@
 button {
   background-color: transparent;
 }
+
+* {
+  font-family: "futura-pt-demi", sans-serif;
+  font-style: oblique;
+}

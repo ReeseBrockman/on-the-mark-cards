@@ -112,7 +112,10 @@ function BannerCarousel() {
   const handleDragEnd = (e) => {
     if (!isDragging.current) return;
     isDragging.current = false;
-    const endX = e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX;
+    const endX =
+      e.type === "mouseup" || e.type === "mouseleave"
+        ? e.clientX
+        : (e.changedTouches?.[0]?.clientX ?? dragStartX.current);
     const diff = dragStartX.current - endX;
 
     setTransitioning(true);

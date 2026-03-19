@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { supabase } from "../lib/supabase";
 import Link from "next/link";
+import { LayoutDashboard, Gift, LogOut } from "lucide-react";
 
 export default function AccountPage() {
   const [user, setUser] = useState(null);
@@ -77,28 +78,26 @@ export default function AccountPage() {
                 href="/account"
                 className={`flex items-center gap-3 px-3 py-2 text-sm transition-colors ${pathname === "/account" ? "text-yellow-400 font-bold" : "text-gray-400 hover:text-white"}`}
               >
-                <span>⌂</span> Dashboard
+                <LayoutDashboard size={16} /> Dashboard
               </Link>
               <Link
                 href="/account/gift-cards"
                 className={`flex items-center gap-3 px-3 py-2 text-sm transition-colors ${pathname === "/account/gift-cards" ? "text-yellow-400 font-bold" : "text-gray-400 hover:text-white"}`}
               >
-                <span>🎁</span> Gift Cards & Credit
+                <Gift size={16} /> Gift Cards & Credit
               </Link>
               <button
                 onClick={handleSignOut}
                 className="flex items-center gap-3 px-3 py-2 text-sm text-gray-400 hover:text-red-400 transition-colors text-left mt-8"
               >
-                <span>→</span> Sign Out
+                <LogOut size={16} /> Sign Out
               </button>
             </nav>
           </div>
 
           {/* Right Content */}
           <div className="flex-1">
-            {/* Account Info + Address */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-              {/* Account Info */}
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-white text-xl font-bold">Account Info</h2>
@@ -113,7 +112,6 @@ export default function AccountPage() {
                 </div>
               </div>
 
-              {/* Default Address */}
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-white text-xl font-bold">
@@ -128,7 +126,6 @@ export default function AccountPage() {
               </div>
             </div>
 
-            {/* Order History */}
             <div>
               <h2 className="text-white text-xl font-bold mb-4">
                 Order History

@@ -199,7 +199,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Hamburger - mobile only */}
           <button
-            className="md:hidden text-white hover:text-yellow-400 transition-colors p-2 border border-gray-700 rounded"
+            className="md:hidden text-white hover:text-yellow-400 transition-colors p-2 border border-yellow-400 rounded"
             onClick={() => setMobileMenuOpen(true)}
           >
             <div className="flex flex-col gap-1">

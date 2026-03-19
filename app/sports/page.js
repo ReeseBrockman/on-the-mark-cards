@@ -10,6 +10,7 @@ import ProductCard from "@/components/ProductCard";
 const bannerSlides = [
   {
     image: "/sports-banner-1.png",
+    mobileImage: "/sports-banner-1-mobile.png",
     title: "Prizm Season Is Here",
     subtitle: "Grab Your Boxes While They Last!",
     buttonText: "Shop Now",
@@ -20,6 +21,7 @@ const bannerSlides = [
   },
   {
     image: "/sports-banner-2.png",
+    mobileImage: "/sports-banner-2-mobile.png",
     title: "2026 Topps Baseball Series 1",
     subtitle: "Available Now — Shop Baseball",
     buttonText: "Shop Now",
@@ -31,14 +33,20 @@ const bannerSlides = [
 ];
 
 function BannerCarousel() {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(1);
   const [transitioning, setTransitioning] = useState(true);
+  const [dragOffset, setDragOffset] = useState(0);
   const autoTimer = useRef(null);
   const resumeTimer = useRef(null);
   const dragStartX = useRef(null);
   const isDragging = useRef(false);
+  const containerRef = useRef(null);
 
-  const slides = [...bannerSlides, bannerSlides[0]];
+  const slides = [
+    bannerSlides[bannerSlides.length - 1],
+    ...bannerSlides,
+    bannerSlides[0],
+  ];
 
   const startAutoPlay = () => {
     clearInterval(autoTimer.current);
@@ -57,19 +65,30 @@ function BannerCarousel() {
 
   const goNext = () => {
     setTransitioning(true);
+    setDragOffset(0);
     setCurrent((prev) => prev + 1);
   };
 
   const goPrev = () => {
     setTransitioning(true);
-    setCurrent((prev) => Math.max(prev - 1, 0));
+    setDragOffset(0);
+    setCurrent((prev) => prev - 1);
   };
 
   useEffect(() => {
     if (current === slides.length - 1) {
       const timeout = setTimeout(() => {
         setTransitioning(false);
-        setCurrent(0);
+        setDragOffset(0);
+        setCurrent(1);
+      }, 500);
+      return () => clearTimeout(timeout);
+    }
+    if (current === 0) {
+      const timeout = setTimeout(() => {
+        setTransitioning(false);
+        setDragOffset(0);
+        setCurrent(slides.length - 2);
       }, 500);
       return () => clearTimeout(timeout);
     }
@@ -79,8 +98,15 @@ function BannerCarousel() {
     dragStartX.current =
       e.type === "mousedown" ? e.clientX : e.touches[0].clientX;
     isDragging.current = true;
+    setTransitioning(false);
     clearInterval(autoTimer.current);
     clearTimeout(resumeTimer.current);
+  };
+
+  const handleDragMove = (e) => {
+    if (!isDragging.current) return;
+    const clientX = e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
+    setDragOffset(clientX - dragStartX.current);
   };
 
   const handleDragEnd = (e) => {
@@ -88,53 +114,82 @@ function BannerCarousel() {
     isDragging.current = false;
     const endX = e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX;
     const diff = dragStartX.current - endX;
+
+    setTransitioning(true);
+    setDragOffset(0);
+
     if (Math.abs(diff) > 50) {
       if (diff > 0) goNext();
       else goPrev();
     }
-    resumeTimer.current = setTimeout(() => startAutoPlay(), 3000);
+
+    resumeTimer.current = setTimeout(() => startAutoPlay(), 1500);
   };
+
+  const containerWidth = containerRef.current?.offsetWidth || 1;
+  const translateX = -(current * 100) + (dragOffset / containerWidth) * 100;
 
   return (
     <div
+      ref={containerRef}
       className="relative w-full h-80 md:h-96 overflow-hidden bg-gray-900 cursor-grab active:cursor-grabbing select-none"
       onMouseDown={handleDragStart}
+      onMouseMove={handleDragMove}
       onMouseUp={handleDragEnd}
+      onMouseLeave={handleDragEnd}
       onTouchStart={handleDragStart}
+      onTouchMove={handleDragMove}
       onTouchEnd={handleDragEnd}
     >
       <div
         className="flex h-full"
         style={{
-          transform: `translateX(-${current * 100}%)`,
+          transform: `translateX(${translateX}%)`,
           transition: transitioning ? "transform 500ms ease-in-out" : "none",
         }}
       >
         {slides.map((slide, i) => (
           <div key={i} className="relative h-full flex-shrink-0 w-screen">
+            {/* Mobile image */}
+            <img
+              src={slide.mobileImage}
+              alt={slide.title}
+              className="absolute inset-0 w-full h-full object-cover md:hidden"
+              draggable={false}
+            />
+            {/* Desktop image */}
             <img
               src={slide.image}
               alt={slide.title}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover hidden md:block"
               draggable={false}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-10"></div>
-            <div className="absolute inset-0 z-20 flex flex-col justify-center px-20 md:px-32">
+
+            {/* Text and button overlay */}
+            <div className="absolute inset-0 z-20 flex flex-col justify-center px-0 md:px-32">
+              {/* Title - desktop only */}
               <h2
-                className={`text-2xl md:text-4xl font-bold mb-2 ${slide.titleColor}`}
+                className={`hidden md:block text-2xl md:text-4xl font-bold mb-2 ${slide.titleColor}`}
               >
                 {slide.title}
               </h2>
-              <p className={`text-sm md:text-base mb-3 ${slide.subtitleColor}`}>
+              {/* Subtitle - desktop only */}
+              <p
+                className={`hidden md:block text-sm md:text-base mb-3 ${slide.subtitleColor}`}
+              >
                 {slide.subtitle}
               </p>
-              <Link
-                href={slide.buttonHref}
-                className={`inline-block font-bold px-6 py-3 rounded-full transition-colors w-fit ${slide.buttonBg}`}
-                draggable={false}
-              >
-                {slide.buttonText}
-              </Link>
+              {/* Button - centered on mobile, left on desktop */}
+              <div className="flex justify-center md:block mt-60 md:mt-0">
+                <Link
+                  href={slide.buttonHref}
+                  className={`inline-block font-bold px-6 py-3 rounded-full transition-colors w-fit ${slide.buttonBg}`}
+                  draggable={false}
+                >
+                  {slide.buttonText}
+                </Link>
+              </div>
             </div>
           </div>
         ))}
@@ -160,10 +215,10 @@ function BannerCarousel() {
             key={i}
             onClick={() => {
               setTransitioning(true);
-              setCurrent(i);
+              setCurrent(i + 1);
             }}
             className={`w-2.5 h-2.5 rounded-full transition-colors ${
-              current % bannerSlides.length === i
+              (current - 1 + bannerSlides.length) % bannerSlides.length === i
                 ? "bg-yellow-400"
                 : "bg-white/50 hover:bg-white"
             }`}

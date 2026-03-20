@@ -23,9 +23,9 @@ const bannerSlides = [
     image: "/tcg-banner-2.jpg",
     mobileImage: "/tcg-banner-2-mobile.jpg",
     title: "Traverse The Twin<br />Faces of Fate",
-    subtitle: "Get Lorwyn Eclipsed Befire Its Gone!",
+    subtitle: "Get Lorwyn Eclipsed Before Its Gone!",
     buttonText: "Shop Now",
-    buttonHref: "/tcg?category=Pokemon",
+    buttonHref: "/tcg?category=Magic The Gathering",
     titleColor: "text-white",
     subtitleColor: "text-white font-semibold",
     buttonBg: "bg-blue-300 hover:bg-white text-white hover:text-black",
@@ -277,22 +277,51 @@ function ProductSlider({ title, category, viewAllHref }) {
 }
 
 const tcgBrands = [
-  "All",
-  "Pokemon",
-  "Magic The Gathering",
-  "One Piece",
-  "Lorcana",
+  { label: "All", icon: null, iconBlack: null },
+  {
+    label: "Pokemon",
+    icon: "/icons/icon-coll-pokemon.svg",
+    iconBlack: "/icons/icon-coll-pokemon-black.svg",
+  },
+  {
+    label: "Magic The Gathering",
+    icon: "/icons/icon-coll-mtg.svg",
+    iconBlack: "/icons/icon-coll-mtg-black.svg",
+  },
+  {
+    label: "One Piece",
+    icon: "/icons/icon-coll-onp.svg",
+    iconBlack: "/icons/icon-coll-onp-black.svg",
+  },
+  {
+    label: "Lorcana",
+    icon: "/icons/icon-coll-disney.svg",
+    iconBlack: "/icons/icon-coll-disney-black.svg",
+  },
 ];
 
 function TCGContent() {
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
   const [selected, setSelected] = useState(
-    urlCategory && tcgBrands.includes(urlCategory) ? urlCategory : "All",
+    urlCategory && tcgBrands.some((b) => b.label === urlCategory)
+      ? urlCategory
+      : "All",
   );
+  const [hoveredBrand, setHoveredBrand] = useState(null);
+
+  // Preload black icons so hover swap is instant
+  useEffect(() => {
+    tcgBrands.forEach((brand) => {
+      if (brand.iconBlack) {
+        const img = new Image();
+        img.src = brand.iconBlack;
+      }
+    });
+  }, []);
 
   useEffect(() => {
-    if (urlCategory && tcgBrands.includes(urlCategory)) {
+    if (urlCategory && tcgBrands.some((b) => b.label === urlCategory)) {
       setSelected(urlCategory);
     } else if (!urlCategory) {
       setSelected("All");
@@ -314,11 +343,26 @@ function TCGContent() {
           <div className="flex gap-3 mb-10 flex-wrap">
             {tcgBrands.map((brand) => (
               <button
-                key={brand}
-                onClick={() => setSelected(brand)}
-                className={pillClass(selected === brand)}
+                key={brand.label}
+                onClick={() => setSelected(brand.label)}
+                onMouseEnter={() => setHoveredBrand(brand.label)}
+                onMouseLeave={() => setHoveredBrand(null)}
+                className={pillClass(selected === brand.label)}
               >
-                {brand}
+                <span className="flex items-center gap-2">
+                  {brand.icon && (
+                    <img
+                      src={
+                        hoveredBrand === brand.label
+                          ? brand.iconBlack
+                          : brand.icon
+                      }
+                      alt={brand.label}
+                      className="h-4 w-auto"
+                    />
+                  )}
+                  {brand.label}
+                </span>
               </button>
             ))}
           </div>

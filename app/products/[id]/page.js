@@ -11,6 +11,7 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedVariation, setSelectedVariation] = useState(null);
 
   useEffect(() => {
     async function fetchProduct() {
@@ -25,6 +26,9 @@ export default function ProductPage() {
 
         setProduct(data.product);
         setSelectedImage(data.product.images?.[0] || null);
+        if (data.product.variations?.length > 0) {
+          setSelectedVariation(data.product.variations[0]);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -50,6 +54,11 @@ export default function ProductPage() {
       </div>
     );
   }
+
+  const hasVariations = product.variations?.length > 0;
+  const currentPrice = selectedVariation
+    ? selectedVariation.price
+    : product.price;
 
   return (
     <div className="bg-black min-h-screen py-12 px-4">
@@ -114,7 +123,7 @@ export default function ProductPage() {
             </h1>
             <div className="flex items-center gap-3 mb-6">
               <p className="text-yellow-400 text-2xl font-bold">
-                {product.price}
+                {currentPrice}
               </p>
               {product.originalPrice && (
                 <p className="text-gray-500 text-lg line-through">
@@ -129,11 +138,47 @@ export default function ProductPage() {
               </p>
             )}
 
+            {/* Variation selector */}
+            {hasVariations && (
+              <div className="mb-6">
+                <p className="text-white text-sm font-bold mb-3">
+                  {selectedVariation
+                    ? `Selected: ${selectedVariation.name}`
+                    : "Select an option"}
+                </p>
+                <div className="flex gap-2 flex-wrap">
+                  {product.variations.map((variation) => (
+                    <button
+                      key={variation.id}
+                      onClick={() => {
+                        setSelectedVariation(variation);
+                        const variationIndex =
+                          product.variations.indexOf(variation);
+                        if (product.images?.[variationIndex]) {
+                          setSelectedImage(product.images[variationIndex]);
+                        }
+                      }}
+                      className={`px-4 py-2 text-sm font-bold border rounded-lg transition-colors ${
+                        selectedVariation?.id === variation.id
+                          ? "!bg-yellow-400 !text-black border-yellow-400"
+                          : "!bg-black !text-yellow-400 border-yellow-400 hover:!bg-yellow-400 hover:!text-black"
+                      }`}
+                    >
+                      {variation.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <AddToCartButton
               product={{
-                id: product.id,
-                name: product.name,
-                price: product.price,
+                id: selectedVariation ? selectedVariation.id : product.id,
+                name: selectedVariation
+                  ? `${product.name} - ${selectedVariation.name}`
+                  : product.name,
+                price: currentPrice,
+                imageUrl: selectedImage,
                 images: product.images,
               }}
               className="w-full text-lg py-4"

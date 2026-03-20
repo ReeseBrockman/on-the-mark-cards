@@ -253,7 +253,7 @@ export default function Navbar() {
                 )}
 
                 {openDropdown === item.label && item.sections.length > 0 && (
-                  <div className="absolute top-full left-0 bg-black border border-yellow-400 p-4 flex gap-8 z-50 min-w-max">
+                  <div className="absolute top-full left-0 bg-black border border-yellow-400 p-4 flex gap-8 z-50 min-w-max rounded-xl">
                     {item.sections.map((section) => (
                       <div key={section.title}>
                         <p className="text-yellow-400 text-xs font-bold mb-2 tracking-widest">
@@ -302,7 +302,7 @@ export default function Navbar() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search products..."
-                    className="bg-gray-900 text-white text-sm px-3 py-1 border border-yellow-400 outline-none w-48"
+                    className="bg-gray-900 text-white text-sm px-3 py-1 border border-yellow-400 outline-none w-48 rounded-xl"
                     onBlur={() => {
                       if (!searchQuery) setSearchOpen(false);
                     }}
@@ -400,7 +400,7 @@ export default function Navbar() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search products..."
-                className="flex-1 bg-gray-900 text-white text-sm px-3 py-2 border border-yellow-400 outline-none"
+                className="flex-1 bg-gray-900 text-white text-sm px-3 py-2 border border-yellow-400 outline-none rounded-lg"
               />
               <button
                 type="submit"

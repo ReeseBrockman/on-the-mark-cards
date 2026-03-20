@@ -112,7 +112,10 @@ function BannerCarousel() {
   const handleDragEnd = (e) => {
     if (!isDragging.current) return;
     isDragging.current = false;
-    const endX = e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX;
+    const endX =
+      e.type === "mouseup" || e.type === "mouseleave"
+        ? e.clientX
+        : (e.changedTouches?.[0]?.clientX ?? dragStartX.current);
     const diff = dragStartX.current - endX;
 
     setTransitioning(true);
@@ -150,14 +153,12 @@ function BannerCarousel() {
       >
         {slides.map((slide, i) => (
           <div key={i} className="relative h-full flex-shrink-0 w-screen">
-            {/* Mobile image */}
             <img
               src={slide.mobileImage}
               alt={slide.title}
               className="absolute inset-0 w-full h-full object-cover md:hidden"
               draggable={false}
             />
-            {/* Desktop image */}
             <img
               src={slide.image}
               alt={slide.title}
@@ -165,23 +166,16 @@ function BannerCarousel() {
               draggable={false}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-10"></div>
-
-            {/* Text and button overlay */}
-            <div className="absolute inset-0 z-20 flex flex-col justify-center px-0 md:px-32">
-              {/* Title - desktop only */}
+            <div className="absolute inset-0 z-20 flex flex-col justify-center px-0 md:px-16">
               <h2
                 className={`hidden md:block text-2xl md:text-4xl font-bold mb-2 ${slide.titleColor}`}
-              >
-                {slide.title}
-              </h2>
-              {/* Subtitle - desktop only */}
+                dangerouslySetInnerHTML={{ __html: slide.title }}
+              />
               <p
-                className={`hidden md:block text-sm md:text-base mb-3 ${slide.subtitleColor}`}
-              >
-                {slide.subtitle}
-              </p>
-              {/* Button - centered on mobile, left on desktop */}
-              <div className="flex justify-center md:block mt-60 md:mt-0">
+                className={`hidden md:block text-sm md:text-base -mb-2 mt-4 ${slide.subtitleColor}`}
+                dangerouslySetInnerHTML={{ __html: slide.subtitle }}
+              />
+              <div className="flex justify-center md:block mt-0 md:mt-10">
                 <Link
                   href={slide.buttonHref}
                   className={`inline-block font-bold px-6 py-3 rounded-full transition-colors w-fit ${slide.buttonBg}`}
@@ -282,17 +276,47 @@ function ProductSlider({ title, category, viewAllHref }) {
   );
 }
 
-const sports = ["All", "Baseball", "Basketball", "Football"];
+const sports = [
+  { label: "All", icon: null, iconBlack: null },
+  {
+    label: "Baseball",
+    icon: "/icons/icon-baseball.svg",
+    iconBlack: "/icons/icon-baseball-black.svg",
+  },
+  {
+    label: "Basketball",
+    icon: "/icons/icon-basketball.svg",
+    iconBlack: "/icons/icon-basketball-black.svg",
+  },
+  {
+    label: "Football",
+    icon: "/icons/icon-football.svg",
+    iconBlack: "/icons/icon-football-black.svg",
+  },
+];
 
 function SportsContent() {
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
   const [selected, setSelected] = useState(
-    urlCategory && sports.includes(urlCategory) ? urlCategory : "All",
+    urlCategory && sports.some((s) => s.label === urlCategory)
+      ? urlCategory
+      : "All",
   );
+  const [hoveredSport, setHoveredSport] = useState(null);
+
+  // Preload black icons so hover swap is instant
+  useEffect(() => {
+    sports.forEach((sport) => {
+      if (sport.iconBlack) {
+        const img = new Image();
+        img.src = sport.iconBlack;
+      }
+    });
+  }, []);
 
   useEffect(() => {
-    if (urlCategory && sports.includes(urlCategory)) {
+    if (urlCategory && sports.some((s) => s.label === urlCategory)) {
       setSelected(urlCategory);
     } else if (!urlCategory) {
       setSelected("All");
@@ -314,11 +338,26 @@ function SportsContent() {
           <div className="flex gap-3 mb-10 flex-wrap">
             {sports.map((sport) => (
               <button
-                key={sport}
-                onClick={() => setSelected(sport)}
-                className={pillClass(selected === sport)}
+                key={sport.label}
+                onClick={() => setSelected(sport.label)}
+                onMouseEnter={() => setHoveredSport(sport.label)}
+                onMouseLeave={() => setHoveredSport(null)}
+                className={pillClass(selected === sport.label)}
               >
-                {sport}
+                <span className="flex items-center gap-2">
+                  {sport.icon && (
+                    <img
+                      src={
+                        hoveredSport === sport.label
+                          ? sport.iconBlack
+                          : sport.icon
+                      }
+                      alt={sport.label}
+                      className="h-4 w-auto"
+                    />
+                  )}
+                  {sport.label}
+                </span>
               </button>
             ))}
           </div>

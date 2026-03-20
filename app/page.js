@@ -40,7 +40,6 @@ function ProductSlider({ title, category, viewAllHref }) {
           {visibleProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-
           {viewAllHref && (
             <Link
               href={viewAllHref}
@@ -59,6 +58,75 @@ function ProductSlider({ title, category, viewAllHref }) {
           )}
         </div>
       )}
+    </section>
+  );
+}
+
+function OnSaleSlider({ title, category, viewAllHref, backgroundVideo }) {
+  const { products, loading } = useProducts(category);
+  const visibleProducts = products.slice(0, 10);
+
+  return (
+    <section className="relative py-10 overflow-hidden">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src={backgroundVideo} type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-black/60 z-0"></div>
+
+      <div className="relative z-10 px-4 max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-white text-2xl font-bold border-l-4 border-yellow-400 pl-4">
+            {title}
+          </h2>
+        </div>
+
+        {loading && (
+          <div className="flex gap-4 overflow-x-auto pb-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="min-w-[200px] bg-gray-900 border border-gray-800 p-4 rounded animate-pulse"
+              >
+                <div className="bg-gray-800 h-48 mb-3 rounded"></div>
+                <div className="bg-gray-800 h-4 rounded mb-2"></div>
+                <div className="bg-gray-800 h-4 w-16 rounded"></div>
+              </div>
+            ))}
+          </div>
+        )}
+        {!loading && products.length === 0 && (
+          <p className="text-gray-500 text-sm">No products found.</p>
+        )}
+        {!loading && products.length > 0 && (
+          <div className="flex gap-4 overflow-x-auto pb-4">
+            {visibleProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+            {viewAllHref && (
+              <Link
+                href={viewAllHref}
+                className="w-48 flex-shrink-0 bg-gray-900 border border-gray-800 hover:border-yellow-400 transition-colors rounded flex flex-col items-center justify-center gap-3 min-h-[260px] group"
+              >
+                <span className="text-4xl text-yellow-400 group-hover:scale-110 transition-transform">
+                  →
+                </span>
+                <span className="text-white text-sm font-bold text-center px-3">
+                  View All {title}
+                </span>
+                <span className="text-yellow-400 text-xs font-bold border border-yellow-400 px-3 py-1 rounded-full group-hover:bg-yellow-400 group-hover:text-black transition-colors">
+                  View All
+                </span>
+              </Link>
+            )}
+          </div>
+        )}
+      </div>
     </section>
   );
 }
@@ -117,13 +185,47 @@ function InstagramSection() {
   );
 }
 
-const SPORTS_PILLS = ["All", "Baseball", "Basketball", "Football"];
+const SPORTS_PILLS = [
+  { label: "All", icon: null, iconBlack: null },
+  {
+    label: "Baseball",
+    icon: "/icons/icon-baseball.svg",
+    iconBlack: "/icons/icon-baseball-black.svg",
+  },
+  {
+    label: "Basketball",
+    icon: "/icons/icon-basketball.svg",
+    iconBlack: "/icons/icon-basketball-black.svg",
+  },
+  {
+    label: "Football",
+    icon: "/icons/icon-football.svg",
+    iconBlack: "/icons/icon-football-black.svg",
+  },
+];
+
 const TCG_PILLS = [
-  "All",
-  "Pokemon",
-  "Magic The Gathering",
-  "One Piece",
-  "Lorcana",
+  { label: "All", icon: null, iconBlack: null },
+  {
+    label: "Pokemon",
+    icon: "/icons/icon-coll-pokemon.svg",
+    iconBlack: "/icons/icon-coll-pokemon-black.svg",
+  },
+  {
+    label: "Magic The Gathering",
+    icon: "/icons/icon-coll-mtg.svg",
+    iconBlack: "/icons/icon-coll-mtg-black.svg",
+  },
+  {
+    label: "One Piece",
+    icon: "/icons/icon-coll-onp.svg",
+    iconBlack: "/icons/icon-coll-onp-black.svg",
+  },
+  {
+    label: "Lorcana",
+    icon: "/icons/icon-coll-disney.svg",
+    iconBlack: "/icons/icon-coll-disney-black.svg",
+  },
 ];
 
 const SPORTS_SLABS_CATEGORY = {
@@ -158,17 +260,39 @@ const TCG_SEALED_CATEGORY = {
 
 function SportsSection() {
   const [selected, setSelected] = useState("All");
+  const [hovered, setHovered] = useState(null);
+
+  // Preload black icons
+  useEffect(() => {
+    SPORTS_PILLS.forEach((pill) => {
+      if (pill.iconBlack) {
+        const img = new Image();
+        img.src = pill.iconBlack;
+      }
+    });
+  }, []);
 
   return (
     <div>
       <div className="px-4 max-w-7xl mx-auto pt-10 flex gap-2 flex-wrap">
         {SPORTS_PILLS.map((pill) => (
           <button
-            key={pill}
-            onClick={() => setSelected(pill)}
-            className={pillClass(selected === pill)}
+            key={pill.label}
+            onClick={() => setSelected(pill.label)}
+            onMouseEnter={() => setHovered(pill.label)}
+            onMouseLeave={() => setHovered(null)}
+            className={pillClass(selected === pill.label)}
           >
-            {pill}
+            <span className="flex items-center gap-2">
+              {pill.icon && (
+                <img
+                  src={hovered === pill.label ? pill.iconBlack : pill.icon}
+                  alt={pill.label}
+                  className="h-4 w-auto"
+                />
+              )}
+              {pill.label}
+            </span>
           </button>
         ))}
       </div>
@@ -182,10 +306,11 @@ function SportsSection() {
         category={SPORTS_BOXES_CATEGORY[selected]}
         viewAllHref="/sports"
       />
-      <ProductSlider
+      <OnSaleSlider
         title="Sports On Sale"
         category="Sports On Sale"
         viewAllHref="/sports"
+        backgroundVideo="/sports-sale-banner.mp4"
       />
     </div>
   );
@@ -193,17 +318,39 @@ function SportsSection() {
 
 function TCGSection() {
   const [selected, setSelected] = useState("All");
+  const [hovered, setHovered] = useState(null);
+
+  // Preload black icons
+  useEffect(() => {
+    TCG_PILLS.forEach((pill) => {
+      if (pill.iconBlack) {
+        const img = new Image();
+        img.src = pill.iconBlack;
+      }
+    });
+  }, []);
 
   return (
     <div>
       <div className="px-4 max-w-7xl mx-auto pt-10 flex gap-2 flex-wrap">
         {TCG_PILLS.map((pill) => (
           <button
-            key={pill}
-            onClick={() => setSelected(pill)}
-            className={pillClass(selected === pill)}
+            key={pill.label}
+            onClick={() => setSelected(pill.label)}
+            onMouseEnter={() => setHovered(pill.label)}
+            onMouseLeave={() => setHovered(null)}
+            className={pillClass(selected === pill.label)}
           >
-            {pill}
+            <span className="flex items-center gap-2">
+              {pill.icon && (
+                <img
+                  src={hovered === pill.label ? pill.iconBlack : pill.icon}
+                  alt={pill.label}
+                  className="h-4 w-auto"
+                />
+              )}
+              {pill.label}
+            </span>
           </button>
         ))}
       </div>
@@ -217,10 +364,11 @@ function TCGSection() {
         category={TCG_SEALED_CATEGORY[selected]}
         viewAllHref="/tcg"
       />
-      <ProductSlider
+      <OnSaleSlider
         title="TCG On Sale"
         category="TCG On Sale"
         viewAllHref="/tcg"
+        backgroundVideo="/tcg-sale-banner.mp4"
       />
     </div>
   );
@@ -242,16 +390,21 @@ export default function Home() {
   return (
     <div className="bg-black">
       <section className="grid grid-cols-2 gap-4 px-4 py-4">
+        {/* Sports Hero */}
         <Link
           href="/sports"
           onClick={() => handlePreference("sports")}
-          className="relative h-96 flex items-center justify-center overflow-hidden group rounded-2xl"
-          style={{
-            backgroundImage: "url('/sports-banner.svg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          className="relative h-96 flex items-center justify-center overflow-hidden group rounded-lg"
         >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          >
+            <source src="/sports-hero.mp4" type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent z-10"></div>
           <div className="relative z-20 text-center p-8">
             <h2 className="text-white text-2xl md:text-4xl font-bold mb-1">
@@ -266,16 +419,21 @@ export default function Home() {
           </div>
         </Link>
 
+        {/* TCG Hero */}
         <Link
           href="/tcg"
           onClick={() => handlePreference("tcg")}
-          className="relative h-96 flex items-center justify-center overflow-hidden group rounded-2xl"
-          style={{
-            backgroundImage: "url('/tcg-banner.svg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          className="relative h-96 flex items-center justify-center overflow-hidden group rounded-lg"
         >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          >
+            <source src="/tcg-hero.mp4" type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-gradient-to-l from-black/10 to-transparent z-10"></div>
           <div className="relative z-20 text-center p-8">
             <h2 className="text-white text-2xl md:text-4xl font-bold mb-1">

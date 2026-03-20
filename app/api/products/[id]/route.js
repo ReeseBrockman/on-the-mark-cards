@@ -15,9 +15,7 @@ function convertBigInt(obj) {
 
 async function getImageUrl(imageId) {
   try {
-    const response = await client.catalog.object.get({
-      objectId: imageId,
-    });
+    const response = await client.catalog.object.get({ objectId: imageId });
     const raw = convertBigInt(response);
     return raw.object?.imageData?.url || null;
   } catch {
@@ -27,9 +25,7 @@ async function getImageUrl(imageId) {
 
 async function getCategoryName(categoryId) {
   try {
-    const response = await client.catalog.object.get({
-      objectId: categoryId,
-    });
+    const response = await client.catalog.object.get({ objectId: categoryId });
     const raw = convertBigInt(response);
     return raw.object?.categoryData?.name || null;
   } catch {
@@ -41,10 +37,7 @@ export async function GET(request, { params }) {
   try {
     const { id } = await params;
 
-    const response = await client.catalog.object.get({
-      objectId: id,
-    });
-
+    const response = await client.catalog.object.get({ objectId: id });
     const raw = convertBigInt(response);
     const item = raw.object;
 
@@ -69,20 +62,40 @@ export async function GET(request, { params }) {
       (v) => v.itemVariationData?.name?.toLowerCase() === "sale",
     );
 
-    const regularPrice =
-      regularVariation?.itemVariationData?.priceMoney?.amount;
-    const salePrice = saleVariation?.itemVariationData?.priceMoney?.amount;
+    const isSimpleProduct = regularVariation || saleVariation;
 
-    const price = salePrice
-      ? `$${(parseInt(salePrice) / 100).toFixed(2)}`
-      : regularPrice
-        ? `$${(parseInt(regularPrice) / 100).toFixed(2)}`
-        : "Price unavailable";
+    let price, originalPrice, parsedVariations;
 
-    const originalPrice =
-      salePrice && regularPrice
-        ? `$${(parseInt(regularPrice) / 100).toFixed(2)}`
-        : null;
+    if (isSimpleProduct) {
+      const regularPrice =
+        regularVariation?.itemVariationData?.priceMoney?.amount ??
+        variations[0]?.itemVariationData?.priceMoney?.amount;
+      const salePrice = saleVariation?.itemVariationData?.priceMoney?.amount;
+
+      price = salePrice
+        ? `$${(parseInt(salePrice) / 100).toFixed(2)}`
+        : regularPrice
+          ? `$${(parseInt(regularPrice) / 100).toFixed(2)}`
+          : "Price unavailable";
+
+      originalPrice =
+        salePrice && regularPrice
+          ? `$${(parseInt(regularPrice) / 100).toFixed(2)}`
+          : null;
+
+      parsedVariations = [];
+    } else {
+      parsedVariations = variations.map((v) => ({
+        id: v.id,
+        name: v.itemVariationData?.name || "Unknown",
+        price: v.itemVariationData?.priceMoney?.amount
+          ? `$${(parseInt(v.itemVariationData.priceMoney.amount) / 100).toFixed(2)}`
+          : "Price unavailable",
+      }));
+
+      price = parsedVariations[0]?.price || "Price unavailable";
+      originalPrice = null;
+    }
 
     const product = {
       id: item.id,
@@ -92,6 +105,7 @@ export async function GET(request, { params }) {
       originalPrice,
       images: images.filter(Boolean),
       category,
+      variations: parsedVariations,
     };
 
     return Response.json({ product });

@@ -12,10 +12,10 @@ export default function CartPage() {
     return (
       <div className="bg-black min-h-screen flex flex-col items-center justify-center px-4">
         <h1 className="text-white text-3xl font-bold mb-4">Your Cart</h1>
-        <p className="text-gray-400 text-sm mb-8">Your cart is empty.</p>
+        <p className="text-gray-400 text-sm mb-6">Your cart is empty.</p>
         <Link
           href="/"
-          className="bg-yellow-400 text-black font-bold px-8 py-3 hover:bg-yellow-300 transition-colors"
+          className="bg-yellow-400 text-black font-bold px-8 py-3 hover:bg-yellow-300 rounded-md transition-colors"
         >
           Continue Shopping
         </Link>
@@ -102,19 +102,19 @@ export default function CartPage() {
           <div className="flex flex-col gap-3">
             <Link
               href="/checkout"
-              className="w-full bg-yellow-400 text-black font-bold py-4 text-center hover:bg-yellow-300 transition-colors text-lg"
+              className="w-full bg-yellow-400 text-black font-bold py-4 text-center hover:bg-yellow-300 rounded-md transition-colors text-lg"
             >
               Proceed to Checkout
             </Link>
             <button
               onClick={clearCart}
-              className="w-full border border-gray-700 text-gray-400 font-bold py-3 hover:border-red-400 hover:text-red-400 transition-colors text-sm"
+              className="w-full border border-gray-700 text-gray-400 font-bold py-3 hover:border-red-400 rounded-md hover:text-red-400 transition-colors text-sm"
             >
               Clear Cart
             </button>
             <Link
               href="/"
-              className="w-full text-center text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium py-2"
+              className="w-full text-center text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium py-2 border border-gray-700 rounded-md hover:border-yellow-400"
             >
               Continue Shopping
             </Link>

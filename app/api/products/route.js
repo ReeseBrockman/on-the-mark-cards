@@ -37,7 +37,9 @@ function parseProduct(item) {
     (v) => v.itemVariationData?.name?.toLowerCase() === "sale",
   );
 
-  const regularPrice = regularVariation?.itemVariationData?.priceMoney?.amount;
+  const regularPrice =
+    regularVariation?.itemVariationData?.priceMoney?.amount ??
+    variations[0]?.itemVariationData?.priceMoney?.amount;
   const salePrice = saleVariation?.itemVariationData?.priceMoney?.amount;
 
   const price = salePrice

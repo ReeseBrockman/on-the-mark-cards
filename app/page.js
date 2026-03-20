@@ -262,7 +262,6 @@ function SportsSection() {
   const [selected, setSelected] = useState("All");
   const [hovered, setHovered] = useState(null);
 
-  // Preload black icons
   useEffect(() => {
     SPORTS_PILLS.forEach((pill) => {
       if (pill.iconBlack) {
@@ -310,7 +309,7 @@ function SportsSection() {
         title="Sports On Sale"
         category="Sports On Sale"
         viewAllHref="/sports"
-        backgroundVideo="/sports-sale-banner.mp4"
+        backgroundVideo="https://res.cloudinary.com/dwzjtoilj/video/upload/v1774045925/sports-sale-banner_bxu5h6.mp4"
       />
     </div>
   );
@@ -320,7 +319,6 @@ function TCGSection() {
   const [selected, setSelected] = useState("All");
   const [hovered, setHovered] = useState(null);
 
-  // Preload black icons
   useEffect(() => {
     TCG_PILLS.forEach((pill) => {
       if (pill.iconBlack) {
@@ -368,7 +366,7 @@ function TCGSection() {
         title="TCG On Sale"
         category="TCG On Sale"
         viewAllHref="/tcg"
-        backgroundVideo="/tcg-sale-banner.mp4"
+        backgroundVideo="https://res.cloudinary.com/dwzjtoilj/video/upload/v1774045502/tcg-sale-banner_ofuq4t.mp4"
       />
     </div>
   );
@@ -403,7 +401,10 @@ export default function Home() {
             playsInline
             className="absolute inset-0 w-full h-full object-cover z-0"
           >
-            <source src="/sports-hero.mp4" type="video/mp4" />
+            <source
+              src="https://res.cloudinary.com/dwzjtoilj/video/upload/v1774045504/sports-hero_jdffum.mp4"
+              type="video/mp4"
+            />
           </video>
           <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent z-10"></div>
           <div className="relative z-20 text-center p-8">
@@ -432,7 +433,10 @@ export default function Home() {
             playsInline
             className="absolute inset-0 w-full h-full object-cover z-0"
           >
-            <source src="/tcg-hero.mp4" type="video/mp4" />
+            <source
+              src="https://res.cloudinary.com/dwzjtoilj/video/upload/v1774046019/tcg-hero_vf5cqq.mp4"
+              type="video/mp4"
+            />
           </video>
           <div className="absolute inset-0 bg-gradient-to-l from-black/10 to-transparent z-10"></div>
           <div className="relative z-20 text-center p-8">

@@ -17,7 +17,6 @@ function ProductSlider({ title, category, viewAllHref }) {
           {title}
         </h2>
       </div>
-
       {loading && (
         <div className="flex gap-4 overflow-x-auto pb-4">
           {[1, 2, 3, 4].map((i) => (
@@ -78,14 +77,12 @@ function OnSaleSlider({ title, category, viewAllHref, backgroundVideo }) {
         <source src={backgroundVideo} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black/60 z-0"></div>
-
       <div className="relative z-10 px-4 max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-white text-2xl font-bold border-l-4 border-yellow-400 pl-4">
             {title}
           </h2>
         </div>
-
         {loading && (
           <div className="flex gap-4 overflow-x-auto pb-4">
             {[1, 2, 3, 4].map((i) => (
@@ -134,9 +131,7 @@ function OnSaleSlider({ title, category, viewAllHref, backgroundVideo }) {
 function JustArrived() {
   const { products, loading } = useProducts();
   const [paused, setPaused] = useState(false);
-
   if (loading) return null;
-
   return (
     <section className="py-10 bg-black border-t border-b border-yellow-400">
       <div className="max-w-7xl mx-auto px-4 mb-6">
@@ -185,47 +180,39 @@ function InstagramSection() {
   );
 }
 
+function PillIcon({ icon, label }) {
+  if (!icon) return null;
+  return (
+    <span
+      className="inline-block h-4 w-4 flex-shrink-0"
+      style={{
+        maskImage: `url(${icon})`,
+        WebkitMaskImage: `url(${icon})`,
+        maskSize: "contain",
+        WebkitMaskSize: "contain",
+        maskRepeat: "no-repeat",
+        WebkitMaskRepeat: "no-repeat",
+        maskPosition: "center",
+        WebkitMaskPosition: "center",
+        backgroundColor: "currentColor",
+      }}
+    />
+  );
+}
+
 const SPORTS_PILLS = [
-  { label: "All", icon: null, iconBlack: null },
-  {
-    label: "Baseball",
-    icon: "/icons/icon-baseball.svg",
-    iconBlack: "/icons/icon-baseball-black.svg",
-  },
-  {
-    label: "Basketball",
-    icon: "/icons/icon-basketball.svg",
-    iconBlack: "/icons/icon-basketball-black.svg",
-  },
-  {
-    label: "Football",
-    icon: "/icons/icon-football.svg",
-    iconBlack: "/icons/icon-football-black.svg",
-  },
+  { label: "All", icon: null },
+  { label: "Baseball", icon: "/icons/icon-baseball.svg" },
+  { label: "Basketball", icon: "/icons/icon-basketball.svg" },
+  { label: "Football", icon: "/icons/icon-football.svg" },
 ];
 
 const TCG_PILLS = [
-  { label: "All", icon: null, iconBlack: null },
-  {
-    label: "Pokemon",
-    icon: "/icons/icon-coll-pokemon.svg",
-    iconBlack: "/icons/icon-coll-pokemon-black.svg",
-  },
-  {
-    label: "Magic The Gathering",
-    icon: "/icons/icon-coll-mtg.svg",
-    iconBlack: "/icons/icon-coll-mtg-black.svg",
-  },
-  {
-    label: "One Piece",
-    icon: "/icons/icon-coll-onp.svg",
-    iconBlack: "/icons/icon-coll-onp-black.svg",
-  },
-  {
-    label: "Lorcana",
-    icon: "/icons/icon-coll-disney.svg",
-    iconBlack: "/icons/icon-coll-disney-black.svg",
-  },
+  { label: "All", icon: null },
+  { label: "Pokemon", icon: "/icons/icon-coll-pokemon.svg" },
+  { label: "Magic The Gathering", icon: "/icons/icon-coll-mtg.svg" },
+  { label: "One Piece", icon: "/icons/icon-coll-onp.svg" },
+  { label: "Lorcana", icon: "/icons/icon-coll-disney.svg" },
 ];
 
 const SPORTS_SLABS_CATEGORY = {
@@ -260,17 +247,6 @@ const TCG_SEALED_CATEGORY = {
 
 function SportsSection() {
   const [selected, setSelected] = useState("All");
-  const [hovered, setHovered] = useState(null);
-
-  useEffect(() => {
-    SPORTS_PILLS.forEach((pill) => {
-      if (pill.iconBlack) {
-        const img = new Image();
-        img.src = pill.iconBlack;
-      }
-    });
-  }, []);
-
   return (
     <div>
       <div className="px-4 max-w-7xl mx-auto pt-10 flex gap-2 flex-wrap">
@@ -278,18 +254,10 @@ function SportsSection() {
           <button
             key={pill.label}
             onClick={() => setSelected(pill.label)}
-            onMouseEnter={() => setHovered(pill.label)}
-            onMouseLeave={() => setHovered(null)}
             className={pillClass(selected === pill.label)}
           >
             <span className="flex items-center gap-2">
-              {pill.icon && (
-                <img
-                  src={hovered === pill.label ? pill.iconBlack : pill.icon}
-                  alt={pill.label}
-                  className="h-4 w-auto"
-                />
-              )}
+              <PillIcon icon={pill.icon} label={pill.label} />
               {pill.label}
             </span>
           </button>
@@ -309,7 +277,7 @@ function SportsSection() {
         title="Sports On Sale"
         category="Sports On Sale"
         viewAllHref="/sports"
-        backgroundVideo="https://res.cloudinary.com/dwzjtoilj/video/upload/v1774045925/sports-sale-banner_bxu5h6.mp4"
+        backgroundVideo="https://res.cloudinary.com/dwzjtoilj/video/upload/q_auto,f_auto/v1774045925/sports-sale-banner_bxu5h6.mp4"
       />
     </div>
   );
@@ -317,17 +285,6 @@ function SportsSection() {
 
 function TCGSection() {
   const [selected, setSelected] = useState("All");
-  const [hovered, setHovered] = useState(null);
-
-  useEffect(() => {
-    TCG_PILLS.forEach((pill) => {
-      if (pill.iconBlack) {
-        const img = new Image();
-        img.src = pill.iconBlack;
-      }
-    });
-  }, []);
-
   return (
     <div>
       <div className="px-4 max-w-7xl mx-auto pt-10 flex gap-2 flex-wrap">
@@ -335,18 +292,10 @@ function TCGSection() {
           <button
             key={pill.label}
             onClick={() => setSelected(pill.label)}
-            onMouseEnter={() => setHovered(pill.label)}
-            onMouseLeave={() => setHovered(null)}
             className={pillClass(selected === pill.label)}
           >
             <span className="flex items-center gap-2">
-              {pill.icon && (
-                <img
-                  src={hovered === pill.label ? pill.iconBlack : pill.icon}
-                  alt={pill.label}
-                  className="h-4 w-auto"
-                />
-              )}
+              <PillIcon icon={pill.icon} label={pill.label} />
               {pill.label}
             </span>
           </button>
@@ -366,7 +315,7 @@ function TCGSection() {
         title="TCG On Sale"
         category="TCG On Sale"
         viewAllHref="/tcg"
-        backgroundVideo="https://res.cloudinary.com/dwzjtoilj/video/upload/v1774045502/tcg-sale-banner_ofuq4t.mp4"
+        backgroundVideo="https://res.cloudinary.com/dwzjtoilj/video/upload/q_auto,f_auto/v1774045502/tcg-sale-banner_ofuq4t.mp4"
       />
     </div>
   );
@@ -388,7 +337,6 @@ export default function Home() {
   return (
     <div className="bg-black">
       <section className="grid grid-cols-2 gap-4 px-4 py-4">
-        {/* Sports Hero */}
         <Link
           href="/sports"
           onClick={() => handlePreference("sports")}
@@ -402,7 +350,7 @@ export default function Home() {
             className="absolute inset-0 w-full h-full object-cover z-0"
           >
             <source
-              src="https://res.cloudinary.com/dwzjtoilj/video/upload/v1774045504/sports-hero_jdffum.mp4"
+              src="https://res.cloudinary.com/dwzjtoilj/video/upload/q_auto,f_auto/v1774045504/sports-hero_jdffum.mp4"
               type="video/mp4"
             />
           </video>
@@ -419,8 +367,6 @@ export default function Home() {
             </span>
           </div>
         </Link>
-
-        {/* TCG Hero */}
         <Link
           href="/tcg"
           onClick={() => handlePreference("tcg")}
@@ -434,7 +380,7 @@ export default function Home() {
             className="absolute inset-0 w-full h-full object-cover z-0"
           >
             <source
-              src="https://res.cloudinary.com/dwzjtoilj/video/upload/v1774046019/tcg-hero_vf5cqq.mp4"
+              src="https://res.cloudinary.com/dwzjtoilj/video/upload/q_auto,f_auto/v1774046019/tcg-hero_vf5cqq.mp4"
               type="video/mp4"
             />
           </video>
@@ -452,9 +398,7 @@ export default function Home() {
           </div>
         </Link>
       </section>
-
       <JustArrived />
-
       {preference === "sports" ? (
         <>
           <SportsSection />
@@ -466,9 +410,7 @@ export default function Home() {
           <SportsSection />
         </>
       )}
-
       <InstagramSection />
-
       <section
         className="relative py-24 px-4 overflow-hidden"
         style={{

@@ -47,12 +47,9 @@ function BannerCarousel() {
     ...bannerSlides,
     bannerSlides[0],
   ];
-
   const startAutoPlay = () => {
     clearInterval(autoTimer.current);
-    autoTimer.current = setInterval(() => {
-      goNext();
-    }, 5000);
+    autoTimer.current = setInterval(() => goNext(), 5000);
   };
 
   useEffect(() => {
@@ -68,7 +65,6 @@ function BannerCarousel() {
     setDragOffset(0);
     setCurrent((prev) => prev + 1);
   };
-
   const goPrev = () => {
     setTransitioning(true);
     setDragOffset(0);
@@ -102,13 +98,11 @@ function BannerCarousel() {
     clearInterval(autoTimer.current);
     clearTimeout(resumeTimer.current);
   };
-
   const handleDragMove = (e) => {
     if (!isDragging.current) return;
     const clientX = e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
     setDragOffset(clientX - dragStartX.current);
   };
-
   const handleDragEnd = (e) => {
     if (!isDragging.current) return;
     isDragging.current = false;
@@ -117,15 +111,12 @@ function BannerCarousel() {
         ? e.clientX
         : (e.changedTouches?.[0]?.clientX ?? dragStartX.current);
     const diff = dragStartX.current - endX;
-
     setTransitioning(true);
     setDragOffset(0);
-
     if (Math.abs(diff) > 50) {
       if (diff > 0) goNext();
       else goPrev();
     }
-
     resumeTimer.current = setTimeout(() => startAutoPlay(), 1500);
   };
 
@@ -188,21 +179,18 @@ function BannerCarousel() {
           </div>
         ))}
       </div>
-
       <button
         onClick={goPrev}
         className="absolute left-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/50 hover:bg-black/80 rounded-full w-9 h-9 flex items-center justify-center transition-colors"
       >
         ‹
       </button>
-
       <button
         onClick={goNext}
         className="absolute right-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/50 hover:bg-black/80 rounded-full w-9 h-9 flex items-center justify-center transition-colors"
       >
         ›
       </button>
-
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2">
         {bannerSlides.map((_, i) => (
           <button
@@ -211,11 +199,7 @@ function BannerCarousel() {
               setTransitioning(true);
               setCurrent(i + 1);
             }}
-            className={`w-2.5 h-2.5 rounded-full transition-colors ${
-              (current - 1 + bannerSlides.length) % bannerSlides.length === i
-                ? "bg-yellow-400"
-                : "bg-white/50 hover:bg-white"
-            }`}
+            className={`w-2.5 h-2.5 rounded-full transition-colors ${(current - 1 + bannerSlides.length) % bannerSlides.length === i ? "bg-yellow-400" : "bg-white/50 hover:bg-white"}`}
           />
         ))}
       </div>
@@ -276,28 +260,32 @@ function ProductSlider({ title, category, viewAllHref }) {
   );
 }
 
+function PillIcon({ icon, label }) {
+  if (!icon) return null;
+  return (
+    <span
+      className="inline-block h-4 w-4 flex-shrink-0"
+      style={{
+        maskImage: `url(${icon})`,
+        WebkitMaskImage: `url(${icon})`,
+        maskSize: "contain",
+        WebkitMaskSize: "contain",
+        maskRepeat: "no-repeat",
+        WebkitMaskRepeat: "no-repeat",
+        maskPosition: "center",
+        WebkitMaskPosition: "center",
+        backgroundColor: "currentColor",
+      }}
+    />
+  );
+}
+
 const tcgBrands = [
-  { label: "All", icon: null, iconBlack: null },
-  {
-    label: "Pokemon",
-    icon: "/icons/icon-coll-pokemon.svg",
-    iconBlack: "/icons/icon-coll-pokemon-black.svg",
-  },
-  {
-    label: "Magic The Gathering",
-    icon: "/icons/icon-coll-mtg.svg",
-    iconBlack: "/icons/icon-coll-mtg-black.svg",
-  },
-  {
-    label: "One Piece",
-    icon: "/icons/icon-coll-onp.svg",
-    iconBlack: "/icons/icon-coll-onp-black.svg",
-  },
-  {
-    label: "Lorcana",
-    icon: "/icons/icon-coll-disney.svg",
-    iconBlack: "/icons/icon-coll-disney-black.svg",
-  },
+  { label: "All", icon: null },
+  { label: "Pokemon", icon: "/icons/icon-coll-pokemon.svg" },
+  { label: "Magic The Gathering", icon: "/icons/icon-coll-mtg.svg" },
+  { label: "One Piece", icon: "/icons/icon-coll-onp.svg" },
+  { label: "Lorcana", icon: "/icons/icon-coll-disney.svg" },
 ];
 
 function TCGContent() {
@@ -308,24 +296,11 @@ function TCGContent() {
       ? urlCategory
       : "All",
   );
-  const [hoveredBrand, setHoveredBrand] = useState(null);
-
-  // Preload black icons so hover swap is instant
-  useEffect(() => {
-    tcgBrands.forEach((brand) => {
-      if (brand.iconBlack) {
-        const img = new Image();
-        img.src = brand.iconBlack;
-      }
-    });
-  }, []);
 
   useEffect(() => {
-    if (urlCategory && tcgBrands.some((b) => b.label === urlCategory)) {
+    if (urlCategory && tcgBrands.some((b) => b.label === urlCategory))
       setSelected(urlCategory);
-    } else if (!urlCategory) {
-      setSelected("All");
-    }
+    else if (!urlCategory) setSelected("All");
   }, [urlCategory]);
 
   const viewAllHref =
@@ -339,34 +314,20 @@ function TCGContent() {
       <div className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-white text-3xl font-bold mb-8">TCG</h1>
-
           <div className="flex gap-3 mb-10 flex-wrap">
             {tcgBrands.map((brand) => (
               <button
                 key={brand.label}
                 onClick={() => setSelected(brand.label)}
-                onMouseEnter={() => setHoveredBrand(brand.label)}
-                onMouseLeave={() => setHoveredBrand(null)}
                 className={pillClass(selected === brand.label)}
               >
                 <span className="flex items-center gap-2">
-                  {brand.icon && (
-                    <img
-                      src={
-                        hoveredBrand === brand.label
-                          ? brand.iconBlack
-                          : brand.icon
-                      }
-                      alt={brand.label}
-                      className="h-4 w-auto"
-                    />
-                  )}
+                  <PillIcon icon={brand.icon} label={brand.label} />
                   {brand.label}
                 </span>
               </button>
             ))}
           </div>
-
           <ProductSlider
             title={selected === "All" ? "TCG Singles" : `${selected} Singles`}
             category={

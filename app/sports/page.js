@@ -47,12 +47,9 @@ function BannerCarousel() {
     ...bannerSlides,
     bannerSlides[0],
   ];
-
   const startAutoPlay = () => {
     clearInterval(autoTimer.current);
-    autoTimer.current = setInterval(() => {
-      goNext();
-    }, 5000);
+    autoTimer.current = setInterval(() => goNext(), 5000);
   };
 
   useEffect(() => {
@@ -68,7 +65,6 @@ function BannerCarousel() {
     setDragOffset(0);
     setCurrent((prev) => prev + 1);
   };
-
   const goPrev = () => {
     setTransitioning(true);
     setDragOffset(0);
@@ -102,13 +98,11 @@ function BannerCarousel() {
     clearInterval(autoTimer.current);
     clearTimeout(resumeTimer.current);
   };
-
   const handleDragMove = (e) => {
     if (!isDragging.current) return;
     const clientX = e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
     setDragOffset(clientX - dragStartX.current);
   };
-
   const handleDragEnd = (e) => {
     if (!isDragging.current) return;
     isDragging.current = false;
@@ -117,15 +111,12 @@ function BannerCarousel() {
         ? e.clientX
         : (e.changedTouches?.[0]?.clientX ?? dragStartX.current);
     const diff = dragStartX.current - endX;
-
     setTransitioning(true);
     setDragOffset(0);
-
     if (Math.abs(diff) > 50) {
       if (diff > 0) goNext();
       else goPrev();
     }
-
     resumeTimer.current = setTimeout(() => startAutoPlay(), 1500);
   };
 
@@ -188,21 +179,18 @@ function BannerCarousel() {
           </div>
         ))}
       </div>
-
       <button
         onClick={goPrev}
         className="absolute left-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/50 hover:bg-black/80 rounded-full w-9 h-9 flex items-center justify-center transition-colors"
       >
         ‹
       </button>
-
       <button
         onClick={goNext}
         className="absolute right-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/50 hover:bg-black/80 rounded-full w-9 h-9 flex items-center justify-center transition-colors"
       >
         ›
       </button>
-
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2">
         {bannerSlides.map((_, i) => (
           <button
@@ -211,11 +199,7 @@ function BannerCarousel() {
               setTransitioning(true);
               setCurrent(i + 1);
             }}
-            className={`w-2.5 h-2.5 rounded-full transition-colors ${
-              (current - 1 + bannerSlides.length) % bannerSlides.length === i
-                ? "bg-yellow-400"
-                : "bg-white/50 hover:bg-white"
-            }`}
+            className={`w-2.5 h-2.5 rounded-full transition-colors ${(current - 1 + bannerSlides.length) % bannerSlides.length === i ? "bg-yellow-400" : "bg-white/50 hover:bg-white"}`}
           />
         ))}
       </div>
@@ -276,23 +260,31 @@ function ProductSlider({ title, category, viewAllHref }) {
   );
 }
 
+function PillIcon({ icon, label }) {
+  if (!icon) return null;
+  return (
+    <span
+      className="inline-block h-4 w-4 flex-shrink-0"
+      style={{
+        maskImage: `url(${icon})`,
+        WebkitMaskImage: `url(${icon})`,
+        maskSize: "contain",
+        WebkitMaskSize: "contain",
+        maskRepeat: "no-repeat",
+        WebkitMaskRepeat: "no-repeat",
+        maskPosition: "center",
+        WebkitMaskPosition: "center",
+        backgroundColor: "currentColor",
+      }}
+    />
+  );
+}
+
 const sports = [
-  { label: "All", icon: null, iconBlack: null },
-  {
-    label: "Baseball",
-    icon: "/icons/icon-baseball.svg",
-    iconBlack: "/icons/icon-baseball-black.svg",
-  },
-  {
-    label: "Basketball",
-    icon: "/icons/icon-basketball.svg",
-    iconBlack: "/icons/icon-basketball-black.svg",
-  },
-  {
-    label: "Football",
-    icon: "/icons/icon-football.svg",
-    iconBlack: "/icons/icon-football-black.svg",
-  },
+  { label: "All", icon: null },
+  { label: "Baseball", icon: "/icons/icon-baseball.svg" },
+  { label: "Basketball", icon: "/icons/icon-basketball.svg" },
+  { label: "Football", icon: "/icons/icon-football.svg" },
 ];
 
 function SportsContent() {
@@ -303,24 +295,11 @@ function SportsContent() {
       ? urlCategory
       : "All",
   );
-  const [hoveredSport, setHoveredSport] = useState(null);
-
-  // Preload black icons so hover swap is instant
-  useEffect(() => {
-    sports.forEach((sport) => {
-      if (sport.iconBlack) {
-        const img = new Image();
-        img.src = sport.iconBlack;
-      }
-    });
-  }, []);
 
   useEffect(() => {
-    if (urlCategory && sports.some((s) => s.label === urlCategory)) {
+    if (urlCategory && sports.some((s) => s.label === urlCategory))
       setSelected(urlCategory);
-    } else if (!urlCategory) {
-      setSelected("All");
-    }
+    else if (!urlCategory) setSelected("All");
   }, [urlCategory]);
 
   const viewAllHref =
@@ -334,34 +313,20 @@ function SportsContent() {
       <div className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-white text-3xl font-bold mb-8">Sports Cards</h1>
-
           <div className="flex gap-3 mb-10 flex-wrap">
             {sports.map((sport) => (
               <button
                 key={sport.label}
                 onClick={() => setSelected(sport.label)}
-                onMouseEnter={() => setHoveredSport(sport.label)}
-                onMouseLeave={() => setHoveredSport(null)}
                 className={pillClass(selected === sport.label)}
               >
                 <span className="flex items-center gap-2">
-                  {sport.icon && (
-                    <img
-                      src={
-                        hoveredSport === sport.label
-                          ? sport.iconBlack
-                          : sport.icon
-                      }
-                      alt={sport.label}
-                      className="h-4 w-auto"
-                    />
-                  )}
+                  <PillIcon icon={sport.icon} label={sport.label} />
                   {sport.label}
                 </span>
               </button>
             ))}
           </div>
-
           <ProductSlider
             title={selected === "All" ? "Sports Cards" : `${selected} Cards`}
             category={

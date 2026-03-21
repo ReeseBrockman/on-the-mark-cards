@@ -264,12 +264,12 @@ function PillIcon({ icon, label }) {
   if (!icon) return null;
   return (
     <span
-      className="inline-block h-4 w-4 flex-shrink-0"
+      className="inline-block h-4 w-10 flex-shrink-0 overflow-visible"
       style={{
         maskImage: `url(${icon})`,
         WebkitMaskImage: `url(${icon})`,
         maskSize: "contain",
-        WebkitMaskSize: "contain",
+        WebkitMaskSize: "100%",
         maskRepeat: "no-repeat",
         WebkitMaskRepeat: "no-repeat",
         maskPosition: "center",

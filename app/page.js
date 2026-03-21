@@ -180,11 +180,11 @@ function InstagramSection() {
   );
 }
 
-function PillIcon({ icon, label }) {
+function PillIcon({ icon, label, wide }) {
   if (!icon) return null;
   return (
     <span
-      className="inline-block h-4 w-4 flex-shrink-0"
+      className={`inline-block h-4 flex-shrink-0 ${wide ? "w-10" : "w-4"}`}
       style={{
         maskImage: `url(${icon})`,
         WebkitMaskImage: `url(${icon})`,
@@ -295,7 +295,7 @@ function TCGSection() {
             className={pillClass(selected === pill.label)}
           >
             <span className="flex items-center gap-2">
-              <PillIcon icon={pill.icon} label={pill.label} />
+              <PillIcon icon={pill.icon} label={pill.label} wide />
               {pill.label}
             </span>
           </button>

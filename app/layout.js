@@ -7,6 +7,16 @@ import Script from "next/script";
 export const metadata = {
   title: "The Collectors Corner",
   description: "Shop Sports Cards, TCG, Funko, and Supplies",
+  icons: {
+    icon: "/favicon.png",
+  },
+  openGraph: {
+    title: "The Collectors Corner",
+    description: "Shop Sports Cards, TCG, Funko, and Supplies",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    url: "https://tcc-rework.vercel.app",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }) {

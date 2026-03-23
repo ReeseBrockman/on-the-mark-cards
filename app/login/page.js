@@ -33,7 +33,7 @@ export default function LoginPage() {
   return (
     <div className="bg-black min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        <div className="border border-yellow-400 p-8">
+        <div className="border border-yellow-400 p-8 rounded-xl">
           <h1 className="text-white text-2xl font-bold mb-2">Welcome Back</h1>
           <p className="text-gray-400 text-sm mb-8">Sign in to your account</p>
 
@@ -51,7 +51,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-gray-900 text-white text-sm px-4 py-3 border border-gray-700 focus:border-yellow-400 outline-none"
+                className="w-full bg-gray-900 text-white text-sm px-4 py-3 border border-gray-700 focus:border-yellow-400 outline-none rounded-lg"
                 placeholder="your@email.com"
               />
             </div>
@@ -65,7 +65,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full bg-gray-900 text-white text-sm px-4 py-3 border border-gray-700 focus:border-yellow-400 outline-none"
+                className="w-full bg-gray-900 text-white text-sm px-4 py-3 border border-gray-700 focus:border-yellow-400 outline-none rounded-lg"
                 placeholder="••••••••"
               />
             </div>
@@ -73,7 +73,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-yellow-400 text-black font-bold py-3 hover:bg-yellow-300 transition-colors mt-2 disabled:opacity-50"
+              className="w-full bg-yellow-400 text-black font-bold py-3 hover:bg-black hover:text-yellow-400 border border-transparent hover:border-yellow-400 transition-colors rounded-lg mt-2 disabled:opacity-50"
             >
               {loading ? "Signing in..." : "Sign In"}
             </button>

@@ -7,13 +7,11 @@ export default function GiftCardPage() {
         <h1 className="text-white text-3xl font-bold mb-2">Gift Cards</h1>
         <div className="border-t border-yellow-400 pt-8 mt-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Left - Info */}
             <div>
               <p className="text-gray-400 text-sm mb-8">
                 Give the gift of choice! The Collectors Corner gift cards can be
                 used on anything in store or online.
               </p>
-
               <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-4">
                 GIFT CARD OPTIONS
               </h2>
@@ -26,20 +24,17 @@ export default function GiftCardPage() {
                     <p className="text-white text-sm font-bold">
                       ${amount} Gift Card
                     </p>
-                    <button className="bg-yellow-400 text-black text-xs font-bold px-4 py-2 hover:bg-yellow-300 transition-colors">
+                    <button className="bg-yellow-400 text-black text-xs font-bold px-4 py-2 hover:bg-black hover:text-yellow-400 border border-transparent hover:border-yellow-400 transition-colors rounded-lg">
                       Purchase
                     </button>
                   </div>
                 ))}
               </div>
-
               <p className="text-gray-500 text-xs">
                 Gift cards are delivered via email and can be used online or in
                 store.
               </p>
             </div>
-
-            {/* Right */}
             <div>
               <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-6">
                 CHECK YOUR BALANCE
@@ -50,12 +45,11 @@ export default function GiftCardPage() {
                 </p>
                 <Link
                   href="/account/gift-cards"
-                  className="inline-block bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-yellow-300 transition-colors"
+                  className="inline-block bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-black hover:text-yellow-400 border border-transparent hover:border-yellow-400 transition-colors rounded-lg"
                 >
                   Check Balance
                 </Link>
               </div>
-
               <div className="border border-gray-800 p-6 rounded">
                 <p className="text-yellow-400 text-sm font-bold mb-2">
                   Have Questions?

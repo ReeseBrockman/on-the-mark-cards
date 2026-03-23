@@ -7,28 +7,24 @@ export default function LocationPage() {
         <h1 className="text-white text-3xl font-bold mb-2">Location & Hours</h1>
         <div className="border-t border-yellow-400 pt-8 mt-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Left - Info */}
             <div>
               <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-6">
                 STORE INFO
               </h2>
-
               <div className="mb-8">
                 <p className="text-gray-400 text-xs mb-1">ADDRESS</p>
                 <p className="text-white text-sm">2527 W Kennewick Ave</p>
                 <p className="text-white text-sm">Kennewick, WA 99336</p>
               </div>
-
               <div className="mb-8">
                 <p className="text-gray-400 text-xs mb-1">PHONE</p>
                 <a
-                  href="tel:+1XXXXXXXXXX"
+                  href="tel:+15095790282"
                   className="text-yellow-400 text-sm hover:underline"
                 >
-                  (000) 000-0000
+                  (509) 579-0282
                 </a>
               </div>
-
               <div className="mb-8">
                 <p className="text-gray-400 text-xs mb-1">EMAIL</p>
                 <a
@@ -38,7 +34,6 @@ export default function LocationPage() {
                   hello@thecollectorscorner.com
                 </a>
               </div>
-
               <div className="mb-8">
                 <p className="text-gray-400 text-xs mb-2">STORE HOURS</p>
                 <div className="flex flex-col gap-2">
@@ -56,18 +51,15 @@ export default function LocationPage() {
                   </div>
                 </div>
               </div>
-
               <a
                 href="https://www.google.com/maps/search/?api=1&query=2527+W+Kennewick+Ave,+Kennewick,+WA+99336"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-yellow-300 transition-colors"
+                className="inline-block bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-black hover:text-yellow-400 border border-transparent hover:border-yellow-400 transition-colors rounded-lg"
               >
                 Get Directions
               </a>
             </div>
-
-            {/* Right - Map placeholder */}
             <div>
               <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-6">
                 FIND US

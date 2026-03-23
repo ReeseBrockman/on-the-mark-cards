@@ -118,7 +118,7 @@ export default function GiftCardsPage() {
                   </p>
                   <Link
                     href="/shop-info/gift-card"
-                    className="block w-full !bg-yellow-400 !text-black font-bold py-3 text-center hover:!bg-yellow-300 transition-colors"
+                    className="block w-full bg-yellow-400 text-black font-bold py-3 text-center hover:bg-black hover:text-yellow-400 border border-transparent hover:border-yellow-400 transition-colors rounded-lg"
                   >
                     Purchase Gift Card
                   </Link>
@@ -145,18 +145,18 @@ export default function GiftCardsPage() {
                       value={giftCardNumber}
                       onChange={(e) => setGiftCardNumber(e.target.value)}
                       required
-                      className="w-full bg-gray-900 text-white text-sm px-4 py-3 border border-gray-700 focus:border-yellow-400 outline-none"
+                      className="w-full bg-gray-900 text-white text-sm px-4 py-3 border border-gray-700 focus:border-yellow-400 outline-none rounded-lg"
                     />
                     <button
                       type="submit"
                       disabled={balanceLoading}
-                      className="w-full !bg-yellow-400 !text-black font-bold py-3 hover:!bg-yellow-300 transition-colors disabled:opacity-50"
+                      className="w-full bg-yellow-400 text-black font-bold py-3 hover:bg-black hover:text-yellow-400 border border-transparent hover:border-yellow-400 transition-colors rounded-lg disabled:opacity-50"
                     >
                       {balanceLoading ? "Checking..." : "Check Balance"}
                     </button>
                   </form>
                   {balance !== null && (
-                    <div className="mt-4 p-4 border border-yellow-400 text-center">
+                    <div className="mt-4 p-4 border border-yellow-400 text-center rounded-lg">
                       <p className="text-gray-400 text-sm mb-1">
                         Available Balance
                       </p>

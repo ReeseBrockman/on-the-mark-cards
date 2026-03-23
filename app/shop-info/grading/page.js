@@ -7,14 +7,12 @@ export default function GradingPage() {
         </h1>
         <div className="border-t border-yellow-400 pt-8 mt-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Left - Info */}
             <div>
               <p className="text-gray-400 text-sm mb-8">
                 We offer grading submission services through PSA, BGS, and SGC.
                 Bring your cards in store and we'll handle the entire submission
                 process for you.
               </p>
-
               <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-4">
                 GRADING SERVICES
               </h2>
@@ -30,7 +28,6 @@ export default function GradingPage() {
                   <span className="text-yellow-400">✓</span> SGC Grading
                 </li>
               </ul>
-
               <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-4">
                 HOW IT WORKS
               </h2>
@@ -56,16 +53,13 @@ export default function GradingPage() {
                   </p>
                 </div>
               </div>
-
               <a
                 href="mailto:hello@thecollectorscorner.com"
-                className="inline-block bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-yellow-300 transition-colors"
+                className="inline-block bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-black hover:text-yellow-400 border border-transparent hover:border-yellow-400 transition-colors rounded-lg"
               >
                 Contact Us About Grading
               </a>
             </div>
-
-            {/* Right - Hours */}
             <div>
               <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-6">
                 STORE HOURS
@@ -80,7 +74,6 @@ export default function GradingPage() {
                   <p className="text-yellow-400 text-sm">12:00 PM - 4:00 PM</p>
                 </div>
               </div>
-
               <div className="border border-gray-800 p-6 rounded">
                 <p className="text-yellow-400 text-sm font-bold mb-2">
                   Have Questions?

@@ -77,7 +77,7 @@ function NewsletterForm() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="!bg-yellow-400 !text-black text-sm font-bold px-4 py-2 hover:!bg-yellow-300 transition-colors rounded-lg disabled:opacity-50"
+              className="!bg-yellow-400 !text-black text-sm font-bold px-4 py-2 hover:!bg-black hover:!text-yellow-400 border border-transparent hover:!border-yellow-400 transition-colors rounded-lg disabled:opacity-50"
             >
               {status === "loading" ? "..." : "Sign Up"}
             </button>
@@ -102,7 +102,6 @@ export default function LiveSellingPage() {
         </h1>
         <div className="border-t border-yellow-400 pt-8 mt-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Left - Info */}
             <div>
               <p className="text-gray-400 text-sm mb-8">
                 Join us live for box breaks, pack openings, and special live
@@ -187,8 +186,6 @@ export default function LiveSellingPage() {
                 </a>
               </div>
             </div>
-
-            {/* Right */}
             <div>
               <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-6">
                 UPCOMING BREAKS

@@ -57,7 +57,6 @@ export default function FAQPage() {
             Have questions? We have answers. If you don't find what you're
             looking for, feel free to contact us.
           </p>
-
           <div className="flex flex-col gap-2">
             {faqs.map((faq, i) => (
               <div
@@ -83,7 +82,6 @@ export default function FAQPage() {
               </div>
             ))}
           </div>
-
           <div className="border border-gray-800 p-6 rounded mt-8 text-center">
             <p className="text-white text-sm font-bold mb-2">
               Still have questions?
@@ -93,7 +91,7 @@ export default function FAQPage() {
             </p>
             <a
               href="mailto:hello@thecollectorscorner.com"
-              className="inline-block bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-yellow-300 transition-colors"
+              className="inline-block bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-black hover:text-yellow-400 border border-transparent hover:border-yellow-400 transition-colors rounded-lg"
             >
               Contact Us
             </a>

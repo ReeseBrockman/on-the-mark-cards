@@ -7,14 +7,12 @@ export default function SellPage() {
         </h1>
         <div className="border-t border-yellow-400 pt-8 mt-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Left - Info */}
             <div>
               <p className="text-gray-400 text-sm mb-8">
                 Looking to sell your collection? We buy singles, lots, and
                 collections of all sizes. Bring your cards in store and we'll
                 make you an offer on the spot.
               </p>
-
               <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-4">
                 WHAT WE BUY
               </h2>
@@ -45,7 +43,6 @@ export default function SellPage() {
                   Cases
                 </li>
               </ul>
-
               <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-4">
                 HOW IT WORKS
               </h2>
@@ -69,18 +66,15 @@ export default function SellPage() {
                   </p>
                 </div>
               </div>
-
               <a
                 href="https://www.google.com/maps/search/?api=1&query=2527+W+Kennewick+Ave,+Kennewick,+WA+99336"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-yellow-300 transition-colors"
+                className="inline-block bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-black hover:text-yellow-400 border border-transparent hover:border-yellow-400 transition-colors rounded-lg"
               >
                 Get Directions
               </a>
             </div>
-
-            {/* Right - Hours */}
             <div>
               <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-6">
                 STORE HOURS
@@ -95,7 +89,6 @@ export default function SellPage() {
                   <p className="text-yellow-400 text-sm">12:00 PM - 4:00 PM</p>
                 </div>
               </div>
-
               <div className="border border-gray-800 p-6 rounded">
                 <p className="text-yellow-400 text-sm font-bold mb-2">
                   Have Questions?

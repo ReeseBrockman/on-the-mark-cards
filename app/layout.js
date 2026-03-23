@@ -7,9 +7,6 @@ import Script from "next/script";
 export const metadata = {
   title: "The Collectors Corner",
   description: "Shop Sports Cards, TCG, Funko, and Supplies",
-  icons: {
-    icon: "/favicon.png",
-  },
   openGraph: {
     title: "The Collectors Corner",
     description: "Shop Sports Cards, TCG, Funko, and Supplies",

@@ -1,5 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
+
+const MAILCHIMP_URL =
+  "https://app.us17.list-manage.com/subscribe/post-json?u=ff87c60cfbff25e2df11f8902&id=30c214ae49&f_id=00e22be0f0";
 
 const paymentIcons = [
   { src: "/payments/american_express.svg", alt: "American Express" },
@@ -32,18 +38,83 @@ function WhatnotIcon() {
   );
 }
 
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus("loading");
+
+    const url = `${MAILCHIMP_URL}&EMAIL=${encodeURIComponent(email)}&c=__mailchimpCallback`;
+
+    window.__mailchimpCallback = (data) => {
+      if (data.result === "success") {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+      }
+      delete window.__mailchimpCallback;
+      document.getElementById("mc-jsonp")?.remove();
+    };
+
+    const script = document.createElement("script");
+    script.id = "mc-jsonp";
+    script.src = url;
+    document.body.appendChild(script);
+  };
+
+  return (
+    <div>
+      <p className="text-gray-400 text-sm mb-3">
+        Get notified about new releases, sales, and special events:
+      </p>
+      {status === "success" ? (
+        <p className="text-yellow-400 text-sm font-bold">
+          Thanks for signing up!
+        </p>
+      ) : (
+        <>
+          <form onSubmit={handleSubmit} className="flex gap-2">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email address"
+              required
+              className="bg-transparent text-white text-sm px-3 py-2 border border-gray-500 focus:border-yellow-400 outline-none flex-1 rounded-lg"
+            />
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="!bg-yellow-400 !text-black text-sm font-bold px-4 py-2 hover:!bg-yellow-300 transition-colors rounded-lg disabled:opacity-50"
+            >
+              {status === "loading" ? "..." : "Sign Up"}
+            </button>
+          </form>
+          {status === "error" && (
+            <p className="text-red-400 text-xs mt-2">
+              Something went wrong. Please try again.
+            </p>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="bg-black text-white border-t border-yellow-400 mt-auto">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* MOBILE LAYOUT */}
         <div className="md:hidden">
-          {/* Store name */}
           <h3 className="text-yellow-400 font-bold text-3xl mb-4">
             The Collectors Corner
           </h3>
-
-          {/* Contact info */}
           <div className="flex items-start gap-2 mb-2">
             <MapPin size={16} className="text-white mt-0.5 flex-shrink-0" />
             <p className="text-sm text-white font-semibold">
@@ -60,23 +131,9 @@ export default function Footer() {
               hello@thecollectorscorner.com
             </p>
           </div>
-
-          {/* Newsletter */}
-          <p className="text-gray-400 text-sm mb-3">
-            Get notified about new releases, sales, and special events:
-          </p>
-          <div className="flex gap-2 mb-8">
-            <input
-              type="email"
-              placeholder="Email address"
-              className="bg-transparent text-white text-sm px-3 py-2 border border-gray-500 focus:border-yellow-400 outline-none flex-1 rounded-lg"
-            />
-            <button className="!bg-yellow-400 !text-black text-sm font-bold px-4 py-2 hover:!bg-yellow-300 transition-colors rounded-lg">
-              Sign Up
-            </button>
+          <div className="mb-8">
+            <NewsletterForm />
           </div>
-
-          {/* Collections + Shop Info side by side */}
           <div className="grid grid-cols-2 gap-4 mb-8">
             <div>
               <h3 className="text-white font-bold text-base mb-3">
@@ -179,9 +236,7 @@ export default function Footer() {
               </ul>
             </div>
           </div>
-
-          {/* Follow Us */}
-          <div className="mb-0">
+          <div>
             <h3 className="text-white font-bold text-base mb-3">Follow Us</h3>
             <div className="flex gap-4">
               <a
@@ -233,7 +288,6 @@ export default function Footer() {
 
         {/* DESKTOP LAYOUT */}
         <div className="hidden md:block">
-          {/* Top Row — headings all on same line */}
           <div className="grid grid-cols-1 md:grid-cols-[2fr_180px_220px_120px] gap-8 mb-2 items-end">
             <h3 className="text-yellow-400 font-bold text-5xl">
               The Collectors Corner
@@ -244,10 +298,7 @@ export default function Footer() {
             <h3 className="text-white font-bold text-base pl-14">Shop Info</h3>
             <h3 className="text-white font-bold text-base">Follow Us</h3>
           </div>
-
-          {/* Bottom Row — content under headings */}
           <div className="grid grid-cols-1 md:grid-cols-[2fr_180px_220px_120px] gap-8 items-start">
-            {/* Store Info + Newsletter */}
             <div>
               <div className="flex items-start gap-2 mb-2">
                 <MapPin size={16} className="text-white mt-0.5 flex-shrink-0" />
@@ -267,22 +318,8 @@ export default function Footer() {
                   hello@thecollectorscorner.com
                 </p>
               </div>
-              <p className="text-gray-400 text-sm mb-3">
-                Get notified about new releases, sales, and special events:
-              </p>
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Email address"
-                  className="bg-transparent text-white text-sm px-3 py-2 border border-gray-500 focus:border-yellow-400 outline-none flex-1 rounded-lg"
-                />
-                <button className="!bg-yellow-400 !text-black text-sm font-bold px-4 py-2 hover:!bg-yellow-300 transition-colors rounded-lg">
-                  Sign Up
-                </button>
-              </div>
+              <NewsletterForm />
             </div>
-
-            {/* Collections */}
             <ul className="flex flex-col gap-2 pl-10">
               <li>
                 <Link
@@ -325,8 +362,6 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-
-            {/* Shop Info */}
             <ul className="flex flex-col gap-2 pl-14">
               <li>
                 <Link
@@ -377,8 +412,6 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-
-            {/* Follow Us */}
             <div className="flex gap-4">
               <a
                 href="https://www.instagram.com/thecollectorscorner2021/"

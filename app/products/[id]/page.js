@@ -117,7 +117,7 @@ export default function ProductPage() {
           </div>
 
           {/* Product Info */}
-          <div>
+          <div className="flex flex-col" style={{ height: "400px" }}>
             <h1 className="text-white text-3xl font-bold mb-4">
               {product.name}
             </h1>
@@ -133,9 +133,9 @@ export default function ProductPage() {
             </div>
 
             {product.description && (
-              <p className="text-gray-400 text-sm mb-6">
-                {product.description}
-              </p>
+              <div className="overflow-y-auto flex-1 mb-6 pr-1">
+                <p className="text-gray-400 text-sm">{product.description}</p>
+              </div>
             )}
 
             {/* Variation selector */}
@@ -171,24 +171,25 @@ export default function ProductPage() {
               </div>
             )}
 
-            <AddToCartButton
-              product={{
-                id: selectedVariation ? selectedVariation.id : product.id,
-                name: selectedVariation
-                  ? `${product.name} - ${selectedVariation.name}`
-                  : product.name,
-                price: currentPrice,
-                imageUrl: selectedImage,
-                images: product.images,
-              }}
-              className="w-full text-lg py-4"
-            />
-
-            <div className="border-t border-gray-800 pt-6 mt-6">
-              <p className="text-gray-500 text-xs">
-                Category:{" "}
-                <span className="text-gray-400">{product.category}</span>
-              </p>
+            <div className="mt-auto">
+              <AddToCartButton
+                product={{
+                  id: selectedVariation ? selectedVariation.id : product.id,
+                  name: selectedVariation
+                    ? `${product.name} - ${selectedVariation.name}`
+                    : product.name,
+                  price: currentPrice,
+                  imageUrl: selectedImage,
+                  images: product.images,
+                }}
+                className="w-full text-lg py-4"
+              />
+              <div className="border-t border-gray-800 pt-6 mt-6">
+                <p className="text-gray-500 text-xs">
+                  Category:{" "}
+                  <span className="text-gray-400">{product.category}</span>
+                </p>
+              </div>
             </div>
           </div>
         </div>

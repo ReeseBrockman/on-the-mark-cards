@@ -18,7 +18,7 @@ function ProductSlider({ title, category, viewAllHref }) {
         </h2>
       </div>
       {loading && (
-        <div className="flex gap-4 overflow-x-auto pb-4">
+        <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
@@ -35,7 +35,7 @@ function ProductSlider({ title, category, viewAllHref }) {
         <p className="text-gray-500 text-sm">No products found.</p>
       )}
       {!loading && products.length > 0 && (
-        <div className="flex gap-4 overflow-x-auto pb-4">
+        <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
           {visibleProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
@@ -84,7 +84,7 @@ function OnSaleSlider({ title, category, viewAllHref, backgroundVideo }) {
           </h2>
         </div>
         {loading && (
-          <div className="flex gap-4 overflow-x-auto pb-4">
+          <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
             {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
@@ -101,7 +101,7 @@ function OnSaleSlider({ title, category, viewAllHref, backgroundVideo }) {
           <p className="text-gray-500 text-sm">No products found.</p>
         )}
         {!loading && products.length > 0 && (
-          <div className="flex gap-4 overflow-x-auto pb-4">
+          <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
             {visibleProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -140,7 +140,7 @@ function JustArrived() {
         </h2>
       </div>
       <div
-        className="overflow-hidden"
+        className="overflow-hidden hide-scrollbar"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >

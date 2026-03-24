@@ -13,7 +13,7 @@ function ProductSlider({ title, category, viewAllHref }) {
 
   return (
     <section className="py-8">
-      <h2 className="text-white text-xl font-bold mb-4 border-l-4 border-yellow-400 pl-4">
+      <h2 className="text-black text-xl font-bold mb-4 border-l-4 border-red-600 pl-4">
         {title}
       </h2>
       {loading && (
@@ -21,11 +21,11 @@ function ProductSlider({ title, category, viewAllHref }) {
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="min-w-[200px] bg-gray-900 border border-gray-800 p-4 rounded animate-pulse"
+              className="min-w-[200px] bg-gray-100 border border-gray-200 p-4 rounded animate-pulse"
             >
-              <div className="bg-gray-800 h-40 mb-3 rounded"></div>
-              <div className="bg-gray-800 h-4 rounded mb-2"></div>
-              <div className="bg-gray-800 h-4 w-16 rounded"></div>
+              <div className="bg-gray-200 h-40 mb-3 rounded"></div>
+              <div className="bg-gray-200 h-4 rounded mb-2"></div>
+              <div className="bg-gray-200 h-4 w-16 rounded"></div>
             </div>
           ))}
         </div>
@@ -41,15 +41,15 @@ function ProductSlider({ title, category, viewAllHref }) {
           {viewAllHref && (
             <Link
               href={viewAllHref}
-              className="w-48 flex-shrink-0 bg-gray-900 border border-gray-800 hover:border-yellow-400 transition-colors rounded flex flex-col items-center justify-center gap-3 min-h-[260px] group"
+              className="w-48 flex-shrink-0 bg-gray-100 border border-gray-200 hover:border-red-600 transition-colors rounded flex flex-col items-center justify-center gap-3 min-h-[260px] group"
             >
-              <span className="text-4xl text-yellow-400 group-hover:scale-110 transition-transform">
+              <span className="text-4xl text-red-600 group-hover:scale-110 transition-transform">
                 →
               </span>
-              <span className="text-white text-sm font-bold text-center px-3">
+              <span className="text-black text-sm font-bold text-center px-3">
                 View All {title}
               </span>
-              <span className="text-yellow-400 text-xs font-bold border border-yellow-400 px-3 py-1 rounded-full group-hover:bg-yellow-400 group-hover:text-black transition-colors">
+              <span className="text-red-600 text-xs font-bold border border-red-600 px-3 py-1 rounded-full group-hover:bg-red-600 group-hover:text-white transition-colors">
                 View All
               </span>
             </Link>
@@ -137,10 +137,12 @@ function TCGSuppliesSection() {
 
 function SuppliesContent() {
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-white min-h-screen">
       <div className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-white text-3xl font-bold mb-8">Supplies</h1>
+          <h1 className="text-black text-3xl font-bold mb-8 border-l-4 border-red-600 pl-4">
+            Supplies
+          </h1>
           <CardSuppliesSection />
           <TCGSuppliesSection />
         </div>
@@ -151,7 +153,7 @@ function SuppliesContent() {
 
 export default function SuppliesPage() {
   return (
-    <Suspense fallback={<div className="bg-black min-h-screen"></div>}>
+    <Suspense fallback={<div className="bg-white min-h-screen"></div>}>
       <SuppliesContent />
     </Suspense>
   );

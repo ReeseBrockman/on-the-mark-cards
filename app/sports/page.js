@@ -15,9 +15,10 @@ const bannerSlides = [
     subtitle: "Grab Your Boxes While They Last!",
     buttonText: "Shop Now",
     buttonHref: "/products/ZBGGWC6UH5AOOUMNUNARC4MQ",
-    titleColor: "text-red-800",
+    titleColor: "text-red-600",
     subtitleColor: "text-white font-semibold",
-    buttonBg: "bg-red-800 hover:bg-white text-white hover:text-black",
+    buttonBg:
+      "bg-red-600 hover:bg-white text-white hover:text-red-600 border border-red-600",
   },
   {
     image: "/sports-banner-2.png",
@@ -28,7 +29,8 @@ const bannerSlides = [
     buttonHref: "/products/3DAG4PJ3QG742PIFGUF3GRFS",
     titleColor: "text-green-800",
     subtitleColor: "text-black font-semibold",
-    buttonBg: "bg-green-800 hover:bg-gray-200 text-white hover:text-black",
+    buttonBg:
+      "bg-green-800 hover:bg-white text-white hover:text-green-800 border border-green-800",
   },
 ];
 
@@ -47,6 +49,7 @@ function BannerCarousel() {
     ...bannerSlides,
     bannerSlides[0],
   ];
+
   const startAutoPlay = () => {
     clearInterval(autoTimer.current);
     autoTimer.current = setInterval(() => goNext(), 5000);
@@ -126,7 +129,7 @@ function BannerCarousel() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-80 md:h-96 overflow-hidden bg-gray-900 cursor-grab active:cursor-grabbing select-none"
+      className="relative w-full h-80 md:h-96 overflow-hidden bg-gray-100 cursor-grab active:cursor-grabbing select-none"
       onMouseDown={handleDragStart}
       onMouseMove={handleDragMove}
       onMouseUp={handleDragEnd}
@@ -156,7 +159,7 @@ function BannerCarousel() {
               className="absolute inset-0 w-full h-full object-cover hidden md:block"
               draggable={false}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-10"></div>
+            <div className="absolute inset-0 z-10"></div>
             <div className="absolute inset-0 z-20 flex flex-col justify-center px-0 md:px-16">
               <h2
                 className={`hidden md:block text-2xl md:text-4xl font-bold mb-2 ${slide.titleColor}`}
@@ -199,7 +202,11 @@ function BannerCarousel() {
               setTransitioning(true);
               setCurrent(i + 1);
             }}
-            className={`w-2.5 h-2.5 rounded-full transition-colors ${(current - 1 + bannerSlides.length) % bannerSlides.length === i ? "bg-yellow-400" : "bg-white/50 hover:bg-white"}`}
+            className={`w-2.5 h-2.5 rounded-full transition-colors ${
+              (current - 1 + bannerSlides.length) % bannerSlides.length === i
+                ? "bg-red-600"
+                : "bg-white/50 hover:bg-white"
+            }`}
           />
         ))}
       </div>
@@ -213,7 +220,7 @@ function ProductSlider({ title, category, viewAllHref }) {
 
   return (
     <section className="py-8">
-      <h2 className="text-white text-xl font-bold mb-4 border-l-4 border-yellow-400 pl-4">
+      <h2 className="text-black text-xl font-bold mb-4 border-l-4 border-red-600 pl-4">
         {title}
       </h2>
       {loading && (
@@ -221,11 +228,11 @@ function ProductSlider({ title, category, viewAllHref }) {
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="min-w-[200px] bg-gray-900 border border-gray-800 p-4 rounded animate-pulse"
+              className="min-w-[200px] bg-gray-100 border border-gray-200 p-4 rounded animate-pulse"
             >
-              <div className="bg-gray-800 h-40 mb-3 rounded"></div>
-              <div className="bg-gray-800 h-4 rounded mb-2"></div>
-              <div className="bg-gray-800 h-4 w-16 rounded"></div>
+              <div className="bg-gray-200 h-40 mb-3 rounded"></div>
+              <div className="bg-gray-200 h-4 rounded mb-2"></div>
+              <div className="bg-gray-200 h-4 w-16 rounded"></div>
             </div>
           ))}
         </div>
@@ -241,15 +248,15 @@ function ProductSlider({ title, category, viewAllHref }) {
           {viewAllHref && (
             <Link
               href={viewAllHref}
-              className="w-48 flex-shrink-0 bg-gray-900 border border-gray-800 hover:border-yellow-400 transition-colors rounded flex flex-col items-center justify-center gap-3 min-h-[260px] group"
+              className="w-48 flex-shrink-0 bg-gray-100 border border-gray-200 hover:border-red-600 transition-colors rounded flex flex-col items-center justify-center gap-3 min-h-[260px] group"
             >
-              <span className="text-4xl text-yellow-400 group-hover:scale-110 transition-transform">
+              <span className="text-4xl text-red-600 group-hover:scale-110 transition-transform">
                 →
               </span>
-              <span className="text-white text-sm font-bold text-center px-3">
+              <span className="text-black text-sm font-bold text-center px-3">
                 View All {title}
               </span>
-              <span className="text-yellow-400 text-xs font-bold border border-yellow-400 px-3 py-1 rounded-full group-hover:bg-yellow-400 group-hover:text-black transition-colors">
+              <span className="text-red-600 text-xs font-bold border border-red-600 px-3 py-1 rounded-full group-hover:bg-red-600 group-hover:text-white transition-colors">
                 View All
               </span>
             </Link>
@@ -308,11 +315,13 @@ function SportsContent() {
       : `/sports?category=${encodeURIComponent(selected)}`;
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-white min-h-screen">
       <BannerCarousel />
       <div className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-white text-3xl font-bold mb-8">Sports Cards</h1>
+          <h1 className="text-black text-3xl font-bold mb-8 border-l-4 border-red-600 pl-4">
+            Sports Cards
+          </h1>
           <div className="flex gap-3 mb-10 flex-wrap">
             {sports.map((sport) => (
               <button
@@ -365,7 +374,7 @@ function SportsContent() {
 
 export default function SportsPage() {
   return (
-    <Suspense fallback={<div className="bg-black min-h-screen"></div>}>
+    <Suspense fallback={<div className="bg-white min-h-screen"></div>}>
       <SportsContent />
     </Suspense>
   );

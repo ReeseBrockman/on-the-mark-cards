@@ -16,7 +16,7 @@ export default function AddToCartButton({ product, className = "" }) {
           imageUrl: product.imageUrl || product.images?.[0] || null,
         });
       }}
-      className={`!bg-black !text-yellow-400 border border-yellow-400 font-bold rounded hover:!bg-yellow-400 hover:!text-black transition-colors ${className}`}
+      className={`!bg-red-600 !text-white border border-red-600 font-bold rounded hover:!bg-white hover:!text-red-600 transition-colors ${className}`}
     >
       Add to Cart
     </button>

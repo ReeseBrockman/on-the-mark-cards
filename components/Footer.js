@@ -73,7 +73,7 @@ function NewsletterForm() {
         Get notified about new releases, sales, and special events:
       </p>
       {status === "success" ? (
-        <p className="text-yellow-400 text-sm font-bold">
+        <p className="text-red-600 text-sm font-bold">
           Thanks for signing up!
         </p>
       ) : (
@@ -85,12 +85,12 @@ function NewsletterForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email address"
               required
-              className="bg-transparent text-white text-sm px-3 py-2 border border-gray-500 focus:border-yellow-400 outline-none flex-1 rounded-lg"
+              className="bg-transparent text-white text-sm px-3 py-2 border border-gray-500 focus:border-red-600 outline-none flex-1 rounded-lg"
             />
             <button
               type="submit"
               disabled={status === "loading"}
-              className="!bg-yellow-400 !text-black text-sm font-bold px-4 py-2 hover:!bg-yellow-300 transition-colors rounded-lg disabled:opacity-50"
+              className="!bg-red-600 !text-white text-sm font-bold px-4 py-2 border border-red-600 hover:!bg-white hover:!text-red-600 transition-colors rounded-lg disabled:opacity-50"
             >
               {status === "loading" ? "..." : "Sign Up"}
             </button>
@@ -108,26 +108,26 @@ function NewsletterForm() {
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white border-t border-yellow-400 mt-auto">
+    <footer className="bg-white text-white border-t border-red-600 mt-auto">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* MOBILE LAYOUT */}
         <div className="md:hidden">
-          <h3 className="text-yellow-400 font-bold text-3xl mb-4">
-            The Collectors Corner
+          <h3 className="text-red-600 font-bold text-3xl mb-4">
+            On The Marq
           </h3>
           <div className="flex items-start gap-2 mb-2">
-            <MapPin size={16} className="text-white mt-0.5 flex-shrink-0" />
-            <p className="text-sm text-white font-semibold">
+            <MapPin size={16} className="text-gray-400 mt-0.5 flex-shrink-0" />
+            <p className="text-sm text-gray-400 font-semibold">
               2527 W Kennewick Ave, Kennewick, WA 99336
             </p>
           </div>
           <div className="flex items-center gap-2 mb-2">
-            <Phone size={16} className="text-white flex-shrink-0" />
-            <p className="text-sm text-white font-semibold">(509) 579-0282</p>
+            <Phone size={16} className="text-gray-400 flex-shrink-0" />
+            <p className="text-sm text-gray-400 font-semibold">(509) 579-0282</p>
           </div>
           <div className="flex items-center gap-2 mb-4">
-            <Mail size={16} className="text-white flex-shrink-0" />
-            <p className="text-sm text-white font-semibold">
+            <Mail size={16} className="text-gray-400 flex-shrink-0" />
+            <p className="text-sm text-gray-400 font-semibold">
               hello@thecollectorscorner.com
             </p>
           </div>
@@ -136,14 +136,14 @@ export default function Footer() {
           </div>
           <div className="grid grid-cols-2 gap-4 mb-8">
             <div>
-              <h3 className="text-white font-bold text-base mb-3">
+              <h3 className="text-red-600 font-bold text-base mb-3">
                 Collections
               </h3>
               <ul className="flex flex-col gap-2">
                 <li>
                   <Link
                     href="/sports"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
+                    className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium"
                   >
                     Sports Cards & Boxes
                   </Link>
@@ -151,7 +151,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/tcg"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
+                    className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium"
                   >
                     TCG Cards & Boxes
                   </Link>
@@ -159,7 +159,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/supplies"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
+                    className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium"
                   >
                     Supplies
                   </Link>
@@ -167,7 +167,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/merch"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
+                    className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium"
                   >
                     Merch
                   </Link>
@@ -175,7 +175,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/gift-card"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
+                    className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium"
                   >
                     Gift Cards
                   </Link>
@@ -183,12 +183,12 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h3 className="text-white font-bold text-base mb-3">Shop Info</h3>
+              <h3 className="text-red-600 font-bold text-base mb-3">Shop Info</h3>
               <ul className="flex flex-col gap-2">
                 <li>
                   <Link
                     href="/shop-info/location"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
+                    className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium"
                   >
                     Location & Hours
                   </Link>
@@ -196,7 +196,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/events"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
+                    className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium"
                   >
                     Events
                   </Link>
@@ -204,7 +204,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/sell"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
+                    className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium"
                   >
                     Sell Us Your Cards
                   </Link>
@@ -212,7 +212,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/grading"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
+                    className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium"
                   >
                     Grading Submissions
                   </Link>
@@ -220,7 +220,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/live-selling"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
+                    className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium"
                   >
                     Live Selling & Breaking
                   </Link>
@@ -228,7 +228,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop-info/faq"
-                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium"
+                    className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium"
                   >
                     FAQ
                   </Link>
@@ -237,13 +237,13 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <h3 className="text-white font-bold text-base mb-3">Follow Us</h3>
+            <h3 className="text-red-600 font-bold text-base mb-3">Follow Us</h3>
             <div className="flex gap-4">
               <a
                 href="https://www.instagram.com/thecollectorscorner2021/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-yellow-400 transition-colors"
+                className="text-gray-400 hover:text-red-600 transition-colors"
                 aria-label="Instagram"
               >
                 <svg
@@ -260,7 +260,7 @@ export default function Footer() {
                 href="https://www.youtube.com/channel/UCbaI_j7_bM9abjZlaRUL0cw"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-yellow-400 transition-colors"
+                className="text-gray-400 hover:text-red-600 transition-colors"
                 aria-label="YouTube"
               >
                 <svg
@@ -277,7 +277,7 @@ export default function Footer() {
                 href="https://www.whatnot.com/user/collectorscorner"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-yellow-400 transition-colors"
+                className="text-gray-400 hover:text-red-600 transition-colors"
                 aria-label="Whatnot"
               >
                 <WhatnotIcon />
@@ -289,32 +289,32 @@ export default function Footer() {
         {/* DESKTOP LAYOUT */}
         <div className="hidden md:block">
           <div className="grid grid-cols-1 md:grid-cols-[2fr_180px_220px_120px] gap-8 mb-2 items-end">
-            <h3 className="text-yellow-400 font-bold text-5xl">
-              The Collectors Corner
+            <h3 className="text-red-600 font-bold text-5xl">
+              On The Marq
             </h3>
-            <h3 className="text-white font-bold text-base pl-10">
+            <h3 className="text-red-600 font-bold text-base pl-10">
               Collections
             </h3>
-            <h3 className="text-white font-bold text-base pl-14">Shop Info</h3>
-            <h3 className="text-white font-bold text-base">Follow Us</h3>
+            <h3 className="text-red-600 font-bold text-base pl-14">Shop Info</h3>
+            <h3 className="text-red-600 font-bold text-base">Follow Us</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-[2fr_180px_220px_120px] gap-8 items-start">
             <div>
               <div className="flex items-start gap-2 mb-2">
-                <MapPin size={16} className="text-white mt-0.5 flex-shrink-0" />
-                <p className="text-md text-white font-semibold">
+                <MapPin size={16} className="text-gray-400 mt-0.5 flex-shrink-0" />
+                <p className="text-md text-gray-400 font-semibold">
                   2527 W Kennewick Ave, Kennewick, WA 99336
                 </p>
               </div>
               <div className="flex items-center gap-2 mb-2">
-                <Phone size={16} className="text-white flex-shrink-0" />
-                <p className="text-md text-white font-semibold">
+                <Phone size={16} className="text-gray-400 flex-shrink-0" />
+                <p className="text-md text-gray-400 font-semibold">
                   (509) 579-0282
                 </p>
               </div>
               <div className="flex items-center gap-2 mb-3">
-                <Mail size={16} className="text-white flex-shrink-0" />
-                <p className="text-md text-white font-semibold">
+                <Mail size={16} className="text-gray-400 flex-shrink-0" />
+                <p className="text-md text-gray-400 font-semibold">
                   hello@thecollectorscorner.com
                 </p>
               </div>
@@ -324,7 +324,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/sports"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
+                  className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Sports Cards & Boxes
                 </Link>
@@ -332,7 +332,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/tcg"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
+                  className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   TCG Cards & Boxes
                 </Link>
@@ -340,7 +340,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/supplies"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
+                  className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Supplies
                 </Link>
@@ -348,7 +348,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/merch"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
+                  className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Merch
                 </Link>
@@ -356,7 +356,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/gift-card"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
+                  className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Gift Cards
                 </Link>
@@ -366,7 +366,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/location"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
+                  className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Location & Hours
                 </Link>
@@ -374,7 +374,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/events"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
+                  className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Events
                 </Link>
@@ -382,7 +382,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/sell"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
+                  className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Sell Us Your Cards
                 </Link>
@@ -390,7 +390,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/grading"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
+                  className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Grading Submissions
                 </Link>
@@ -398,7 +398,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/live-selling"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
+                  className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   Live Selling & Breaking
                 </Link>
@@ -406,7 +406,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shop-info/faq"
-                  className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-medium whitespace-nowrap"
+                  className="text-gray-400 hover:text-red-600 text-sm transition-colors font-medium whitespace-nowrap"
                 >
                   FAQ
                 </Link>
@@ -417,7 +417,7 @@ export default function Footer() {
                 href="https://www.instagram.com/thecollectorscorner2021/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-yellow-400 transition-colors"
+                className="text-gray-400 hover:text-red-600 transition-colors"
                 aria-label="Instagram"
               >
                 <svg
@@ -434,7 +434,7 @@ export default function Footer() {
                 href="https://www.youtube.com/channel/UCbaI_j7_bM9abjZlaRUL0cw"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-yellow-400 transition-colors"
+                className="text-gray-400 hover:text-red-600 transition-colors"
                 aria-label="YouTube"
               >
                 <svg
@@ -451,7 +451,7 @@ export default function Footer() {
                 href="https://www.whatnot.com/user/collectorscorner"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-yellow-400 transition-colors"
+                className="text-gray-400 hover:text-red-600 transition-colors"
                 aria-label="Whatnot"
               >
                 <WhatnotIcon />
@@ -476,24 +476,24 @@ export default function Footer() {
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between gap-2">
             <p className="text-gray-600 text-xs">
-              © 2026 The Collectors Corner. All rights reserved.
+              © 2026 On The Marq. All rights reserved.
             </p>
             <div className="flex gap-4">
               <Link
                 href="/policies/refund"
-                className="text-gray-600 hover:text-yellow-400 text-xs transition-colors"
+                className="text-gray-600 hover:text-red-600 text-xs transition-colors"
               >
                 Refund Policy
               </Link>
               <Link
                 href="/policies/privacy"
-                className="text-gray-600 hover:text-yellow-400 text-xs transition-colors"
+                className="text-gray-600 hover:text-red-600 text-xs transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/policies/terms"
-                className="text-gray-600 hover:text-yellow-400 text-xs transition-colors"
+                className="text-gray-600 hover:text-red-600 text-xs transition-colors"
               >
                 Terms of Service
               </Link>

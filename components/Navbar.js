@@ -196,11 +196,11 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-black text-white w-full relative z-50">
+      <nav className="bg-white text-white w-full relative z-50">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Hamburger - mobile only */}
           <button
-            className="md:hidden text-white hover:text-yellow-400 transition-colors p-2 border border-gray-700 rounded"
+            className="md:hidden text-black hover:text-red-600 transition-colors p-2 border border-gray-700 rounded"
             onClick={() => setMobileMenuOpen(true)}
           >
             <div className="flex flex-col gap-1">
@@ -215,11 +215,7 @@ export default function Navbar() {
             href="/"
             className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0"
           >
-            <img
-              src="/logo.svg"
-              alt="The Collectors Corner"
-              className="h-10 w-auto"
-            />
+            <img src="/logo.svg" alt="On The Marq" className="h-10 w-auto" />
           </Link>
 
           {/* Desktop: Nav links */}
@@ -236,7 +232,7 @@ export default function Navbar() {
                 {item.href ? (
                   <Link
                     href={item.href}
-                    className="flex items-center gap-1 text-white hover:text-yellow-400 transition-colors text-sm font-bold tracking-wide"
+                    className="flex items-center gap-1 text-black hover:text-red-600 transition-colors text-sm font-bold tracking-wide"
                   >
                     {item.label}
                     {item.sections.length > 0 && (
@@ -244,7 +240,7 @@ export default function Navbar() {
                     )}
                   </Link>
                 ) : (
-                  <button className="flex items-center gap-1 text-white hover:text-yellow-400 transition-colors text-sm font-bold tracking-wide">
+                  <button className="flex items-center gap-1 text-black hover:text-red-600 transition-colors text-sm font-bold tracking-wide">
                     {item.label}
                     {item.sections.length > 0 && (
                       <span className="text-xs">▾</span>
@@ -253,10 +249,10 @@ export default function Navbar() {
                 )}
 
                 {openDropdown === item.label && item.sections.length > 0 && (
-                  <div className="absolute top-full left-0 bg-black border border-yellow-400 p-4 flex gap-8 z-50 min-w-max rounded-xl">
+                  <div className="absolute top-full left-0 bg-white border border-red-600 p-4 flex gap-8 z-50 min-w-max rounded-xl">
                     {item.sections.map((section) => (
                       <div key={section.title}>
-                        <p className="text-yellow-400 text-xs font-bold mb-2 tracking-widest">
+                        <p className="text-red-600 text-xs font-bold mb-2 tracking-widest">
                           {section.title}
                         </p>
                         <ul className="flex flex-col gap-1">
@@ -264,7 +260,7 @@ export default function Navbar() {
                             <li key={link.label}>
                               <Link
                                 href={link.href}
-                                className="text-white hover:text-yellow-400 text-sm transition-colors"
+                                className="text-black hover:text-red-600 text-sm transition-colors"
                               >
                                 {link.label}
                               </Link>
@@ -302,7 +298,7 @@ export default function Navbar() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search products..."
-                    className="bg-gray-900 text-white text-sm px-3 py-1 border border-yellow-400 outline-none w-48 rounded-xl"
+                    className="bg-gray-100 text-black text-sm px-3 py-1 border border-red-600 outline-none w-48 rounded-xl"
                     onBlur={() => {
                       if (!searchQuery) setSearchOpen(false);
                     }}
@@ -311,7 +307,7 @@ export default function Navbar() {
               )}
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="text-white hover:text-yellow-400 transition-colors"
+                className="text-black hover:text-red-600 transition-colors"
               >
                 <Search size={20} />
               </button>
@@ -325,21 +321,21 @@ export default function Navbar() {
               >
                 <Link
                   href="/account"
-                  className="text-white hover:text-yellow-400 transition-colors"
+                  className="text-black hover:text-red-600 transition-colors"
                 >
                   <User size={20} />
                 </Link>
                 {openDropdown === "account" && (
-                  <div className="absolute top-full right-0 bg-black border border-yellow-400 p-4 z-50 min-w-max flex flex-col gap-2">
+                  <div className="absolute top-full right-0 bg-white border border-red-600 p-4 z-50 min-w-max flex flex-col gap-2">
                     <Link
                       href="/account"
-                      className="text-white hover:text-yellow-400 text-sm transition-colors"
+                      className="text-black hover:text-red-600 text-sm transition-colors"
                     >
                       Dashboard
                     </Link>
                     <Link
                       href="/account/gift-cards"
-                      className="text-white hover:text-yellow-400 text-sm transition-colors"
+                      className="text-black hover:text-red-600 text-sm transition-colors"
                     >
                       Gift Cards & Credit
                     </Link>
@@ -349,7 +345,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="text-white hover:text-yellow-400 transition-colors"
+                className="text-black hover:text-red-600 transition-colors"
               >
                 <User size={20} />
               </Link>
@@ -357,11 +353,11 @@ export default function Navbar() {
 
             <Link
               href="/cart"
-              className="text-white hover:text-yellow-400 transition-colors relative"
+              className="text-black hover:text-red-600 transition-colors relative"
             >
               <ShoppingCart size={20} />
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-red-600 text-black text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
@@ -372,17 +368,17 @@ export default function Navbar() {
           <div className="md:hidden flex items-center gap-3">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="text-white hover:text-yellow-400 transition-colors"
+              className="text-black hover:text-red-600 transition-colors"
             >
               <Search size={20} />
             </button>
             <Link
               href="/cart"
-              className="text-white hover:text-yellow-400 transition-colors relative"
+              className="text-black hover:text-red-600 transition-colors relative"
             >
               <ShoppingCart size={20} />
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-red-600 text-black text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
@@ -392,7 +388,7 @@ export default function Navbar() {
 
         {/* Mobile Search Bar */}
         {searchOpen && (
-          <div className="md:hidden bg-black border-t border-gray-800 px-4 py-3">
+          <div className="md:hidden bg-white border-t border-gray-800 px-4 py-3">
             <form onSubmit={handleSearch} className="flex gap-2">
               <input
                 ref={searchRef}
@@ -400,11 +396,11 @@ export default function Navbar() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search products..."
-                className="flex-1 bg-gray-900 text-white text-sm px-3 py-2 border border-yellow-400 outline-none rounded-lg"
+                className="flex-1 bg-gray-100 text-black text-sm px-3 py-2 border border-red-600 outline-none rounded-lg"
               />
               <button
                 type="submit"
-                className="bg-yellow-400 text-black font-bold px-4 py-2 text-sm"
+                className="bg-red-600 text-black font-bold px-4 py-2 text-sm"
               >
                 Search
               </button>
@@ -415,11 +411,11 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-black z-50 flex flex-col md:hidden">
+        <div className="fixed inset-0 bg-white z-50 flex flex-col md:hidden">
           <div className="px-4 py-4">
             <button
               onClick={closeMobileMenu}
-              className="text-white border border-gray-700 rounded p-2 hover:text-yellow-400 transition-colors"
+              className="text-white border border-gray-700 rounded p-2 hover:text-red-600 transition-colors"
             >
               <span className="block text-xl leading-none">✕</span>
             </button>
@@ -436,7 +432,7 @@ export default function Navbar() {
                           mobileExpandedItem === item.label ? null : item.label,
                         )
                       }
-                      className="w-full flex items-center justify-between py-5 text-white text-xl font-bold"
+                      className="w-full flex items-center justify-between py-5 text-black text-xl font-bold"
                     >
                       {item.label}
                       <span className="text-gray-400 text-lg">
@@ -445,19 +441,19 @@ export default function Navbar() {
                     </button>
 
                     {mobileExpandedItem === item.label && (
-                      <div className="pb-4 pl-4 border-l border-yellow-400 ml-2">
+                      <div className="pb-4 pl-4 border-l border-red-600 ml-2">
                         {item.href && (
                           <Link
                             href={item.href}
                             onClick={closeMobileMenu}
-                            className="block text-yellow-400 text-sm font-bold mb-3 hover:text-yellow-300 transition-colors"
+                            className="block text-red-600 text-sm font-bold mb-3 hover:text-red-500 transition-colors"
                           >
                             View All {item.label} →
                           </Link>
                         )}
                         {item.sections.map((section) => (
                           <div key={section.title} className="mb-4">
-                            <p className="text-yellow-400 text-xs font-bold tracking-widest mb-2">
+                            <p className="text-red-600 text-xs font-bold tracking-widest mb-2">
                               {section.title}
                             </p>
                             <ul className="flex flex-col gap-2">
@@ -466,7 +462,7 @@ export default function Navbar() {
                                   <Link
                                     href={link.href}
                                     onClick={closeMobileMenu}
-                                    className="text-gray-300 hover:text-yellow-400 text-sm transition-colors"
+                                    className="text-gray-300 hover:text-red-600 text-sm transition-colors"
                                   >
                                     {link.label}
                                   </Link>
@@ -482,7 +478,7 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     onClick={closeMobileMenu}
-                    className="block py-5 text-white text-xl font-bold hover:text-yellow-400 transition-colors"
+                    className="block py-5 text-black text-xl font-bold hover:text-red-600 transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -511,7 +507,7 @@ export default function Navbar() {
               <Link
                 href="/account"
                 onClick={closeMobileMenu}
-                className="flex items-center gap-3 text-white hover:text-yellow-400 transition-colors"
+                className="flex items-center gap-3 text-black hover:text-red-600 transition-colors"
               >
                 <User size={20} />
                 <span className="text-lg font-bold">ACCOUNT</span>
@@ -520,7 +516,7 @@ export default function Navbar() {
               <Link
                 href="/login"
                 onClick={closeMobileMenu}
-                className="flex items-center gap-3 text-white hover:text-yellow-400 transition-colors"
+                className="flex items-center gap-3 text-black hover:text-red-600 transition-colors"
               >
                 <User size={20} />
                 <span className="text-lg font-bold">LOG IN</span>

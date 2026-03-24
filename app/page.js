@@ -13,7 +13,7 @@ function ProductSlider({ title, category, viewAllHref }) {
   return (
     <section className="py-10 px-4 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-white text-2xl font-bold border-l-4 border-yellow-400 pl-4">
+        <h2 className="text-black text-2xl font-bold border-l-4 border-red-600 pl-4">
           {title}
         </h2>
       </div>
@@ -22,11 +22,11 @@ function ProductSlider({ title, category, viewAllHref }) {
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="min-w-[200px] bg-gray-900 border border-gray-800 p-4 rounded animate-pulse"
+              className="min-w-[200px] bg-gray-100 border border-gray-200 p-4 rounded animate-pulse"
             >
-              <div className="bg-gray-800 h-48 mb-3 rounded"></div>
-              <div className="bg-gray-800 h-4 rounded mb-2"></div>
-              <div className="bg-gray-800 h-4 w-16 rounded"></div>
+              <div className="bg-gray-200 h-48 mb-3 rounded"></div>
+              <div className="bg-gray-200 h-4 rounded mb-2"></div>
+              <div className="bg-gray-200 h-4 w-16 rounded"></div>
             </div>
           ))}
         </div>
@@ -42,15 +42,15 @@ function ProductSlider({ title, category, viewAllHref }) {
           {viewAllHref && (
             <Link
               href={viewAllHref}
-              className="w-48 flex-shrink-0 bg-gray-900 border border-gray-800 hover:border-yellow-400 transition-colors rounded flex flex-col items-center justify-center gap-3 min-h-[260px] group"
+              className="w-48 flex-shrink-0 bg-gray-100 border border-gray-200 hover:border-red-600 transition-colors rounded flex flex-col items-center justify-center gap-3 min-h-[260px] group"
             >
-              <span className="text-4xl text-yellow-400 group-hover:scale-110 transition-transform">
+              <span className="text-4xl text-red-600 group-hover:scale-110 transition-transform">
                 →
               </span>
-              <span className="text-white text-sm font-bold text-center px-3">
+              <span className="text-black text-sm font-bold text-center px-3">
                 View All {title}
               </span>
-              <span className="text-yellow-400 text-xs font-bold border border-yellow-400 px-3 py-1 rounded-full group-hover:bg-yellow-400 group-hover:text-black transition-colors">
+              <span className="text-red-600 text-xs font-bold border border-red-600 px-3 py-1 rounded-full group-hover:bg-red-600 group-hover:text-white transition-colors">
                 View All
               </span>
             </Link>
@@ -76,10 +76,10 @@ function OnSaleSlider({ title, category, viewAllHref, backgroundVideo }) {
       >
         <source src={backgroundVideo} type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-black/60 z-0"></div>
+      <div className="absolute inset-0 bg-white/60 z-0"></div>
       <div className="relative z-10 px-4 max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-white text-2xl font-bold border-l-4 border-yellow-400 pl-4">
+          <h2 className="text-black text-2xl font-bold border-l-4 border-red-600 pl-4">
             {title}
           </h2>
         </div>
@@ -88,11 +88,11 @@ function OnSaleSlider({ title, category, viewAllHref, backgroundVideo }) {
             {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
-                className="min-w-[200px] bg-gray-900 border border-gray-800 p-4 rounded animate-pulse"
+                className="min-w-[200px] bg-gray-100 border border-gray-200 p-4 rounded animate-pulse"
               >
-                <div className="bg-gray-800 h-48 mb-3 rounded"></div>
-                <div className="bg-gray-800 h-4 rounded mb-2"></div>
-                <div className="bg-gray-800 h-4 w-16 rounded"></div>
+                <div className="bg-gray-200 h-48 mb-3 rounded"></div>
+                <div className="bg-gray-200 h-4 rounded mb-2"></div>
+                <div className="bg-gray-200 h-4 w-16 rounded"></div>
               </div>
             ))}
           </div>
@@ -108,15 +108,15 @@ function OnSaleSlider({ title, category, viewAllHref, backgroundVideo }) {
             {viewAllHref && (
               <Link
                 href={viewAllHref}
-                className="w-48 flex-shrink-0 bg-gray-900 border border-gray-800 hover:border-yellow-400 transition-colors rounded flex flex-col items-center justify-center gap-3 min-h-[260px] group"
+                className="w-48 flex-shrink-0 bg-gray-100 border border-gray-200 hover:border-red-600 transition-colors rounded flex flex-col items-center justify-center gap-3 min-h-[260px] group"
               >
-                <span className="text-4xl text-yellow-400 group-hover:scale-110 transition-transform">
+                <span className="text-4xl text-red-600 group-hover:scale-110 transition-transform">
                   →
                 </span>
-                <span className="text-white text-sm font-bold text-center px-3">
+                <span className="text-black text-sm font-bold text-center px-3">
                   View All {title}
                 </span>
-                <span className="text-yellow-400 text-xs font-bold border border-yellow-400 px-3 py-1 rounded-full group-hover:bg-yellow-400 group-hover:text-black transition-colors">
+                <span className="text-red-600 text-xs font-bold border border-red-600 px-3 py-1 rounded-full group-hover:bg-red-600 group-hover:text-white transition-colors">
                   View All
                 </span>
               </Link>
@@ -133,9 +133,9 @@ function JustArrived() {
   const [paused, setPaused] = useState(false);
   if (loading) return null;
   return (
-    <section className="py-10 bg-black border-t border-b border-yellow-400">
+    <section className="py-10 bg-white border-t border-b border-red-600">
       <div className="max-w-7xl mx-auto px-4 mb-6">
-        <h2 className="text-white text-2xl font-bold border-l-4 border-yellow-400 pl-4">
+        <h2 className="text-black text-2xl font-bold border-l-4 border-red-600 pl-4">
           Just Arrived
         </h2>
       </div>
@@ -159,17 +159,17 @@ function JustArrived() {
 
 function InstagramSection() {
   return (
-    <section className="py-16 px-4 bg-gray-900 border-t border-yellow-400">
+    <section className="py-16 px-4 bg-gray-100 border-t border-red-600">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-white text-2xl font-bold border-l-4 border-yellow-400 pl-4">
+          <h2 className="text-black text-2xl font-bold border-l-4 border-red-600 pl-4">
             Follow Us on Instagram
           </h2>
           <a
             href="https://www.instagram.com/thecollectorscorner2021/"
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-yellow-400 bg-black text-yellow-400 font-bold px-6 py-3 hover:bg-yellow-300 hover:text-black transition-colors rounded-full"
+            className="border border-red-600 bg-red-600 text-white font-bold px-6 py-3 hover:bg-white hover:text-red-600 transition-colors rounded-full"
           >
             Follow Us
           </a>
@@ -335,13 +335,10 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-black">
+    <div className="bg-white">
       <section className="grid grid-cols-2 gap-4 px-4 py-4">
-        <Link
-          href="/sports"
-          onClick={() => handlePreference("sports")}
-          className="relative h-96 flex items-center justify-center overflow-hidden group rounded-lg"
-        >
+        {/* Sports Hero */}
+        <div className="relative h-96 flex items-center justify-center overflow-hidden rounded-lg">
           <video
             autoPlay
             loop
@@ -359,19 +356,21 @@ export default function Home() {
             <h2 className="text-white text-2xl md:text-4xl font-bold mb-1">
               SPORTS
             </h2>
-            <p className="text-yellow-400 text-xs md:text-sm font-semibold mb-6">
+            <p className="text-white text-xs md:text-sm font-semibold mb-6">
               Shop Unbeatable Prices!
             </p>
-            <span className="bg-yellow-400 text-black font-bold px-6 py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap rounded-full">
+            <Link
+              href="/sports"
+              onClick={() => handlePreference("sports")}
+              className="bg-red-600 text-white font-bold px-6 py-3 text-sm md:text-base border border-red-600 hover:bg-white hover:text-red-600 transition-colors whitespace-nowrap rounded-full"
+            >
               Shop Sports →
-            </span>
+            </Link>
           </div>
-        </Link>
-        <Link
-          href="/tcg"
-          onClick={() => handlePreference("tcg")}
-          className="relative h-96 flex items-center justify-center overflow-hidden group rounded-lg"
-        >
+        </div>
+
+        {/* TCG Hero */}
+        <div className="relative h-96 flex items-center justify-center overflow-hidden rounded-lg">
           <video
             autoPlay
             loop
@@ -389,16 +388,22 @@ export default function Home() {
             <h2 className="text-white text-2xl md:text-4xl font-bold mb-1">
               TCG
             </h2>
-            <p className="text-yellow-400 text-xs md:text-sm font-semibold mb-6">
+            <p className="text-white text-xs md:text-sm font-semibold mb-6">
               Unleash Ultimate Deck!
             </p>
-            <span className="bg-yellow-400 text-black font-bold px-6 py-3 text-sm md:text-base group-hover:bg-yellow-300 transition-colors whitespace-nowrap rounded-full">
+            <Link
+              href="/tcg"
+              onClick={() => handlePreference("tcg")}
+              className="bg-red-600 text-white font-bold px-6 py-3 text-sm md:text-base border border-red-600 hover:bg-white hover:text-red-600 transition-colors whitespace-nowrap rounded-full"
+            >
               Shop TCG →
-            </span>
+            </Link>
           </div>
-        </Link>
+        </div>
       </section>
+
       <JustArrived />
+
       {preference === "sports" ? (
         <>
           <SportsSection />
@@ -410,7 +415,9 @@ export default function Home() {
           <SportsSection />
         </>
       )}
+
       <InstagramSection />
+
       <section
         className="relative py-24 px-4 overflow-hidden"
         style={{
@@ -442,7 +449,7 @@ export default function Home() {
           </div>
           <Link
             href="/shop-info/location"
-            className="inline-block bg-black text-yellow-400 font-bold px-6 py-4 rounded-xl hover:bg-yellow-400 hover:text-black transition-colors border border-yellow-400 hover:border-black -mt-3"
+            className="inline-block bg-red-600 text-white font-bold px-6 py-4 rounded-xl hover:bg-white hover:text-red-600 transition-colors border border-red-600 -mt-3"
           >
             Location & Directions
           </Link>

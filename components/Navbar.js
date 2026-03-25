@@ -412,7 +412,7 @@ export default function Navbar() {
           <div className="px-4 py-4">
             <button
               onClick={closeMobileMenu}
-              className="text-white border border-gray-700 rounded p-2 hover:text-red-600 transition-colors"
+              className="text-black border border-gray-300 rounded p-2 hover:text-red-600 transition-colors"
             >
               <span className="block text-xl leading-none">✕</span>
             </button>

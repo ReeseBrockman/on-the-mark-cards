@@ -76,10 +76,10 @@ function OnSaleSlider({ title, category, viewAllHref, backgroundVideo }) {
       >
         <source src={backgroundVideo} type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-white/60 z-0"></div>
+      <div className="absolute inset-0 z-0"></div>
       <div className="relative z-10 px-4 max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-black text-2xl font-bold border-l-4 border-red-600 pl-4">
+          <h2 className="text-white text-2xl font-bold border-l-4 border-red-600 pl-4">
             {title}
           </h2>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Youtube, Instagram, PackageOpen } from "lucide-react";
+import { Facebook, PackageOpen } from "lucide-react";
 
 const MAILCHIMP_URL =
   "https://app.us17.list-manage.com/subscribe/post-json?u=ff87c60cfbff25e2df11f8902&id=30c214ae49&f_id=00e22be0f0";
@@ -52,17 +52,15 @@ function NewsletterForm() {
   };
 
   return (
-    <div className="border border-gray-800 p-6 rounded">
-      <p className="text-yellow-400 text-sm font-bold mb-2">
+    <div className="border border-gray-200 p-6 rounded">
+      <p className="text-red-600 text-sm font-bold mb-2">
         Want to be notified?
       </p>
       <p className="text-gray-400 text-sm mb-4">
         Sign up for our newsletter to get notified about upcoming live events.
       </p>
       {status === "success" ? (
-        <p className="text-yellow-400 text-sm font-bold">
-          Thanks for signing up!
-        </p>
+        <p className="text-red-600 text-sm font-bold">Thanks for signing up!</p>
       ) : (
         <>
           <form onSubmit={handleSubmit} className="flex gap-2">
@@ -72,12 +70,12 @@ function NewsletterForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email Address"
               required
-              className="flex-1 bg-gray-900 text-white text-sm px-3 py-2 border border-gray-700 focus:border-yellow-400 outline-none rounded-lg"
+              className="flex-1 bg-gray-50 text-black text-sm px-3 py-2 border border-gray-300 focus:border-red-600 outline-none rounded-lg"
             />
             <button
               type="submit"
               disabled={status === "loading"}
-              className="!bg-yellow-400 !text-black text-sm font-bold px-4 py-2 hover:!bg-black hover:!text-yellow-400 border border-transparent hover:!border-yellow-400 transition-colors rounded-lg disabled:opacity-50"
+              className="!bg-red-600 !text-white text-sm font-bold px-4 py-2 border border-red-600 hover:!bg-white hover:!text-red-600 transition-colors rounded-lg disabled:opacity-50"
             >
               {status === "loading" ? "..." : "Sign Up"}
             </button>
@@ -95,12 +93,12 @@ function NewsletterForm() {
 
 export default function LiveSellingPage() {
   return (
-    <div className="bg-black min-h-screen py-12 px-4">
+    <div className="bg-white min-h-screen py-12 px-4">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-white text-3xl font-bold mb-2">
+        <h1 className="text-black text-3xl font-bold mb-2 border-l-4 border-red-600 pl-4">
           Live Selling & Breaking
         </h1>
-        <div className="border-t border-yellow-400 pt-8 mt-4">
+        <div className="border-t border-red-600 pt-8 mt-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
               <p className="text-gray-400 text-sm mb-8">
@@ -108,77 +106,55 @@ export default function LiveSellingPage() {
                 selling events. Watch in real time and purchase spots to get in
                 on the action.
               </p>
-              <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-4">
+              <h2 className="text-red-600 text-sm font-bold tracking-widest mb-4">
                 WHAT WE OFFER
               </h2>
               <ul className="flex flex-col gap-2 mb-8">
-                <li className="text-white text-sm flex items-center gap-2">
-                  <span className="text-yellow-400">✓</span> Live Box Breaks
+                <li className="text-black text-sm flex items-center gap-2">
+                  <span className="text-red-600">✓</span> Live Box Breaks
                 </li>
-                <li className="text-white text-sm flex items-center gap-2">
-                  <span className="text-yellow-400">✓</span> Pack Openings
+                <li className="text-black text-sm flex items-center gap-2">
+                  <span className="text-red-600">✓</span> Pack Openings
                 </li>
-                <li className="text-white text-sm flex items-center gap-2">
-                  <span className="text-yellow-400">✓</span> Random Team Breaks
+                <li className="text-black text-sm flex items-center gap-2">
+                  <span className="text-red-600">✓</span> Random Team Breaks
                 </li>
-                <li className="text-white text-sm flex items-center gap-2">
-                  <span className="text-yellow-400">✓</span> Pick Your Team
-                  Breaks
+                <li className="text-black text-sm flex items-center gap-2">
+                  <span className="text-red-600">✓</span> Pick Your Team Breaks
                 </li>
-                <li className="text-white text-sm flex items-center gap-2">
-                  <span className="text-yellow-400">✓</span> Live Singles
-                  Auctions
+                <li className="text-black text-sm flex items-center gap-2">
+                  <span className="text-red-600">✓</span> Live Singles Auctions
                 </li>
               </ul>
-              <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-4">
+              <h2 className="text-red-600 text-sm font-bold tracking-widest mb-4">
                 WHERE TO WATCH
               </h2>
               <div className="flex flex-col gap-3 mb-8">
                 <a
-                  href="https://www.youtube.com/channel/UCbaI_j7_bM9abjZlaRUL0cw"
+                  href="https://www.facebook.com/Onthemarqsportscards/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 border border-gray-800 px-4 py-3 hover:border-yellow-400 transition-colors rounded"
+                  className="flex items-center gap-3 border border-gray-200 px-4 py-3 hover:border-red-600 transition-colors rounded"
                 >
-                  <Youtube
-                    size={24}
-                    className="text-yellow-400 flex-shrink-0"
-                  />
+                  <Facebook size={24} className="text-red-600 flex-shrink-0" />
                   <div>
-                    <p className="text-white text-sm font-bold">YouTube</p>
-                    <p className="text-gray-400 text-xs">
-                      Subscribe for live stream notifications
-                    </p>
-                  </div>
-                </a>
-                <a
-                  href="https://www.instagram.com/thecollectorscorner2021/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 border border-gray-800 px-4 py-3 hover:border-yellow-400 transition-colors rounded"
-                >
-                  <Instagram
-                    size={24}
-                    className="text-yellow-400 flex-shrink-0"
-                  />
-                  <div>
-                    <p className="text-white text-sm font-bold">Instagram</p>
+                    <p className="text-black text-sm font-bold">Facebook</p>
                     <p className="text-gray-400 text-xs">
                       Follow us for live selling announcements
                     </p>
                   </div>
                 </a>
                 <a
-                  href="https://www.whatnot.com/user/collectorscorner"
+                  href="https://www.whatnot.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 border border-gray-800 px-4 py-3 hover:border-yellow-400 transition-colors rounded"
+                  className="flex items-center gap-3 border border-gray-200 px-4 py-3 hover:border-red-600 transition-colors rounded"
                 >
-                  <span className="text-yellow-400 flex-shrink-0">
+                  <span className="text-red-600 flex-shrink-0">
                     <WhatnotIcon />
                   </span>
                   <div>
-                    <p className="text-white text-sm font-bold">Whatnot</p>
+                    <p className="text-black text-sm font-bold">Whatnot</p>
                     <p className="text-gray-400 text-xs">
                       Join us live for breaks and auctions
                     </p>
@@ -187,15 +163,12 @@ export default function LiveSellingPage() {
               </div>
             </div>
             <div>
-              <h2 className="text-yellow-400 text-sm font-bold tracking-widest mb-6">
+              <h2 className="text-red-600 text-sm font-bold tracking-widest mb-6">
                 UPCOMING BREAKS
               </h2>
-              <div className="border border-gray-800 p-8 text-center rounded mb-6">
-                <PackageOpen
-                  size={48}
-                  className="text-yellow-400 mx-auto mb-4"
-                />
-                <p className="text-white text-lg font-bold mb-2">
+              <div className="border border-gray-200 p-8 text-center rounded mb-6">
+                <PackageOpen size={48} className="text-red-600 mx-auto mb-4" />
+                <p className="text-black text-lg font-bold mb-2">
                   No Upcoming Breaks
                 </p>
                 <p className="text-gray-500 text-sm">

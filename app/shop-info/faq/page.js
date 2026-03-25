@@ -31,12 +31,12 @@ const faqs = [
   {
     question: "Do you do live breaks?",
     answer:
-      "Yes! We do regular live box breaks and pack openings on YouTube and Instagram. Follow us on social media to get notified about upcoming breaks.",
+      "Yes! We do regular live box breaks and pack openings on Facebook and Whatnot. Follow us on social media to get notified about upcoming breaks.",
   },
   {
     question: "How do gift cards work?",
     answer:
-      "Gift cards can be purchased online or in store and used for any purchase at The Collectors Corner. They never expire.",
+      "Gift cards can be purchased online or in store and used for any purchase at On The Marq. They never expire.",
   },
   {
     question: "Do you have a loyalty program?",
@@ -49,11 +49,13 @@ export default function FAQPage() {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <div className="bg-black min-h-screen py-12 px-4">
+    <div className="bg-white min-h-screen py-12 px-4">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-white text-3xl font-bold mb-2">FAQ</h1>
-        <div className="border-t border-yellow-400 pt-8 mt-4">
-          <p className="text-gray-400 text-sm mb-8">
+        <h1 className="text-black text-3xl font-bold mb-2 border-l-4 border-red-600 pl-4">
+          FAQ
+        </h1>
+        <div className="border-t border-red-600 pt-8 mt-4">
+          <p className="text-red-600 text-sm mb-8">
             Have questions? We have answers. If you don't find what you're
             looking for, feel free to contact us.
           </p>
@@ -61,37 +63,37 @@ export default function FAQPage() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="border border-gray-800 rounded overflow-hidden"
+                className="border border-gray-200 rounded overflow-hidden hover:border-red-600 transition-colors group"
               >
                 <button
                   onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                  className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-900 transition-colors"
+                  className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors"
                 >
-                  <p className="text-white text-sm font-medium">
+                  <p className="text-black text-sm font-medium">
                     {faq.question}
                   </p>
-                  <span className="text-yellow-400 text-lg ml-4">
+                  <span className="text-red-600 text-lg ml-4">
                     {openIndex === i ? "−" : "+"}
                   </span>
                 </button>
                 {openIndex === i && (
-                  <div className="px-6 py-4 border-t border-gray-800">
-                    <p className="text-gray-400 text-sm">{faq.answer}</p>
+                  <div className="px-6 py-4 border-t border-gray-200 group-hover:border-red-600 transition-colors">
+                    <p className="text-red-600 text-sm">{faq.answer}</p>
                   </div>
                 )}
               </div>
             ))}
           </div>
-          <div className="border border-gray-800 p-6 rounded mt-8 text-center">
-            <p className="text-white text-sm font-bold mb-2">
+          <div className="border border-gray-200 p-6 rounded mt-8 text-center hover:border-red-600 transition-colors">
+            <p className="text-black text-sm font-bold mb-2">
               Still have questions?
             </p>
-            <p className="text-gray-400 text-sm mb-4">
+            <p className="text-red-600 text-sm mb-4">
               Contact us and we'll get back to you as soon as possible.
             </p>
             <a
-              href="mailto:hello@thecollectorscorner.com"
-              className="inline-block bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-black hover:text-yellow-400 border border-transparent hover:border-yellow-400 transition-colors rounded-lg"
+              href="mailto:onthemarq2018@gmail.com"
+              className="inline-block bg-red-600 text-white font-bold px-6 py-3 border border-red-600 hover:bg-white hover:text-red-600 transition-colors rounded-lg"
             >
               Contact Us
             </a>

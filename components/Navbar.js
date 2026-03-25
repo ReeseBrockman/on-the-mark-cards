@@ -82,11 +82,8 @@ const navItems = [
       },
     ],
   },
-  {
-    label: "FUNKO",
-    href: "/funko",
-    sections: [],
-  },
+
+  ,
   {
     label: "SUPPLIES",
     href: "/supplies",
@@ -132,7 +129,7 @@ const navItems = [
         links: [
           { label: "Live Selling & Breaking", href: "/shop-info/live-selling" },
           {
-            label: "Collectors Corner Gift Card",
+            label: "Gift Card",
             href: "/shop-info/gift-card",
           },
           { label: "FAQ", href: "/shop-info/faq" },

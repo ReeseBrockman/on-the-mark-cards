@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useProducts } from "./hooks/useProducts";
 import { pillClass } from "@/components/CategoryPills";
@@ -131,7 +131,31 @@ function OnSaleSlider({ title, category, viewAllHref, backgroundVideo }) {
 function JustArrived() {
   const { products, loading } = useProducts();
   const [paused, setPaused] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef(0);
+
   if (loading) return null;
+
+  const handleDragStart = (e) => {
+    dragStartX.current =
+      e.type === "mousedown" ? e.clientX : e.touches[0].clientX;
+    setIsDragging(true);
+    setPaused(true);
+  };
+
+  const handleDragMove = (e) => {
+    if (!isDragging) return;
+    const clientX = e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
+    setDragOffset(clientX - dragStartX.current);
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    setDragOffset(0);
+    setPaused(false);
+  };
+
   return (
     <section className="py-10 bg-white border-t border-b border-red-600">
       <div className="max-w-7xl mx-auto px-4 mb-6">
@@ -140,13 +164,32 @@ function JustArrived() {
         </h2>
       </div>
       <div
-        className="overflow-hidden hide-scrollbar"
+        className="overflow-hidden hide-scrollbar cursor-grab active:cursor-grabbing"
         onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
+        onMouseLeave={() => {
+          setPaused(false);
+          setIsDragging(false);
+          setDragOffset(0);
+        }}
+        onMouseDown={handleDragStart}
+        onMouseMove={handleDragMove}
+        onMouseUp={handleDragEnd}
+        onTouchStart={handleDragStart}
+        onTouchMove={handleDragMove}
+        onTouchEnd={handleDragEnd}
+        onWheel={(e) => {
+          e.preventDefault();
+          setDragOffset((prev) => prev - e.deltaX - e.deltaY);
+          setPaused(true);
+          setTimeout(() => setPaused(false), 1000);
+        }}
       >
         <div
           className={`flex gap-4 px-4 animate-marquee ${paused ? "paused" : ""}`}
-          style={{ width: "max-content" }}
+          style={{
+            width: "max-content",
+            transform: `translateX(${dragOffset}px)`,
+          }}
         >
           {[...products, ...products, ...products].map((product, i) => (
             <ProductCard key={i} product={product} />
@@ -163,10 +206,10 @@ function InstagramSection() {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-black text-2xl font-bold border-l-4 border-red-600 pl-4">
-            Follow Us on Instagram
+            Follow Us on Facebook
           </h2>
           <a
-            href="https://www.instagram.com/thecollectorscorner2021/"
+            href="https://www.facebook.com/Onthemarqsportscards/"
             target="_blank"
             rel="noopener noreferrer"
             className="border border-red-600 bg-red-600 text-white font-bold px-6 py-3 hover:bg-white hover:text-red-600 transition-colors rounded-full"
@@ -438,13 +481,16 @@ export default function Home() {
           </p>
           <div className="mb-8">
             <p className="text-white text-sm font-bold [text-shadow:2px_2px_4px_rgba(0,0,0,0.8)]">
-              2527 W Kennewick Ave, Kennewick, WA 99336
+              8390 W Gage Blvd #102, Kennewick, WA 99336
             </p>
             <p className="text-white text-sm font-bold mt-4 [text-shadow:2px_2px_4px_rgba(0,0,0,0.8)]">
-              Mon - Sat: 11:00 AM - 6:00 PM
+              Mon - Fri: 10:00 AM - 6:00 PM
             </p>
             <p className="text-white text-sm font-bold [text-shadow:2px_2px_4px_rgba(0,0,0,0.8)]">
-              Sunday: 12:00 PM - 4:00 PM
+              Saturday: 11:00 AM - 6:00 PM
+            </p>
+            <p className="text-white text-sm font-bold [text-shadow:2px_2px_4px_rgba(0,0,0,0.8)]">
+              Sunday: 11:00 AM - 4:00 PM
             </p>
           </div>
           <Link

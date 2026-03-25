@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useProducts } from "./hooks/useProducts";
 import { pillClass } from "@/components/CategoryPills";
@@ -131,31 +131,7 @@ function OnSaleSlider({ title, category, viewAllHref, backgroundVideo }) {
 function JustArrived() {
   const { products, loading } = useProducts();
   const [paused, setPaused] = useState(false);
-  const [dragOffset, setDragOffset] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const dragStartX = useRef(0);
-
   if (loading) return null;
-
-  const handleDragStart = (e) => {
-    dragStartX.current =
-      e.type === "mousedown" ? e.clientX : e.touches[0].clientX;
-    setIsDragging(true);
-    setPaused(true);
-  };
-
-  const handleDragMove = (e) => {
-    if (!isDragging) return;
-    const clientX = e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
-    setDragOffset(clientX - dragStartX.current);
-  };
-
-  const handleDragEnd = () => {
-    setIsDragging(false);
-    setDragOffset(0);
-    setPaused(false);
-  };
-
   return (
     <section className="py-10 bg-white border-t border-b border-red-600">
       <div className="max-w-7xl mx-auto px-4 mb-6">
@@ -164,32 +140,13 @@ function JustArrived() {
         </h2>
       </div>
       <div
-        className="overflow-hidden hide-scrollbar cursor-grab active:cursor-grabbing"
+        className="overflow-hidden hide-scrollbar"
         onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => {
-          setPaused(false);
-          setIsDragging(false);
-          setDragOffset(0);
-        }}
-        onMouseDown={handleDragStart}
-        onMouseMove={handleDragMove}
-        onMouseUp={handleDragEnd}
-        onTouchStart={handleDragStart}
-        onTouchMove={handleDragMove}
-        onTouchEnd={handleDragEnd}
-        onWheel={(e) => {
-          e.preventDefault();
-          setDragOffset((prev) => prev - e.deltaX - e.deltaY);
-          setPaused(true);
-          setTimeout(() => setPaused(false), 1000);
-        }}
+        onMouseLeave={() => setPaused(false)}
       >
         <div
           className={`flex gap-4 px-4 animate-marquee ${paused ? "paused" : ""}`}
-          style={{
-            width: "max-content",
-            transform: `translateX(${dragOffset}px)`,
-          }}
+          style={{ width: "max-content" }}
         >
           {[...products, ...products, ...products].map((product, i) => (
             <ProductCard key={i} product={product} />
